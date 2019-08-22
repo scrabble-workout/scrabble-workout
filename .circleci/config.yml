@@ -28,6 +28,8 @@ jobs:
     machine:
       enabled: true
     steps:
+      - checkout
+      - run: ls -larth
       - attach_workspace:
           at: .
       - add_ssh_keys:
