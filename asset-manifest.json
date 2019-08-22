@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/scrabble-workout/static/css/main.3616af20.chunk.css",
-    "main.js": "/scrabble-workout/static/js/main.8488b88c.chunk.js",
-    "main.js.map": "/scrabble-workout/static/js/main.8488b88c.chunk.js.map",
+    "main.js": "/scrabble-workout/static/js/main.3dc30685.chunk.js",
+    "main.js.map": "/scrabble-workout/static/js/main.3dc30685.chunk.js.map",
     "runtime~main.js": "/scrabble-workout/static/js/runtime~main.3fa9b69d.js",
     "runtime~main.js.map": "/scrabble-workout/static/js/runtime~main.3fa9b69d.js.map",
     "static/js/2.06cd4b06.chunk.js": "/scrabble-workout/static/js/2.06cd4b06.chunk.js",
     "static/js/2.06cd4b06.chunk.js.map": "/scrabble-workout/static/js/2.06cd4b06.chunk.js.map",
     "index.html": "/scrabble-workout/index.html",
-    "precache-manifest.dd137eefe551e7f54f64da171407fe03.js": "/scrabble-workout/precache-manifest.dd137eefe551e7f54f64da171407fe03.js",
+    "precache-manifest.06183803f578be0f5b678c49ddbbe13a.js": "/scrabble-workout/precache-manifest.06183803f578be0f5b678c49ddbbe13a.js",
     "service-worker.js": "/scrabble-workout/service-worker.js",
     "static/css/main.3616af20.chunk.css.map": "/scrabble-workout/static/css/main.3616af20.chunk.css.map"
   }
