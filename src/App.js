@@ -5,7 +5,7 @@ function App() {
     return (
         <div className={classes.App}>
             <header className={classes.AppHeader}>
-                Scrabble Workout
+                Scrabble Workout!
             </header>
         </div>
     );
