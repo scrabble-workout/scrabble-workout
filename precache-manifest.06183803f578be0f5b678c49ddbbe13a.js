@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "02431939577644f36f7eba40148a648f",
+    "revision": "ce2df0feebd2a410845803f93829911d",
     "url": "/scrabble-workout/index.html"
   },
   {
-    "revision": "047aae3ece838f56c686",
+    "revision": "eab5fda5adfa12f7efe9",
     "url": "/scrabble-workout/static/css/main.3616af20.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/scrabble-workout/static/js/2.06cd4b06.chunk.js"
   },
   {
-    "revision": "047aae3ece838f56c686",
-    "url": "/scrabble-workout/static/js/main.8488b88c.chunk.js"
+    "revision": "eab5fda5adfa12f7efe9",
+    "url": "/scrabble-workout/static/js/main.3dc30685.chunk.js"
   },
   {
     "revision": "e6f3ecc0591c07c20123",
