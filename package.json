@@ -1,7 +1,7 @@
 {
   "name": "scrabble-workout",
   "version": "0.1.0",
-  "homepage": "https://karin-on.github.io/scrabble-workout",
+  "homepage": "https://scrabble-workout.github.io/scrabble-workout",
   "private": true,
   "dependencies": {
     "@babel/core": "7.5.5",
