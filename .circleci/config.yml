@@ -34,7 +34,7 @@ jobs:
           at: .
       - add_ssh_keys:
           fingerprints:
-            - "75:11:76:39:d3:aa:28:39:5a:ff:8f:6b:a6:75:1f:4f"
+            - "36:ad:64:7a:90:0e:02:4e:a7:e0:52:af:83:c9:f5:48"
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "package-lock.json" }}
