@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  test:
+  build:
     docker:
       - image: circleci/node:10.14.1
     steps:
@@ -21,15 +21,12 @@ jobs:
           root: .
           paths:
             - build
-            - package.json
-            - package-lock.json
 
-  github-pages:
+  publish:
     machine:
       enabled: true
     steps:
       - checkout
-      - run: ls -larth
       - attach_workspace:
           at: .
       - add_ssh_keys:
@@ -39,6 +36,7 @@ jobs:
           keys:
           - v1-dependencies-{{ checksum "package-lock.json" }}
           - v1-dependencies-
+      - run: ls -larth
       - run:
           name: Push to github-pages
           no_output_timeout: 1m
@@ -46,16 +44,16 @@ jobs:
             git remote -v
             git config --global user.email "builds@circleci.com"
             git config --global user.name "CircleCI"
-            npm run gh-pages
+            npm run deploy
 
 workflows:
   version: 2
-  test-deploy:
+  build-publish:
     jobs:
-      - test
-      - github-pages:
+      - build
+      - publish:
           requires:
-            - test
+            - build
           filters:
             branches:
               only: master

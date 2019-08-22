@@ -64,7 +64,7 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "gh-pages": "gh-pages -d build",
+    "deploy": "gh-pages -d build -m '[ci skip] Updates' ",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
