@@ -1,13 +1,22 @@
 import React from 'react';
-import classes from './App.scss';
+import { BrowserRouter } from 'react-router-dom';
+import { Route } from 'react-router-dom';
+// import classes from './App.scss';
+
+import { Header } from './components/Header/Header';
+import { Home } from './components/Home/Home';
+import { Game } from './components/Game/Game';
 
 function App() {
     return (
-        <div className={classes.App}>
-            <header className={classes.AppHeader}>
-                Scrabble Workout!
-            </header>
-        </div>
+        <BrowserRouter>
+            <div>
+                <Header />
+
+                <Route exact path="/" component={Home}/>
+                <Route path="/game" component={Game}/>
+            </div>
+        </BrowserRouter>
     );
 }
 
