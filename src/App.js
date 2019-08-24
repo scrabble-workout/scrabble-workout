@@ -6,7 +6,7 @@ import { Header } from './components/Header/Header';
 import { Home } from './components/Home/Home';
 import { Game } from './components/Game/Game';
 
-function App() {
+const App = () => {
     return (
         <BrowserRouter basename="/scrabble-workout">
             <div>
@@ -17,6 +17,6 @@ function App() {
             </div>
         </BrowserRouter>
     );
-}
+};
 
-export default App;
+export { App };
