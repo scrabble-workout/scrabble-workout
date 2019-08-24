@@ -1,0 +1,7 @@
+node_modules/
+/build/
+developer.settings.json
+/.idea
+*.iml
+/.vscode
+src/serviceWorker.js
