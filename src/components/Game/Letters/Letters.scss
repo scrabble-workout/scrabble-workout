@@ -7,9 +7,15 @@
     align-items: center;
 }
 
-.LettersRow {
-    display: flex;
-    justify-content: center;
+.LettersContainer {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-areas:
+        'l1 l2 .'
+        'l3 l4 l5'
+        'l6 l7 .';
 }
 
 .Letter {
@@ -22,6 +28,38 @@
     text-align: center;
     font-size: 40px;
     line-height: 50px;
+}
+
+.Letter:nth-child(1) {
+    grid-area: l1;
+    transform: translateX(calc(35px));
+}
+
+.Letter:nth-child(2) {
+    grid-area: l2;
+    transform: translateX(calc(35px));
+}
+
+.Letter:nth-child(3) {
+    grid-area: l3;
+}
+
+.Letter:nth-child(4) {
+    grid-area: l4;
+}
+
+.Letter:nth-child(5) {
+    grid-area: l5;
+}
+
+.Letter:nth-child(6) {
+    grid-area: l6;
+    transform: translateX(calc(35px));
+}
+
+.Letter:nth-child(7) {
+    grid-area: l7;
+    transform: translateX(calc(35px));
 }
 
 .Inactive {

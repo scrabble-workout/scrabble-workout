@@ -2,26 +2,22 @@ import React from 'react';
 import classNames from 'classnames';
 import classes from './Letters.scss';
 
-const Letters = () => {
-    const letterClasses = classNames(
-        classes.Letter,
-        classes.Inactive,
-    );
+const Letters = ({ letters, clicked }) => {
+    const lettersToLoad = letters
+        .map((letter, i) => {
+            return <div
+                className={classes.Letter}
+                key={i + letter}
+                onClick={() => clicked(i)}
+            >
+                {letter}
+            </div>
+        });
 
     return (
         <section className={classes.Letters}>
-            <div className={classes.LettersRow}>
-                <div className={letterClasses}>a</div>
-                <div className={classes.Letter}>s</div>
-            </div>
-            <div className={classes.LettersRow}>
-                <div className={letterClasses}>t</div>
-                <div className={classes.Letter}>r</div>
-                <div className={classes.Letter}>k</div>
-            </div>
-            <div className={classes.LettersRow}>
-                <div className={letterClasses}>l</div>
-                <div className={classes.Letter}>q</div>
+            <div className={classes.LettersContainer}>
+                {lettersToLoad}
             </div>
         </section>
     );
