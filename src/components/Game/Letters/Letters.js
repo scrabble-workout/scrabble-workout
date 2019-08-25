@@ -3,21 +3,21 @@ import classNames from 'classnames';
 import classes from './Letters.scss';
 
 const Letters = ({ letters, clicked }) => {
-    const lettersToLoad = letters
-        .map((letter, i) => {
+    const lettersNodes = letters
+        .map((letter) => {
             return <div
                 className={classes.Letter}
-                key={i + letter}
-                onClick={() => clicked(i)}
+                key={letter.id}
+                onClick={() => clicked(letter.id)}
             >
-                {letter}
+                {letter.letter}
             </div>
         });
 
     return (
         <section className={classes.Letters}>
             <div className={classes.LettersContainer}>
-                {lettersToLoad}
+                {lettersNodes}
             </div>
         </section>
     );

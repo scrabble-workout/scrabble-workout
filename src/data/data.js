@@ -1,14 +1,14 @@
 const words = [
     {
-        word: 'abrazje',
+        value: 'abrazje',
         anagrams: ['bajarze'],
     },
     {
-        word: 'korniki',
+        value: 'korniki',
         anagrams: ['kroniki', 'krionik'],
     },
     {
-        word: 'bambosz',
+        value: 'bambosz',
         anagrams: [],
     },
 ];

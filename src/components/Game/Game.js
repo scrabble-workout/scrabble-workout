@@ -19,20 +19,28 @@ words.map(el => {
 class Game extends Component {
     state = {
         wordsNumber: words.length,
-        word: '',
+        word: {},
+        wordLetters: [],
         shuffledLetters: [],
         lettersInCells: [],
     };
 
     componentDidMount() {
         const index = Math.floor(Math.random() * this.state.wordsNumber);
-        const word = words[index].word;
-        console.log(word);
-        const letters = this.shuffleArray(word.split(''));
+        const word = words[index];
+        console.log(word.value);
+        const lettersWithIDs = word.value.split('')
+            .map(letter => {
+            return {
+                letter,
+                id: generateID(),
+            };
+        });
 
         this.setState({
             word: word,
-            shuffledLetters: letters,
+            wordLetters: lettersWithIDs,
+            shuffledLetters: this.shuffleArray(lettersWithIDs),
         });
     }
 
@@ -41,9 +49,8 @@ class Game extends Component {
         let tempValue;
         let randomIndex;
 
-        while (currIndex !== 0) {
-            randomIndex = Math.floor(Math.random() * currIndex);
-            currIndex--;
+        while (currIndex) {
+            randomIndex = Math.floor(Math.random() * currIndex--);
 
             tempValue = arr[currIndex];
             arr[currIndex] = arr[randomIndex];
@@ -53,9 +60,10 @@ class Game extends Component {
         return arr;
     };
 
-    handleLetterClick = (i) => {
-        const { shuffledLetters, lettersInCells } = this.state;
-        const letterSelected = shuffledLetters[i];
+    handleLetterClick = (id) => {
+        const { wordLetters, lettersInCells } = this.state;
+        const letterSelected = wordLetters
+            .find(el => el.id === id).letter;
 
         this.setState({
             lettersInCells: [...lettersInCells, letterSelected],
@@ -64,17 +72,43 @@ class Game extends Component {
         if ([...lettersInCells, letterSelected].length === 7) {
             setTimeout(() => {
                 console.log('game over');
+                this.checkResult();
             }, 500);
         }
     };
 
     handleCellClick = (i) => {
-        console.log('test', i);
+        if (i !== this.state.lettersInCells.length - 1) {
+            return;
+        }
+
+        const { lettersInCells } = this.state;
+        lettersInCells.pop();
+
+        this.setState({
+            lettersInCells: lettersInCells,
+        });
+    };
+
+    checkResult = () => {
+        const { word, lettersInCells } = this.state;
+
+        if (lettersInCells.join('') === word.value) {
+            console.log('brawo');
+        } else {
+            this.checkAnagrams()
+                ? console.log('brawo')
+                : console.log('o sorry, może następnym razem');
+        }
+    };
+
+    checkAnagrams = () => {
+        const { word, lettersInCells } = this.state;
+
+        return word.anagrams.indexOf(lettersInCells.join('')) >= 0;
     };
 
     render() {
-        console.log(this.state.lettersInCells);
-
         return (
             <main className={classes.Game}>
                 <Cells
