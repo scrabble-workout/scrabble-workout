@@ -11,7 +11,6 @@ const Slots = () => (
         <div className={classes.Slot}></div>
         <div className={classes.Slot}></div>
     </section>
-
 );
 
 export { Slots };

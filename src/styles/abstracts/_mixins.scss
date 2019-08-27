@@ -1,0 +1,13 @@
+@mixin letter-size-mobile($width, $height) {
+    height: $height;
+    width: $width;
+    font-size: 0.8 * $width;
+    line-height: 0.91 * $height;
+}
+
+@mixin letter-size-desktop($width, $height) {
+    height: $height;
+    width: $width;
+    font-size: 0.8 * $width;
+    line-height: 0.95 * $height;
+}

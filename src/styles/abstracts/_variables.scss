@@ -2,3 +2,8 @@ $color-gray-bg: #eee;
 $color-lightgray-font: #bdbdbd;
 $color-darkgray: #333;
 $color-black: #000;
+
+$letter-width-mobile: 50px;
+$letter-height-mobile: $letter-width-mobile * 1.1;
+$letter-width-desktop: 70px;
+$letter-height-desktop: $letter-width-desktop * 1.1;
