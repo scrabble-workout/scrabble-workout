@@ -1,15 +1,17 @@
 import React from 'react';
 import classes from './Home.scss';
 
-import { Button } from '../Button/Button';
+import { Link } from "react-router-dom";
 
 const Home = () => (
     <main className={classes.Home}>
         <section className={classes.Hero}>
             <h2 className={classes.Header}>Home Screen</h2>
         </section>
-        <section className={classes.BtnSection}>
-            <Button />
+        <section className={classes.StartGame}>
+            <Link to="/game" className={classes.Button}>
+                Zagraj
+            </Link>
         </section>
     </main>
 );

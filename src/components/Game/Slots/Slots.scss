@@ -1,13 +1,13 @@
-@import "../../sass/abstracts/variables";
+@import "../../../styles/abstracts/variables";
 
-.Cells {
+.Slots {
     display: grid;
     grid-gap: 5px;
     grid-template-columns: repeat(7, 1fr);
     align-items: center;
 }
 
-.Cell {
+.Slot {
     height: 50px;
     border-bottom: 2px solid $color-black;
     text-transform: uppercase;

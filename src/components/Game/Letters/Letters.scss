@@ -1,4 +1,4 @@
-@import "../../sass/abstracts/variables";
+@import "../../../styles/abstracts/variables";
 
 .Letters {
     display: flex;
@@ -17,11 +17,11 @@
     width: 50px;
     margin: 10px;
     border: 1px solid $color-black;
+    border-radius: 5px;
     text-transform: uppercase;
     text-align: center;
     font-size: 40px;
     line-height: 50px;
-    border-radius: 5px;
 }
 
 .Inactive {
