@@ -6,10 +6,10 @@ const Slots = () => (
         <div className={classes.Slot}>a</div>
         <div className={classes.Slot}>t</div>
         <div className={classes.Slot}>l</div>
-        <div className={classes.Slot}></div>
-        <div className={classes.Slot}></div>
-        <div className={classes.Slot}></div>
-        <div className={classes.Slot}></div>
+        <div className={classes.Slot} />
+        <div className={classes.Slot} />
+        <div className={classes.Slot} />
+        <div className={classes.Slot} />
     </section>
 );
 

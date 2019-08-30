@@ -27,4 +27,4 @@ const Letters = () => {
     );
 };
 
-export {Letters};
+export { Letters };

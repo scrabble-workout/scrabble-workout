@@ -1,7 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import classes from './Home.scss';
-
-import { Link } from "react-router-dom";
 
 const Home = () => (
     <main className={classes.Home}>
