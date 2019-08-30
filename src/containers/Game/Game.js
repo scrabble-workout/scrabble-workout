@@ -22,6 +22,10 @@ class Game extends Component {
         wordLetters: [],
         shuffledLetters: [],
         lettersInSlots: [],
+        // eslint-disable-next-line
+        isGameOn: true,
+        // eslint-disable-next-line
+        isGameResultPositive: null,
     };
 
     componentDidMount() {
@@ -29,7 +33,6 @@ class Game extends Component {
 
         const index = Math.floor(Math.random() * wordsNumber);
         const word = words[index];
-        console.log(word.value);
         const lettersObjects = word.value.split('')
             .map((letter) => ({
                 value: letter,
@@ -89,10 +92,7 @@ class Game extends Component {
         });
 
         if ([...lettersInSlots, letterSelected].length === 7) {
-            setTimeout(() => {
-                console.log('game over');
-                this.checkResult();
-            }, 500);
+            this.gameOver();
         }
     };
 
@@ -113,16 +113,31 @@ class Game extends Component {
 
     joinLetters = (arr) => arr.reduce((a, b) => a + b.value, '');
 
+    gameOver = () => {
+        this.setState({
+            // eslint-disable-next-line
+            isGameOn: false,
+        });
+
+        setTimeout(() => {
+            this.checkResult();
+        }, 500);
+    };
+
     checkResult = () => {
         const { word, lettersInSlots } = this.state;
         const result = this.joinLetters(lettersInSlots);
 
         if (result === word.value) {
-            console.log('brawo');
+            this.setState({
+                // eslint-disable-next-line
+                isGameResultPositive: true,
+            });
         } else {
-            this.checkAnagrams()
-                ? console.log('brawo')
-                : console.log('o sorry, może następnym razem');
+            this.setState({
+                // eslint-disable-next-line
+                isGameResultPositive: this.checkAnagrams(),
+            });
         }
     };
 
