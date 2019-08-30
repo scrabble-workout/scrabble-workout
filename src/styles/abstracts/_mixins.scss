@@ -1,0 +1,7 @@
+@mixin letter($index) {
+    grid-area: l#{$index};
+
+    @if $index != 3 and $index != 4 and $index != 5 {
+        transform: translateX(40px);
+    }
+}

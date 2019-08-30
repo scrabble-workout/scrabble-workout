@@ -1,4 +1,5 @@
-@import "../../../styles/abstracts/variables";
+@import "../../styles/abstracts/variables";
+@import "../../styles/abstracts/mixins";
 
 .Letters {
     display: flex;
@@ -16,6 +17,7 @@
         'l1 l2 .'
         'l3 l4 l5'
         'l6 l7 .';
+    list-style: none;
 }
 
 .Letter {
@@ -30,36 +32,10 @@
     line-height: 50px;
 }
 
-.Letter:nth-child(1) {
-    grid-area: l1;
-    transform: translateX(calc(35px));
-}
-
-.Letter:nth-child(2) {
-    grid-area: l2;
-    transform: translateX(calc(35px));
-}
-
-.Letter:nth-child(3) {
-    grid-area: l3;
-}
-
-.Letter:nth-child(4) {
-    grid-area: l4;
-}
-
-.Letter:nth-child(5) {
-    grid-area: l5;
-}
-
-.Letter:nth-child(6) {
-    grid-area: l6;
-    transform: translateX(calc(35px));
-}
-
-.Letter:nth-child(7) {
-    grid-area: l7;
-    transform: translateX(calc(35px));
+@for $i from 1 through 7 {
+    .Letter-#{$i} {
+        @include letter($i);
+    }
 }
 
 .Inactive {

@@ -8,3 +8,9 @@
     font-size: calc(10px + 2vmin);
     box-shadow: 0 0 6px 1px $color-gray-bg;
 }
+
+.HeaderLink {
+    color: inherit;
+    font-family: inherit;
+    text-decoration: none;
+}
