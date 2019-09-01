@@ -5,16 +5,14 @@ import classNames from 'classnames';
 import classes from './Letters.scss';
 
 const Letters = ({ letters, clicked }) => {
-    const getLetterClasses = (i, active) => classNames(
-        classes.Letter,
-        classes[`Letter-${i + 1}`],
-        { [classes.Inactive]: !active },
-    );
-
     const lettersNodes = letters
         .map((letter, i) => (
             <li
-                className={getLetterClasses(i, letter.active)}
+                className={classNames(
+                    classes.Letter,
+                    classes[`Letter-${i + 1}`],
+                    { [classes.Inactive]: !letter.active },
+                )}
                 key={letter.id}
                 onClick={() => clicked(letter.id)}
             >

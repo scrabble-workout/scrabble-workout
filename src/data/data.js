@@ -1,16 +1,7 @@
 const words = [
-    {
-        value: 'abrazje',
-        anagrams: ['bajarze'],
-    },
-    {
-        value: 'korniki',
-        anagrams: ['kroniki', 'krionik'],
-    },
-    {
-        value: 'bambosz',
-        anagrams: [],
-    },
+    ['abrazje', 'bajarze'],
+    ['korniki', 'kroniki', 'krionik'],
+    ['bambosz'],
 ];
 
 export { words };
