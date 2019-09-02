@@ -3,8 +3,9 @@ import { getRandomIndexInRange } from '../helpers';
 import { words } from '../data/data';
 
 
-const index = getRandomIndexInRange(WORDS_COUNT);
-const getCorrectWords = () => words[index];
-const getRandomWord = () => words[index][0];
+const getCorrectWords = () => {
+    const index = getRandomIndexInRange(WORDS_COUNT);
+    return words[index];
+};
 
-export { getCorrectWords, getRandomWord };
+export { getCorrectWords };

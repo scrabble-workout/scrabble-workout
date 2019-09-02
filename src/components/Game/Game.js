@@ -6,7 +6,7 @@ import { Letters } from './Letters/Letters';
 
 import { WORD_LENGTH } from '../../constants/constants';
 import { shuffleArray, generateID } from '../../helpers';
-import { getCorrectWords, getRandomWord } from '../../service/service';
+import { getCorrectWords } from '../../service/service';
 
 
 class Game extends Component {
@@ -18,8 +18,8 @@ class Game extends Component {
     };
 
     componentDidMount() {
-        const word = getRandomWord();
-        const lettersObjects = word.split('')
+        const correctWords = getCorrectWords();
+        const lettersObjects = correctWords[0].split('')
             .map((letter) => ({
                 value: letter,
                 id: generateID(),
@@ -27,7 +27,7 @@ class Game extends Component {
             }));
 
         this.setState({
-            correctWords: getCorrectWords(),
+            correctWords,
             letters: shuffleArray(lettersObjects),
         });
     }
@@ -48,15 +48,15 @@ class Game extends Component {
             .find((el) => el.id === id);
 
         this.toggleLettersActiveState(id);
-        const updatedlettersInSlots = [...lettersInSlots, letterSelected];
+        const updatedLettersInSlots = [...lettersInSlots, letterSelected];
 
         this.setState({
-            lettersInSlots: updatedlettersInSlots,
+            lettersInSlots: updatedLettersInSlots,
+        }, () => {
+            if (updatedLettersInSlots.length === WORD_LENGTH) {
+                this.checkResult();
+            }
         });
-
-        if (updatedlettersInSlots.length === WORD_LENGTH) {
-            this.checkResult(updatedlettersInSlots);
-        }
     };
 
     handleSlotClick = (id, i) => {
@@ -76,8 +76,8 @@ class Game extends Component {
 
     joinLetters = (arr) => arr.reduce((a, b) => a + b.value, '');
 
-    checkResult = (lettersInSlots) => {
-        const { correctWords } = this.state;
+    checkResult = () => {
+        const { correctWords, lettersInSlots } = this.state;
         const result = this.joinLetters(lettersInSlots);
 
         this.setState({
