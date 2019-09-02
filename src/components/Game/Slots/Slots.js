@@ -3,29 +3,45 @@ import PropTypes from 'prop-types';
 
 import classes from './Slots.scss';
 
+import { WORD_LENGTH } from '../../../constants/constants';
+import { generateID } from '../../../helpers';
+
+
 const Slots = ({ lettersInSlots, clicked }) => {
-    const slotsNodes = lettersInSlots.map((letter, index) => (
-        <li
-            key={letter.id}
-            className={classes.Slot}
-            onClick={() => clicked(letter.id, index)}
-        >
-            {letter.value}
-        </li>
-    ));
+    const slotsNodes = [];
+    let slotIndex = 0;
+
+    while (slotIndex < WORD_LENGTH) {
+        const letter = lettersInSlots && lettersInSlots[slotIndex];
+        const letterIndex = slotIndex;
+
+        slotsNodes.push(
+            <li
+                key={generateID()}
+                className={classes.Slot}
+            >
+                {
+                    letter
+                        ? (
+                            <span
+                                className={classes.SlotLetter}
+                                onClick={() => clicked(letter.id, letterIndex)}
+                            >
+                                {letter.value}
+                            </span>
+                        )
+                        : null
+                }
+            </li>,
+        );
+        slotIndex += 1;
+    }
 
     return (
         <section className={classes.SlotsSection}>
             <ul className={classes.Slots}>
                 {slotsNodes}
             </ul>
-            <div className={classes.SlotBottom} />
-            <div className={classes.SlotBottom} />
-            <div className={classes.SlotBottom} />
-            <div className={classes.SlotBottom} />
-            <div className={classes.SlotBottom} />
-            <div className={classes.SlotBottom} />
-            <div className={classes.SlotBottom} />
         </section>
     );
 };

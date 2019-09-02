@@ -4,12 +4,9 @@ import classes from './Game.scss';
 import { Slots } from './Slots/Slots';
 import { Letters } from './Letters/Letters';
 
-import { words } from '../../data/data';
-
-import { WORD_LENGTH, WORDS_COUNT } from '../../constants/constants';
-import { shuffleArray } from '../../helpers/shuffle-array';
-import { generateID } from '../../helpers/generate-id';
-import { getRandomIndexInRange } from '../../helpers/random-index';
+import { WORD_LENGTH } from '../../constants/constants';
+import { shuffleArray, generateID } from '../../helpers';
+import { getCorrectWords, getRandomWord } from '../../service/service';
 
 
 class Game extends Component {
@@ -17,12 +14,11 @@ class Game extends Component {
         correctWords: [],
         letters: [],
         lettersInSlots: [],
-        gameWon: null,
+        gameWon: undefined,
     };
 
     componentDidMount() {
-        const index = getRandomIndexInRange(WORDS_COUNT);
-        const word = words[index][0];
+        const word = getRandomWord();
         const lettersObjects = word.split('')
             .map((letter) => ({
                 value: letter,
@@ -31,7 +27,7 @@ class Game extends Component {
             }));
 
         this.setState({
-            correctWords: words[index],
+            correctWords: getCorrectWords(),
             letters: shuffleArray(lettersObjects),
         });
     }
@@ -51,20 +47,15 @@ class Game extends Component {
         const letterSelected = letters
             .find((el) => el.id === id);
 
-        if (!letterSelected.active) {
-            return;
-        }
-
         this.toggleLettersActiveState(id);
+        const updatedlettersInSlots = [...lettersInSlots, letterSelected];
 
         this.setState({
-            lettersInSlots: [...lettersInSlots, letterSelected],
+            lettersInSlots: updatedlettersInSlots,
         });
 
-        if ([...lettersInSlots, letterSelected].length === WORD_LENGTH) {
-            setTimeout(() => {
-                this.checkResult();
-            }, 300);
+        if (updatedlettersInSlots.length === WORD_LENGTH) {
+            this.checkResult(updatedlettersInSlots);
         }
     };
 
@@ -85,8 +76,8 @@ class Game extends Component {
 
     joinLetters = (arr) => arr.reduce((a, b) => a + b.value, '');
 
-    checkResult = () => {
-        const { correctWords, lettersInSlots } = this.state;
+    checkResult = (lettersInSlots) => {
+        const { correctWords } = this.state;
         const result = this.joinLetters(lettersInSlots);
 
         this.setState({
@@ -104,7 +95,7 @@ class Game extends Component {
                     clicked={this.handleSlotClick}
                 />
                 {
-                    typeof gameWon === 'object'
+                    gameWon === undefined
                         ? (
                             <Letters
                                 letters={letters}

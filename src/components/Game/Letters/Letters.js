@@ -11,12 +11,17 @@ const Letters = ({ letters, clicked }) => {
                 className={classNames(
                     classes.Letter,
                     classes[`Letter-${i + 1}`],
-                    { [classes.Inactive]: !letter.active },
                 )}
                 key={letter.id}
-                onClick={() => clicked(letter.id)}
             >
-                {letter.value}
+                <button
+                    type="button"
+                    className={classes.LetterButton}
+                    disabled={!letter.active}
+                    onClick={() => clicked(letter.id)}
+                >
+                    {letter.value}
+                </button>
             </li>
         ));
 

@@ -3,7 +3,6 @@
 .SlotsSection {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: 50px 2px;
     grid-gap: 0 5px;
 }
 
@@ -19,10 +18,6 @@
     text-transform: uppercase;
     text-align: center;
     font-size: 40px;
-    line-height: 50px;
-}
-
-.SlotBottom {
-    height: 2px;
-    background: $color-black;
+    line-height: $slots-height;
+    box-shadow: 0 -2px 0 0 $color-black inset;
 }
