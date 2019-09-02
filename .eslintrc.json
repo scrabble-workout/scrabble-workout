@@ -67,6 +67,7 @@
         "jsx-a11y/click-events-have-key-events": 0,
         "jsx-a11y/label-has-associated-control": 0,
         "jsx-a11y/label-has-for": 0,
+        "jsx-a11y/no-noninteractive-element-interactions": 0,
         "react/jsx-filename-extension": 0,
         "react/forbid-prop-types": 0,
         "import/no-unresolved": 0,
@@ -80,6 +81,10 @@
         "react/jsx-indent-props": [
             "error",
             4
+        ],
+        "react/state-in-constructor": 0,
+        "react/no-array-index-key": [
+            "warn"
         ]
     }
 }
