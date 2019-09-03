@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f6b05492016a052c0ee1a33b4b631161",
+    "revision": "0802b615d9c32bc4a8eb12a23bb164bb",
     "url": "/scrabble-workout/index.html"
   },
   {
-    "revision": "d283478933a8629f5c6f",
+    "revision": "6444a3cbee8781f11c33",
     "url": "/scrabble-workout/static/css/2.d076884b.chunk.css"
   },
   {
-    "revision": "7085d708bff8710f6d31",
+    "revision": "ddcc2d4bea6f67a3c55b",
     "url": "/scrabble-workout/static/css/main.9b765068.chunk.css"
   },
   {
-    "revision": "d283478933a8629f5c6f",
-    "url": "/scrabble-workout/static/js/2.39c06a21.chunk.js"
+    "revision": "6444a3cbee8781f11c33",
+    "url": "/scrabble-workout/static/js/2.36c92b28.chunk.js"
   },
   {
-    "revision": "7085d708bff8710f6d31",
-    "url": "/scrabble-workout/static/js/main.105ab0d3.chunk.js"
+    "revision": "ddcc2d4bea6f67a3c55b",
+    "url": "/scrabble-workout/static/js/main.84595dad.chunk.js"
   },
   {
     "revision": "e6f3ecc0591c07c20123",
