@@ -4,47 +4,30 @@ import PropTypes from 'prop-types';
 import classes from './Slots.scss';
 
 import { WORD_LENGTH } from '../../../constants/constants';
-import { generateID } from '../../../helpers';
 
 
-const Slots = ({ lettersInSlots, clicked }) => {
-    const slotsNodes = [];
-    let slotIndex = 0;
+const Slots = ({ lettersInSlots, clicked }) => (
+    <section className={classes.SlotsSection}>
+        <ul className={classes.Slots}>
 
-    while (slotIndex < WORD_LENGTH) {
-        const letter = lettersInSlots && lettersInSlots[slotIndex];
-        const letterIndex = slotIndex;
+            {[...Array(WORD_LENGTH).keys()]
+                .map((i) => lettersInSlots[i])
+                .map((letter, index) => (
+                    /* eslint-disable react/no-array-index-key */
+                    <li key={index} className={classes.Slot}>
+                        {letter
+                            ? (
+                                <span onClick={() => clicked(letter.id, index)}>
+                                    {letter.value}
+                                </span>
+                            )
+                            : null}
+                    </li>
+                ))}
 
-        slotsNodes.push(
-            <li
-                key={generateID()}
-                className={classes.Slot}
-            >
-                {
-                    letter
-                        ? (
-                            <span
-                                className={classes.SlotLetter}
-                                onClick={() => clicked(letter.id, letterIndex)}
-                            >
-                                {letter.value}
-                            </span>
-                        )
-                        : null
-                }
-            </li>,
-        );
-        slotIndex += 1;
-    }
-
-    return (
-        <section className={classes.SlotsSection}>
-            <ul className={classes.Slots}>
-                {slotsNodes}
-            </ul>
-        </section>
-    );
-};
+        </ul>
+    </section>
+);
 
 Slots.propTypes = {
     lettersInSlots: PropTypes.array.isRequired,
