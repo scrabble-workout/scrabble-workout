@@ -1,5 +1,4 @@
-import * as actionTypes from './types';
-import { getCorrectWords } from '../service/service';
+import { LOAD_GAME } from '../actions/load-words';
 
 const initialState = {
     correctWords: [],
@@ -7,11 +6,10 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.GET_CORRECT_WORDS:
-            const correctWords = getCorrectWords();
+        case LOAD_GAME:
             return {
                 ...state,
-                correctWords,
+                correctWords: action.correctWords,
             };
         default: return state;
     }

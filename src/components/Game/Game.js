@@ -5,13 +5,13 @@ import { connect } from 'react-redux';
 import classes from './Game.scss';
 import { Slots } from './Slots/Slots';
 import { Letters } from './Letters/Letters';
-import Result from './Result/Result';
+import { Result } from './Result/Result';
 
 import { WORD_LENGTH } from '../../constants/constants';
 import { shuffleArray, generateID } from '../../helpers';
-import { getCorrectWordsAction } from '../../store/actions';
+import { loadWords } from '../../store/actions/load-words';
 
-class Game extends Component {
+class GameView extends Component {
     state = {
         letters: [],
         lettersInSlots: [],
@@ -19,26 +19,30 @@ class Game extends Component {
     };
 
     componentDidMount() {
-        const { getCorrectWords } = this.props;
-        getCorrectWords();
+        const { initGame } = this.props;
+        initGame();
     }
 
     componentDidUpdate(prevProps) {
         const { correctWords } = this.props;
 
         if (correctWords !== prevProps.correctWords) {
-            const lettersObjects = correctWords[0].split('')
-                .map((letter) => ({
-                    value: letter,
-                    id: generateID(),
-                    active: true,
-                }));
-            /* eslint-disable react/no-did-update-set-state */
-            this.setState({
-                letters: shuffleArray(lettersObjects),
-            });
+            this.initLetters(correctWords);
         }
     }
+
+    initLetters = (words) => {
+        const lettersObjects = words[0].split('')
+            .map((letter) => ({
+                value: letter,
+                id: generateID(),
+                active: true,
+            }));
+        /* eslint-disable react/no-did-update-set-state */
+        this.setState({
+            letters: shuffleArray(lettersObjects),
+        });
+    };
 
     toggleLettersActiveState = (id) => {
         const { letters } = this.state;
@@ -118,21 +122,16 @@ class Game extends Component {
     }
 }
 
-Game.propTypes = {
-    getCorrectWords: PropTypes.func.isRequired,
+GameView.propTypes = {
+    initGame: PropTypes.func.isRequired,
     correctWords: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = (state) => (
-    {
-        correctWords: state.correctWords,
-    }
-);
+const mapStateToProps = ({ correctWords }) => ({ correctWords });
 
 const mapDispatchToProps = (dispatch) => (
-    {
-        getCorrectWords: () => dispatch(getCorrectWordsAction()),
-    }
+    { initGame: () => dispatch(loadWords()) }
 );
 
-export default connect(mapStateToProps, mapDispatchToProps)(Game);
+const Game = connect(mapStateToProps, mapDispatchToProps)(GameView);
+export { Game };

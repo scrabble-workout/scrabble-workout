@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-const Result = ({ gameWon, correctWords }) => (
+const ResultView = ({ gameWon, correctWords }) => (
     <div>
         {
             (gameWon)
@@ -16,19 +16,12 @@ const Result = ({ gameWon, correctWords }) => (
     </div>
 );
 
-Result.propTypes = {
-    gameWon: PropTypes.bool,
+ResultView.propTypes = {
+    gameWon: PropTypes.bool.isRequired,
     correctWords: PropTypes.array.isRequired,
 };
 
-Result.defaultProps = {
-    gameWon: undefined,
-};
+const mapStateToProps = ({ correctWords }) => ({ correctWords });
 
-const mapStateToProps = (state) => (
-    {
-        correctWords: state.correctWords,
-    }
-);
-
-export default connect(mapStateToProps)(Result);
+const Result = connect(mapStateToProps)(ResultView);
+export { Result };
