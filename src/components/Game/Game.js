@@ -1,35 +1,43 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import classes from './Game.scss';
 import { Slots } from './Slots/Slots';
 import { Letters } from './Letters/Letters';
+import Result from './Result/Result';
 
 import { WORD_LENGTH } from '../../constants/constants';
 import { shuffleArray, generateID } from '../../helpers';
-import { getCorrectWords } from '../../service/service';
-
+import { getCorrectWordsAction } from '../../store/actions';
 
 class Game extends Component {
     state = {
-        correctWords: [],
         letters: [],
         lettersInSlots: [],
         gameWon: undefined,
     };
 
     componentDidMount() {
-        const correctWords = getCorrectWords();
-        const lettersObjects = correctWords[0].split('')
-            .map((letter) => ({
-                value: letter,
-                id: generateID(),
-                active: true,
-            }));
+        const { getCorrectWords } = this.props;
+        getCorrectWords();
+    }
 
-        this.setState({
-            correctWords,
-            letters: shuffleArray(lettersObjects),
-        });
+    componentDidUpdate(prevProps) {
+        const { correctWords } = this.props;
+
+        if (correctWords !== prevProps.correctWords) {
+            const lettersObjects = correctWords[0].split('')
+                .map((letter) => ({
+                    value: letter,
+                    id: generateID(),
+                    active: true,
+                }));
+            /* eslint-disable react/no-did-update-set-state */
+            this.setState({
+                letters: shuffleArray(lettersObjects),
+            });
+        }
     }
 
     toggleLettersActiveState = (id) => {
@@ -77,7 +85,8 @@ class Game extends Component {
     joinLetters = (arr) => arr.reduce((a, b) => a + b.value, '');
 
     checkResult = () => {
-        const { correctWords, lettersInSlots } = this.state;
+        const { correctWords } = this.props;
+        const { lettersInSlots } = this.state;
         const result = this.joinLetters(lettersInSlots);
 
         this.setState({
@@ -102,19 +111,28 @@ class Game extends Component {
                                 clicked={this.handleLetterClick}
                             />
                         )
-                        : (
-                            <div>
-                                {
-                                    (gameWon)
-                                        ? 'gratulacje, wygrałeś'
-                                        : 'nie udało się, może następnym razem'
-                                }
-                            </div>
-                        )
+                        : <Result gameWon={gameWon} />
                 }
             </main>
         );
     }
 }
 
-export { Game };
+Game.propTypes = {
+    getCorrectWords: PropTypes.func.isRequired,
+    correctWords: PropTypes.array.isRequired,
+};
+
+const mapStateToProps = (state) => (
+    {
+        correctWords: state.correctWords,
+    }
+);
+
+const mapDispatchToProps = (dispatch) => (
+    {
+        getCorrectWords: () => dispatch(getCorrectWordsAction()),
+    }
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Game);

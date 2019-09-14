@@ -1,0 +1,1 @@
+export const GET_CORRECT_WORDS = 'GET_CORRECT_WORDS';
