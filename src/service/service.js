@@ -5,7 +5,7 @@ import { words } from '../data/data';
 
 const getCorrectWords = () => {
     const index = getRandomIndexInRange(WORDS_COUNT);
-    return words[index];
+    return [...words[index]];
 };
 
 export { getCorrectWords };
