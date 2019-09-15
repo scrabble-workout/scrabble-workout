@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/scrabble-workout/static/css/main.9b765068.chunk.css",
-    "main.js": "/scrabble-workout/static/js/main.84595dad.chunk.js",
-    "main.js.map": "/scrabble-workout/static/js/main.84595dad.chunk.js.map",
+    "main.js": "/scrabble-workout/static/js/main.bc7167f9.chunk.js",
+    "main.js.map": "/scrabble-workout/static/js/main.bc7167f9.chunk.js.map",
     "runtime~main.js": "/scrabble-workout/static/js/runtime~main.3fa9b69d.js",
     "runtime~main.js.map": "/scrabble-workout/static/js/runtime~main.3fa9b69d.js.map",
     "static/css/2.d076884b.chunk.css": "/scrabble-workout/static/css/2.d076884b.chunk.css",
-    "static/js/2.36c92b28.chunk.js": "/scrabble-workout/static/js/2.36c92b28.chunk.js",
-    "static/js/2.36c92b28.chunk.js.map": "/scrabble-workout/static/js/2.36c92b28.chunk.js.map",
+    "static/js/2.c438604e.chunk.js": "/scrabble-workout/static/js/2.c438604e.chunk.js",
+    "static/js/2.c438604e.chunk.js.map": "/scrabble-workout/static/js/2.c438604e.chunk.js.map",
     "index.html": "/scrabble-workout/index.html",
-    "precache-manifest.02e33a11da760a27577b117a61dd9a00.js": "/scrabble-workout/precache-manifest.02e33a11da760a27577b117a61dd9a00.js",
+    "precache-manifest.7ceadbaef258478699e7092006b2ac1c.js": "/scrabble-workout/precache-manifest.7ceadbaef258478699e7092006b2ac1c.js",
     "service-worker.js": "/scrabble-workout/service-worker.js",
     "static/css/2.d076884b.chunk.css.map": "/scrabble-workout/static/css/2.d076884b.chunk.css.map",
     "static/css/main.9b765068.chunk.css.map": "/scrabble-workout/static/css/main.9b765068.chunk.css.map"
