@@ -7,7 +7,7 @@ import 'normalize-css/normalize.css';
 import './index.scss';
 import { App } from './App';
 import * as serviceWorker from './serviceWorker';
-import { reducer } from './store/reducers/load-words';
+import { reducer } from './store/reducers/init-game';
 
 const store = createStore(
     reducer,

@@ -1,8 +1,8 @@
 import { getCorrectWords } from '../../service/service';
 
-export const LOAD_GAME = 'LOAD_GAME';
+export const INIT_GAME = 'INIT_GAME';
 
-export const loadWords = () => ({
-    type: LOAD_GAME,
+export const initGame = () => ({
+    type: INIT_GAME,
     correctWords: getCorrectWords(),
 });

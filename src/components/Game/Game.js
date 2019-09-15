@@ -9,7 +9,7 @@ import { Result } from './Result/Result';
 
 import { WORD_LENGTH } from '../../constants/constants';
 import { shuffleArray, generateID } from '../../helpers';
-import { loadWords } from '../../store/actions/load-words';
+import { initGame } from '../../store/actions/init-game';
 
 class GameView extends Component {
     state = {
@@ -19,13 +19,12 @@ class GameView extends Component {
     };
 
     componentDidMount() {
-        const { initGame } = this.props;
-        initGame();
+        const { dispatch } = this.props;
+        dispatch(initGame());
     }
 
     componentDidUpdate(prevProps) {
         const { correctWords } = this.props;
-
         if (correctWords !== prevProps.correctWords) {
             this.initLetters(correctWords);
         }
@@ -123,15 +122,11 @@ class GameView extends Component {
 }
 
 GameView.propTypes = {
-    initGame: PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired,
     correctWords: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = ({ correctWords }) => ({ correctWords });
 
-const mapDispatchToProps = (dispatch) => (
-    { initGame: () => dispatch(loadWords()) }
-);
-
-const Game = connect(mapStateToProps, mapDispatchToProps)(GameView);
+const Game = connect(mapStateToProps)(GameView);
 export { Game };
