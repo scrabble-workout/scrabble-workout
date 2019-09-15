@@ -9,7 +9,6 @@ const App = () => (
     <BrowserRouter basename="/scrabble-workout">
         <div>
             <Header />
-
             <Route exact path="/" component={Home} />
             <Route path="/game" component={Game} />
         </div>

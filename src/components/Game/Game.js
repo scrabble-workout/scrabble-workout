@@ -1,36 +1,47 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import classes from './Game.scss';
 import { Slots } from './Slots/Slots';
 import { Letters } from './Letters/Letters';
+import { Result } from './Result/Result';
 
 import { WORD_LENGTH } from '../../constants/constants';
 import { shuffleArray, generateID } from '../../helpers';
-import { getCorrectWords } from '../../service/service';
+import { initGame } from '../../store/actions/init-game';
 
-
-class Game extends Component {
+class GameView extends Component {
     state = {
-        correctWords: [],
         letters: [],
         lettersInSlots: [],
         gameWon: undefined,
     };
 
     componentDidMount() {
-        const correctWords = getCorrectWords();
-        const lettersObjects = correctWords[0].split('')
+        const { dispatch } = this.props;
+        dispatch(initGame());
+    }
+
+    componentDidUpdate(prevProps) {
+        const { correctWords } = this.props;
+        if (correctWords !== prevProps.correctWords) {
+            this.initLetters(correctWords);
+        }
+    }
+
+    initLetters = (words) => {
+        const lettersObjects = words[0].split('')
             .map((letter) => ({
                 value: letter,
                 id: generateID(),
                 active: true,
             }));
-
+        /* eslint-disable react/no-did-update-set-state */
         this.setState({
-            correctWords,
             letters: shuffleArray(lettersObjects),
         });
-    }
+    };
 
     toggleLettersActiveState = (id) => {
         const { letters } = this.state;
@@ -77,7 +88,8 @@ class Game extends Component {
     joinLetters = (arr) => arr.reduce((a, b) => a + b.value, '');
 
     checkResult = () => {
-        const { correctWords, lettersInSlots } = this.state;
+        const { correctWords } = this.props;
+        const { lettersInSlots } = this.state;
         const result = this.joinLetters(lettersInSlots);
 
         this.setState({
@@ -102,19 +114,19 @@ class Game extends Component {
                                 clicked={this.handleLetterClick}
                             />
                         )
-                        : (
-                            <div>
-                                {
-                                    (gameWon)
-                                        ? 'gratulacje, wygrałeś'
-                                        : 'nie udało się, może następnym razem'
-                                }
-                            </div>
-                        )
+                        : <Result gameWon={gameWon} />
                 }
             </main>
         );
     }
 }
 
+GameView.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    correctWords: PropTypes.array.isRequired,
+};
+
+const mapStateToProps = ({ correctWords }) => ({ correctWords });
+
+const Game = connect(mapStateToProps)(GameView);
 export { Game };
