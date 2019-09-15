@@ -4,7 +4,7 @@ const initialState = {
     correctWords: [],
 };
 
-const reducer = (state = initialState, { type, correctWords }) => {
+const initGameReducer = (state = initialState, { type, correctWords }) => {
     switch (type) {
         case INIT_GAME:
             return {
@@ -15,4 +15,4 @@ const reducer = (state = initialState, { type, correctWords }) => {
     }
 };
 
-export { reducer };
+export { initGameReducer };
