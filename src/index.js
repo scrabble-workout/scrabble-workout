@@ -7,12 +7,12 @@ import 'normalize-css/normalize.css';
 import './index.scss';
 import { App } from './App';
 import * as serviceWorker from './serviceWorker';
-import { initGameReducer } from './store/reducers/init-game';
-import { submitAnswerReducer } from './store/reducers/submit-answer';
+import { wordsReducer } from './store/reducers/words';
+import { answerReducer } from './store/reducers/answer';
 
 const rootReducer = combineReducers({
-    initGame: initGameReducer,
-    submitAnswer: submitAnswerReducer,
+    words: wordsReducer,
+    answer: answerReducer,
 });
 
 const store = createStore(

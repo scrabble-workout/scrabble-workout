@@ -9,8 +9,8 @@ import { Result } from './Result/Result';
 
 import { WORD_LENGTH } from '../../constants/constants';
 import { shuffleArray, generateID } from '../../helpers';
-import { initGame } from '../../store/actions/init-game';
-import { submitAnswer } from '../../store/actions/submit-answer';
+import { initWords } from '../../store/actions/words';
+import { submitAnswer } from '../../store/actions/answer';
 
 class GameView extends Component {
     state = {
@@ -20,13 +20,13 @@ class GameView extends Component {
 
     componentDidMount() {
         const { dispatch } = this.props;
-        dispatch(initGame());
+        dispatch(initWords());
     }
 
     componentDidUpdate(prevProps) {
-        const { correctWords } = this.props;
-        if (correctWords !== prevProps.correctWords) {
-            this.initLetters(correctWords);
+        const { words } = this.props;
+        if (words !== prevProps.words) {
+            this.initLetters(words);
         }
     }
 
@@ -94,7 +94,7 @@ class GameView extends Component {
     joinLetters = (arr) => arr.reduce((a, b) => a + b.value, '');
 
     render() {
-        const { submittedAnswer } = this.props;
+        const { answer } = this.props;
         const { letters, lettersInSlots } = this.state;
 
         return (
@@ -104,7 +104,7 @@ class GameView extends Component {
                     clicked={this.handleSlotClick}
                 />
                 {
-                    !submittedAnswer
+                    !answer
                         ? (
                             <Letters
                                 letters={letters}
@@ -120,14 +120,14 @@ class GameView extends Component {
 
 GameView.propTypes = {
     dispatch: PropTypes.func.isRequired,
-    correctWords: PropTypes.array.isRequired,
-    submittedAnswer: PropTypes.string.isRequired,
+    words: PropTypes.array.isRequired,
+    answer: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = ({
-    initGame: { correctWords },
-    submitAnswer: { submittedAnswer },
-}) => ({ correctWords, submittedAnswer });
+    words,
+    answer,
+}) => ({ words, answer });
 
 const Game = connect(mapStateToProps)(GameView);
 export { Game };

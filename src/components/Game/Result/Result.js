@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-const ResultView = ({ correctWords, submittedAnswer }) => {
-    const isAnswerCorrect = () => correctWords.includes(submittedAnswer);
+const ResultView = ({ words, answer }) => {
+    const isAnswerCorrect = () => words.includes(answer);
 
     return (
         <div>
@@ -13,7 +13,7 @@ const ResultView = ({ correctWords, submittedAnswer }) => {
                     : (
                         `nie udało się, może następnym razem.
                         poprawne słowa to:
-                        ${correctWords
+                        ${words
                             .map((word) => word.toUpperCase())
                             .join(', ')}`
                     )
@@ -23,14 +23,14 @@ const ResultView = ({ correctWords, submittedAnswer }) => {
 };
 
 ResultView.propTypes = {
-    correctWords: PropTypes.array.isRequired,
-    submittedAnswer: PropTypes.string.isRequired,
+    words: PropTypes.array.isRequired,
+    answer: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = ({
-    initGame: { correctWords },
-    submitAnswer: { submittedAnswer },
-}) => ({ correctWords, submittedAnswer });
+    words,
+    answer,
+}) => ({ words, answer });
 
 const Result = connect(mapStateToProps)(ResultView);
 export { Result };
