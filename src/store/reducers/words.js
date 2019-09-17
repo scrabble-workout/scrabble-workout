@@ -1,4 +1,4 @@
-import { INIT_WORDS } from '../actions/words';
+import { INIT_WORDS } from '../actions/init-words';
 
 const initialState = [];
 

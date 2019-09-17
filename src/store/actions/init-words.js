@@ -1,4 +1,4 @@
-import { getWords } from '../../service/service';
+import { getWords } from '../../service/get-words';
 
 export const INIT_WORDS = 'INIT_WORDS';
 

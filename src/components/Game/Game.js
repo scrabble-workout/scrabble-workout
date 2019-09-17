@@ -9,7 +9,7 @@ import { Result } from './Result/Result';
 
 import { WORD_LENGTH } from '../../constants/constants';
 import { shuffleArray, generateID } from '../../helpers';
-import { initWords } from '../../store/actions/words';
+import { initWords } from '../../store/actions/init-words';
 import { submitAnswer } from '../../store/actions/answer';
 
 class GameView extends Component {
