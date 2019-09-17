@@ -1,16 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import 'normalize-css/normalize.css';
 
 import './index.scss';
 import { App } from './App';
 import * as serviceWorker from './serviceWorker';
-import { reducer } from './store/reducers/init-game';
+import { wordsReducer } from './store/reducers/words';
+import { answerReducer } from './store/reducers/answer';
+
+const rootReducer = combineReducers({
+    words: wordsReducer,
+    answer: answerReducer,
+});
 
 const store = createStore(
-    reducer,
+    rootReducer,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
 

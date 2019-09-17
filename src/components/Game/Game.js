@@ -9,25 +9,30 @@ import { Result } from './Result/Result';
 
 import { WORD_LENGTH } from '../../constants/constants';
 import { shuffleArray, generateID } from '../../helpers';
-import { initGame } from '../../store/actions/init-game';
+import { initWords } from '../../store/actions/init-words';
+import { submitAnswer } from '../../store/actions/answer';
 
 class GameView extends Component {
     state = {
         letters: [],
         lettersInSlots: [],
-        gameWon: undefined,
     };
 
     componentDidMount() {
         const { dispatch } = this.props;
-        dispatch(initGame());
+        dispatch(initWords());
     }
 
     componentDidUpdate(prevProps) {
-        const { correctWords } = this.props;
-        if (correctWords !== prevProps.correctWords) {
-            this.initLetters(correctWords);
+        const { words } = this.props;
+        if (words !== prevProps.words) {
+            this.initLetters(words);
         }
+    }
+
+    componentWillUnmount() {
+        const { dispatch } = this.props;
+        dispatch(submitAnswer(''));
     }
 
     initLetters = (words) => {
@@ -54,6 +59,7 @@ class GameView extends Component {
     };
 
     handleLetterClick = (id) => {
+        const { dispatch } = this.props;
         const { letters, lettersInSlots } = this.state;
         const letterSelected = letters
             .find((el) => el.id === id);
@@ -65,7 +71,7 @@ class GameView extends Component {
             lettersInSlots: updatedLettersInSlots,
         }, () => {
             if (updatedLettersInSlots.length === WORD_LENGTH) {
-                this.checkResult();
+                dispatch(submitAnswer(this.joinLetters(updatedLettersInSlots)));
             }
         });
     };
@@ -87,18 +93,9 @@ class GameView extends Component {
 
     joinLetters = (arr) => arr.reduce((a, b) => a + b.value, '');
 
-    checkResult = () => {
-        const { correctWords } = this.props;
-        const { lettersInSlots } = this.state;
-        const result = this.joinLetters(lettersInSlots);
-
-        this.setState({
-            gameWon: correctWords.includes(result),
-        });
-    };
-
     render() {
-        const { letters, lettersInSlots, gameWon } = this.state;
+        const { answer } = this.props;
+        const { letters, lettersInSlots } = this.state;
 
         return (
             <main className={classes.Game}>
@@ -107,14 +104,14 @@ class GameView extends Component {
                     clicked={this.handleSlotClick}
                 />
                 {
-                    gameWon === undefined
+                    !answer
                         ? (
                             <Letters
                                 letters={letters}
                                 clicked={this.handleLetterClick}
                             />
                         )
-                        : <Result gameWon={gameWon} />
+                        : <Result />
                 }
             </main>
         );
@@ -123,10 +120,14 @@ class GameView extends Component {
 
 GameView.propTypes = {
     dispatch: PropTypes.func.isRequired,
-    correctWords: PropTypes.array.isRequired,
+    words: PropTypes.array.isRequired,
+    answer: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({ correctWords }) => ({ correctWords });
+const mapStateToProps = ({
+    words,
+    answer,
+}) => ({ words, answer });
 
 const Game = connect(mapStateToProps)(GameView);
 export { Game };

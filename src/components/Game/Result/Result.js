@@ -2,26 +2,35 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-const ResultView = ({ gameWon, correctWords }) => (
-    <div>
-        {
-            (gameWon)
-                ? 'gratulacje, wygrałeś'
-                : (
-                    `nie udało się, może następnym razem.
-                    poprawne słowa to:
-                    ${correctWords.map((word) => word.toUpperCase()).join(', ')}`
-                )
-        }
-    </div>
-);
+const ResultView = ({ words, answer }) => {
+    const isAnswerCorrect = () => words.includes(answer);
 
-ResultView.propTypes = {
-    gameWon: PropTypes.bool.isRequired,
-    correctWords: PropTypes.array.isRequired,
+    return (
+        <div>
+            {
+                (isAnswerCorrect())
+                    ? 'gratulacje, wygrałeś'
+                    : (
+                        `nie udało się, może następnym razem.
+                        poprawne słowa to:
+                        ${words
+                            .map((word) => word.toUpperCase())
+                            .join(', ')}`
+                    )
+            }
+        </div>
+    );
 };
 
-const mapStateToProps = ({ correctWords }) => ({ correctWords });
+ResultView.propTypes = {
+    words: PropTypes.array.isRequired,
+    answer: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = ({
+    words,
+    answer,
+}) => ({ words, answer });
 
 const Result = connect(mapStateToProps)(ResultView);
 export { Result };
