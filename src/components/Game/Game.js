@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import classes from './Game.scss';
 import { Slots } from './Slots/Slots';
 import { Letters } from './Letters/Letters';
+import { Submit } from './Submit/Submit';
 import { Result } from './Result/Result';
 
 import { WORD_LENGTH } from '../../constants/constants';
@@ -16,6 +17,7 @@ class GameView extends Component {
     state = {
         letters: [],
         lettersInSlots: [],
+        submitVisible: false,
     };
 
     componentDidMount() {
@@ -59,7 +61,6 @@ class GameView extends Component {
     };
 
     handleLetterClick = (id) => {
-        const { dispatch } = this.props;
         const { letters, lettersInSlots } = this.state;
         const letterSelected = letters
             .find((el) => el.id === id);
@@ -71,7 +72,9 @@ class GameView extends Component {
             lettersInSlots: updatedLettersInSlots,
         }, () => {
             if (updatedLettersInSlots.length === WORD_LENGTH) {
-                dispatch(submitAnswer(this.joinLetters(updatedLettersInSlots)));
+                this.setState({
+                    submitVisible: true,
+                });
             }
         });
     };
@@ -91,11 +94,36 @@ class GameView extends Component {
         });
     };
 
+    onSubmit = () => {
+        const { lettersInSlots } = this.state;
+        const { dispatch } = this.props;
+        dispatch(submitAnswer(this.joinLetters(lettersInSlots)));
+    };
+
+    onSubmitCancel = () => {
+        this.setState({
+            submitVisible: false,
+        });
+    };
+
     joinLetters = (arr) => arr.reduce((a, b) => a + b.value, '');
 
     render() {
         const { answer } = this.props;
-        const { letters, lettersInSlots } = this.state;
+        const { letters, lettersInSlots, submitVisible } = this.state;
+        const lettersOrSubmit = !submitVisible
+            ? (
+                <Letters
+                    letters={letters}
+                    clicked={this.handleLetterClick}
+                />
+            )
+            : (
+                <Submit
+                    onSubmit={this.onSubmit}
+                    onSubmitCancel={this.onSubmitCancel}
+                />
+            );
 
         return (
             <main className={classes.Game}>
@@ -104,14 +132,7 @@ class GameView extends Component {
                     clicked={this.handleSlotClick}
                 />
                 {
-                    !answer
-                        ? (
-                            <Letters
-                                letters={letters}
-                                clicked={this.handleLetterClick}
-                            />
-                        )
-                        : <Result />
+                    !answer ? lettersOrSubmit : <Result />
                 }
             </main>
         );
