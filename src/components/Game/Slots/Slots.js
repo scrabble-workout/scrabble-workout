@@ -2,11 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import classes from './Slots.scss';
-
 import { WORD_LENGTH } from '../../../constants/constants';
 
-
-const Slots = ({ lettersInSlots, clicked }) => (
+const Slots = ({ lettersInSlots }) => (
     <section className={classes.SlotsSection}>
         <ul className={classes.Slots}>
 
@@ -17,7 +15,7 @@ const Slots = ({ lettersInSlots, clicked }) => (
                     <li key={index} className={classes.Slot}>
                         {letter
                             ? (
-                                <span onClick={() => clicked(letter.id, index)}>
+                                <span>
                                     {letter.value}
                                 </span>
                             )
@@ -31,11 +29,6 @@ const Slots = ({ lettersInSlots, clicked }) => (
 
 Slots.propTypes = {
     lettersInSlots: PropTypes.array.isRequired,
-    clicked: PropTypes.func,
-};
-
-Slots.defaultProps = {
-    clicked: () => {},
 };
 
 export { Slots };

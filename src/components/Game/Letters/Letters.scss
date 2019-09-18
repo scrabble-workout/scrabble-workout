@@ -1,5 +1,6 @@
-@import "../../../styles/abstracts/variables";
+@import "../../../styles/abstracts/breakpoints";
 @import "../../../styles/abstracts/mixins";
+@import "../../../styles/abstracts/variables";
 
 .Letters {
     display: flex;
@@ -49,4 +50,10 @@
 .LetterButton:disabled {
     background-color: $color-gray-bg;
     color: $color-lightgray-font;
+}
+
+@include breakpoint($largeMobile) {
+    .Letters {
+        grid-column: 1 / -1;
+    }
 }

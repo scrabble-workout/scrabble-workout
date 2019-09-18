@@ -1,3 +1,4 @@
+@import "../../../styles/abstracts/breakpoints";
 @import "../../../styles/abstracts/variables";
 
 .SlotsSection {
@@ -20,4 +21,11 @@
     font-size: 40px;
     line-height: $slots-height;
     box-shadow: 0 -2px 0 0 $color-black inset;
+}
+
+@include breakpoint($tablet) {
+    .SlotsSection {
+        position: relative;
+        left: calc((#{$backspace-width} + #{$game-grid-gap}) / 2);
+    }
 }
