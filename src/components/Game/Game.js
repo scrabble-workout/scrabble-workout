@@ -102,7 +102,7 @@ class GameView extends Component {
                 />
                 <Backspace
                     clicked={this.handleBackspaceClick}
-                    lettersInSlotsLength={lettersInSlots.length}
+                    areSlotsEmpty={lettersInSlots.length === 0}
                 />
                 {
                     !answer

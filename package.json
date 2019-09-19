@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "@babel/core": "7.5.5",
+    "@fortawesome/fontawesome-free": "5.11.1",
     "@svgr/webpack": "4.3.2",
     "@typescript-eslint/eslint-plugin": "1.13.0",
     "@typescript-eslint/parser": "1.13.0",
@@ -143,7 +144,6 @@
     ]
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.11.0",
     "eslint-config-airbnb": "^18.0.1",
     "stylelint": "^10.1.0",
     "stylelint-config-standard": "^18.3.0",

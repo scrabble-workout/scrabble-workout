@@ -1,22 +1,14 @@
-:global {
-    @import "@fortawesome/fontawesome-free/scss/fontawesome";
-    @import "@fortawesome/fontawesome-free/scss/solid";
-}
-
 @import "../../../styles/abstracts/breakpoints";
 @import "../../../styles/abstracts/variables";
 
-.Backspace {
+.BackspaceBtn {
     justify-self: self-end;
-}
-
-.Button {
     width: $backspace-width;
     height: $backspace-height;
     border: none;
     background: transparent;
-    cursor: pointer;
     outline: none;
+    transition: 0.3s opacity;
 
     &:disabled {
         opacity: 0.3;
@@ -28,13 +20,13 @@
 }
 
 @include breakpoint($largeMobile) {
-    .Backspace {
+    .BackspaceBtn {
         align-self: self-end;
     }
 }
 
 @include breakpoint($tablet) {
-    .Backspace {
+    .BackspaceBtn {
         position: relative;
         left: calc((#{$backspace-width} + #{$game-grid-gap}) / 2);
     }
