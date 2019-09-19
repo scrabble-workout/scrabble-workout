@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import classes from './Submit.scss';
 
-const Submit = ({ onSubmit, onSubmitCancel }) => (
+const Submit = ({ onSubmit, onCancel }) => (
     <section className={classes.Submit}>
         <button
             className={classes.Button}
@@ -14,7 +14,7 @@ const Submit = ({ onSubmit, onSubmitCancel }) => (
         </button>
         <button
             className={classes.Button}
-            onClick={onSubmitCancel}
+            onClick={onCancel}
             type="button"
         >
             Anuluj
@@ -24,12 +24,12 @@ const Submit = ({ onSubmit, onSubmitCancel }) => (
 
 Submit.propTypes = {
     onSubmit: PropTypes.func,
-    onSubmitCancel: PropTypes.func,
+    onCancel: PropTypes.func,
 };
 
 Submit.defaultProps = {
     onSubmit: () => {},
-    onSubmitCancel: () => {},
+    onCancel: () => {},
 };
 
 export { Submit };

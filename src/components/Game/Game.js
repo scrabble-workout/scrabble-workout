@@ -100,7 +100,7 @@ class GameView extends Component {
         dispatch(submitAnswer(this.joinLetters(lettersInSlots)));
     };
 
-    onSubmitCancel = () => {
+    onCancel = () => {
         this.setState({
             submitVisible: false,
         });
@@ -121,7 +121,7 @@ class GameView extends Component {
             : (
                 <Submit
                     onSubmit={this.onSubmit}
-                    onSubmitCancel={this.onSubmitCancel}
+                    onCancel={this.onCancel}
                 />
             );
 
