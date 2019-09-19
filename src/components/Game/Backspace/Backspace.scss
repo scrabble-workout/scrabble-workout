@@ -1,0 +1,33 @@
+@import "../../../styles/abstracts/breakpoints";
+@import "../../../styles/abstracts/variables";
+
+.BackspaceBtn {
+    justify-self: self-end;
+    width: $backspace-width;
+    height: $backspace-height;
+    border: none;
+    background: transparent;
+    outline: none;
+    transition: 0.3s opacity;
+
+    &:disabled {
+        opacity: 0.3;
+    }
+
+    &:active {
+        opacity: 0.3;
+    }
+}
+
+@include breakpoint($largeMobile) {
+    .BackspaceBtn {
+        align-self: self-end;
+    }
+}
+
+@include breakpoint($tablet) {
+    .BackspaceBtn {
+        position: relative;
+        left: calc((#{$backspace-width} + #{$game-grid-gap}) / 2);
+    }
+}

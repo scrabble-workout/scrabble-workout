@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import classes from './Game.scss';
 import { Slots } from './Slots/Slots';
+import { Backspace } from './Backspace/Backspace';
 import { Letters } from './Letters/Letters';
 import { Submit } from './Submit/Submit';
 import { Result } from './Result/Result';
@@ -79,14 +80,11 @@ class GameView extends Component {
         });
     };
 
-    handleSlotClick = (id, i) => {
+    handleBackspaceClick = () => {
         const { lettersInSlots } = this.state;
+        const lastLetterID = lettersInSlots[lettersInSlots.length - 1].id;
 
-        if (i !== lettersInSlots.length - 1) {
-            return;
-        }
-
-        this.toggleLettersActiveState(id);
+        this.toggleLettersActiveState(lastLetterID);
         lettersInSlots.pop();
 
         this.setState({
@@ -129,7 +127,10 @@ class GameView extends Component {
             <main className={classes.Game}>
                 <Slots
                     lettersInSlots={lettersInSlots}
-                    clicked={this.handleSlotClick}
+                />
+                <Backspace
+                    clicked={this.handleBackspaceClick}
+                    areSlotsEmpty={lettersInSlots.length === 0}
                 />
                 {
                     !answer ? lettersOrSubmit : <Result />

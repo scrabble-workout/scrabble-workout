@@ -1,9 +1,20 @@
+@import "../../styles/abstracts/breakpoints";
 @import "../../styles/abstracts/variables";
 
 .Game {
     display: grid;
-    grid-template-rows: $slots-height auto;
-    min-height: calc(100vh - 50px);
-    padding: 10% 8px;
+    grid-template-rows: $slots-height $backspace-height auto;
+    grid-gap: $game-grid-gap;
+    max-width: 500px;
+    min-height: calc(100vh - #{$header-height});
+    padding: 10% 15px;
+    margin: 0 auto;
     text-align: center;
+}
+
+@include breakpoint($largeMobile) {
+    .Game {
+        grid-template-columns: auto $backspace-width;
+        grid-template-rows: $slots-height auto;
+    }
 }
