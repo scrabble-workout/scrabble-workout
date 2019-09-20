@@ -2,8 +2,30 @@
 
 .Result {
     display: grid;
-    grid-template-rows: 3fr 2fr;
+    grid-template-rows: repeat(4, 1fr);
     min-height: calc(100vh - 50px);
+}
+
+.Answer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.AnswerWord {
+    font-size: 30px;
+}
+
+.SectionHeader {
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.ResultIcon {
+    display: block;
+    margin-bottom: 5px;
 }
 
 .ResultMessage {
@@ -15,10 +37,25 @@
     text-align: center;
 }
 
+.Other {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.WordList {
+    list-style: none;
+}
+
+.WordListItem {
+    font-size: 20px;
+}
+
 .PlayAgain {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-bottom: 10%;
 }
 
 .PlayAgainBtn {

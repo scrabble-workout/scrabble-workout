@@ -103,19 +103,21 @@ class GameView extends Component {
 
     render() {
         const { letters, lettersInSlots, isSubmitVisible } = this.state;
-        const lettersOrSubmit = !isSubmitVisible
-            ? (
-                <Letters
-                    letters={letters}
-                    clicked={this.handleLetterClick}
-                />
-            )
-            : (
+
+        let lettersOrSubmit = (
+            <Letters
+                letters={letters}
+                clicked={this.handleLetterClick}
+            />
+        );
+        if (isSubmitVisible) {
+            lettersOrSubmit = (
                 <Submit
                     onSubmit={this.onSubmit}
                     onCancel={this.onCancel}
                 />
             );
+        }
 
         return (
             <main className={classes.Game}>
