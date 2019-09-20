@@ -1,0 +1,27 @@
+@import "../../../styles/abstracts/mixins";
+
+.Result {
+    display: grid;
+    grid-template-rows: 3fr 2fr;
+    min-height: calc(100vh - 50px);
+}
+
+.ResultMessage {
+    justify-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 80%;
+    text-align: center;
+}
+
+.PlayAgain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.PlayAgainBtn {
+    @include button;
+    @include button-regular-width;
+}

@@ -1,3 +1,5 @@
+@import "../../../styles/abstracts/breakpoints";
+@import "../../../styles/abstracts/mixins";
 @import "../../../styles/abstracts/variables";
 
 .Submit {
@@ -7,15 +9,14 @@
 }
 
 .Button {
-    width: 120px;
-    padding: 15px 0;
-    margin: 0 10px;
-    border: 1px solid $color-black;
-    border-radius: 3px;
-    background-color: transparent;
-    outline: none;
+    @include button;
+    @include button-small;
 
-    &:active {
-        background-color: $color-gray-bg;
+    margin: 0 10px;
+}
+
+@include breakpoint($largeMobile) {
+    .Submit {
+        grid-column: 1 / -1;
     }
 }
