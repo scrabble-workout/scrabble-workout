@@ -54,9 +54,9 @@ class ResultView extends Component {
             <main className={classes.Result}>
                 {redirect}
 
-                <div className={classes.Answer}>
+                <div className={classes.AnswerSection}>
                     <h6 className={classes.SectionHeader}>Twoje słowo:</h6>
-                    <div className={classes.AnswerWord}>
+                    <div className={classes.Answer}>
                         {answer.toUpperCase()}
                     </div>
                 </div>
@@ -65,13 +65,13 @@ class ResultView extends Component {
                     {
                         (this.isAnswerCorrect())
                             ? (
-                                <h6 className={classes.SectionHeader}>
+                                <h6 className={classes.Message}>
                                     <i className={classNames('fas fa-check fa-3x', classes.ResultIcon)} />
                                     Gratulacje, jest to poprawna odpowiedź!
                                 </h6>
                             )
                             : (
-                                <h6 className={classes.SectionHeader}>
+                                <h6 className={classes.Message}>
                                     <i className={classNames('fas fa-times fa-3x', classes.ResultIcon)} />
                                     Nie udało się, może następnym razem.
                                 </h6>

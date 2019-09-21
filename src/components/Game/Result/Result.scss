@@ -6,14 +6,14 @@
     min-height: calc(100vh - 50px);
 }
 
-.Answer {
+.AnswerSection {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.AnswerWord {
+.Answer {
     font-size: 30px;
 }
 
@@ -35,6 +35,12 @@
     align-items: center;
     max-width: 80%;
     text-align: center;
+}
+
+.Message {
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 900;
 }
 
 .Other {
