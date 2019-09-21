@@ -143,10 +143,7 @@ GameView.propTypes = {
     history: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({
-    words,
-    answer,
-}) => ({ words, answer });
+const mapStateToProps = ({ words }) => ({ words });
 
 const Game = connect(mapStateToProps)(GameView);
 export { Game };

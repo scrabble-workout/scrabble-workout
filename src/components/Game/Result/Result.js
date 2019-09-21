@@ -31,7 +31,11 @@ class ResultView extends Component {
             redirect = <Redirect to="/game" />;
         }
 
-        let other = 'Słowo nie ma anagramów';
+        let other = (
+            <h6 className={classes.SectionHeader}>
+                Słowo nie ma anagramów
+            </h6>
+        );
         if (words.length > 1 || (words.length === 1 && !this.isAnswerCorrect())) {
             const otherItems = words
                 .filter((word) => word !== answer)
@@ -108,5 +112,7 @@ ResultView.defaultProps = {
     history: {},
 };
 
-const Result = connect()(ResultView);
+const mapStateToProps = ({ words, answer }) => ({ words, answer });
+
+const Result = connect(mapStateToProps)(ResultView);
 export { Result };

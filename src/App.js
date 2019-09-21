@@ -10,16 +10,16 @@ import { Result } from './components/Game/Result/Result';
 
 const AppView = ({ words, answer }) => (
     <BrowserRouter basename="/scrabble-workout">
-        <>
+        <div>
             <Header />
             <Route exact path="/" component={Home} />
             <Route exact path="/game" component={Game} />
             <Route
                 path="/game/result"
-                /* eslint-disable-next-line no-undef,react/jsx-props-no-spreading */
+                /* eslint-disable-next-line react/jsx-props-no-spreading */
                 render={(props) => <Result {...props} words={words} answer={answer} />}
             />
-        </>
+        </div>
     </BrowserRouter>
 );
 
