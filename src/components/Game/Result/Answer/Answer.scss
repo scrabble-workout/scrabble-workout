@@ -1,0 +1,16 @@
+.AnswerSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.AnswerHeader {
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.Answer {
+    font-size: 30px;
+}

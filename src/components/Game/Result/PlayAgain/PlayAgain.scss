@@ -1,0 +1,13 @@
+@import "../../../../styles/abstracts/mixins";
+
+.PlayAgainSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 10%;
+}
+
+.PlayAgainBtn {
+    @include button;
+    @include button-regular-width;
+}

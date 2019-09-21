@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import classNames from 'classnames';
 
 import classes from './Result.scss';
 import { submitAnswer } from '../../../store/actions/answer';
+import { Answer } from './Answer/Answer';
+import { ResultMessage } from './ResultMessage/ResultMessage';
+import { OtherWords } from './OtherWords/OtherWords';
+import { PlayAgain } from './PlayAgain/PlayAgain';
 
 class ResultView extends Component {
     componentWillUnmount() {
@@ -26,76 +29,19 @@ class ResultView extends Component {
     render() {
         const { words, answer } = this.props;
 
-        let redirect = null;
-        if (!answer) {
-            redirect = <Redirect to="/game" />;
-        }
-
-        let other = (
-            <h6 className={classes.SectionHeader}>
-                Słowo nie ma anagramów
-            </h6>
-        );
-        if (words.length > 1 || (words.length === 1 && !this.isAnswerCorrect())) {
-            const otherItems = words
-                .filter((word) => word !== answer)
-                .map((word) => (
-                    <li className={classes.WordListItem} key={word}>
-                        {word.toUpperCase()}
-                    </li>
-                ));
-            other = (
-                <>
-                    <h6 className={classes.SectionHeader}>
-                        {this.isAnswerCorrect() ? 'Inne możliwe słowa:' : 'Poprawne słowa to:'}
-                    </h6>
-                    <ul className={classes.WordList}>{otherItems}</ul>
-                </>
-            );
-        }
+        const otherWords = words.filter((word) => word !== answer);
 
         return (
             <main className={classes.Result}>
-                {redirect}
+                {!answer ? <Redirect to="/game" /> : null}
 
-                <div className={classes.AnswerSection}>
-                    <h6 className={classes.SectionHeader}>Twoje słowo:</h6>
-                    <div className={classes.Answer}>
-                        {answer.toUpperCase()}
-                    </div>
-                </div>
-
-                <div className={classes.ResultMessage}>
-                    {
-                        (this.isAnswerCorrect())
-                            ? (
-                                <h6 className={classes.Message}>
-                                    <i className={classNames('fas fa-check fa-3x', classes.ResultIcon)} />
-                                    Gratulacje, jest to poprawna odpowiedź!
-                                </h6>
-                            )
-                            : (
-                                <h6 className={classes.Message}>
-                                    <i className={classNames('fas fa-times fa-3x', classes.ResultIcon)} />
-                                    Nie udało się, może następnym razem.
-                                </h6>
-                            )
-                    }
-                </div>
-
-                <div className={classes.Other}>
-                    {other}
-                </div>
-
-                <div className={classes.PlayAgain}>
-                    <button
-                        className={classes.PlayAgainBtn}
-                        onClick={this.handlePlayAgainClick}
-                        type="button"
-                    >
-                        Zagraj ponownie
-                    </button>
-                </div>
+                <Answer answer={answer.toUpperCase()} />
+                <ResultMessage isAnswerCorrect={this.isAnswerCorrect()} />
+                <OtherWords
+                    isAnswerCorrect={this.isAnswerCorrect()}
+                    otherWords={otherWords}
+                />
+                <PlayAgain clicked={this.handlePlayAgainClick} />
             </main>
         );
     }

@@ -90,7 +90,7 @@ class GameView extends Component {
         const { lettersInSlots } = this.state;
         const { dispatch, history } = this.props;
         dispatch(submitAnswer(this.joinLetters(lettersInSlots)));
-        history.replace('/game/result');
+        history.replace('/result');
     };
 
     onCancel = () => {
@@ -104,21 +104,6 @@ class GameView extends Component {
     render() {
         const { letters, lettersInSlots, isSubmitVisible } = this.state;
 
-        let lettersOrSubmit = (
-            <Letters
-                letters={letters}
-                clicked={this.handleLetterClick}
-            />
-        );
-        if (isSubmitVisible) {
-            lettersOrSubmit = (
-                <Submit
-                    onSubmit={this.onSubmit}
-                    onCancel={this.onCancel}
-                />
-            );
-        }
-
         return (
             <main className={classes.Game}>
                 <Slots
@@ -126,11 +111,22 @@ class GameView extends Component {
                 />
                 <Backspace
                     clicked={this.handleBackspaceClick}
-                    areSlotsEmpty={lettersInSlots.length === 0}
-                    isSubmitVisible={isSubmitVisible}
+                    disabled={lettersInSlots.length === 0 || isSubmitVisible}
                 />
                 {
-                    lettersOrSubmit
+                    !isSubmitVisible
+                        ? (
+                            <Letters
+                                letters={letters}
+                                clicked={this.handleLetterClick}
+                            />
+                        )
+                        : (
+                            <Submit
+                                onSubmit={this.onSubmit}
+                                onCancel={this.onCancel}
+                            />
+                        )
                 }
             </main>
         );
