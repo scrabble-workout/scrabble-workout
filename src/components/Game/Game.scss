@@ -3,11 +3,11 @@
 
 .Game {
     display: grid;
-    grid-template-rows: $slots-height $backspace-height auto;
+    grid-template-rows: 40px $slots-height $backspace-height auto;
     grid-gap: $game-grid-gap;
     max-width: 500px;
     min-height: calc(100vh - #{$header-height});
-    padding: 10% 15px;
+    padding: 5% 15px 10%;
     margin: 0 auto;
     text-align: center;
 }

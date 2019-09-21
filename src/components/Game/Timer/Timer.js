@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { computeMinutes, computeSeconds, printTwoDigits } from '../../../helpers';
+
 class Timer extends Component {
     state = {
-        seconds: 3,
+        // 60 sec. only for testing reasons. it's gonna be more :)
+        seconds: 60,
     };
 
     componentDidMount() {
@@ -20,10 +23,8 @@ class Timer extends Component {
         this.interval = setInterval(() => {
             const { seconds } = this.state;
 
-            if (seconds > 1) {
-                this.decrement();
-            } else {
-                this.decrement();
+            this.decrement();
+            if (seconds <= 1) {
                 this.stopTimer();
                 timeIsOver();
             }
@@ -40,24 +41,17 @@ class Timer extends Component {
         clearInterval(this.interval);
     };
 
-    printTwoDigits = (number) => number.toString().padStart(2, '0');
-
-    computeSeconds = (seconds) => seconds % 60;
-
-    computeMinutes = (seconds) => (seconds - (seconds % 60)) / 60;
-
     render() {
         const { seconds } = this.state;
-        console.log(seconds);
 
         return (
             <div>
                 <span>
-                    {this.computeMinutes(seconds)}
+                    {computeMinutes(seconds)}
                 </span>
                 <span>:</span>
                 <span>
-                    {this.printTwoDigits(this.computeSeconds(seconds))}
+                    {printTwoDigits(computeSeconds(seconds))}
                 </span>
             </div>
         );
