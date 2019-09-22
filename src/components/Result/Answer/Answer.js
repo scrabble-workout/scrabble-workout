@@ -4,10 +4,18 @@ import classes from './Answer.scss';
 
 const Answer = ({ answer }) => (
     <div className={classes.AnswerSection}>
-        <h2 className={classes.AnswerHeader}>Twoje słowo:</h2>
-        <div className={classes.Answer}>
-            {answer}
-        </div>
+        <h2 className={classes.AnswerHeader}>
+            {answer ? 'Twoje słowo:' : 'Nie ułożyłeś żadnego słowa'}
+        </h2>
+        {
+            answer
+                ? (
+                    <div className={classes.Answer}>
+                        {answer}
+                    </div>
+                )
+                : null
+        }
     </div>
 );
 

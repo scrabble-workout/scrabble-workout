@@ -19,7 +19,6 @@ class GameView extends Component {
         letters: [],
         lettersInSlots: [],
         isSubmitVisible: false,
-        on: true,
     };
 
     componentDidMount() {
@@ -88,13 +87,6 @@ class GameView extends Component {
         });
     };
 
-    timeIsOver = () => {
-        this.setState({
-            on: false,
-        });
-        this.submit();
-    };
-
     submit = () => {
         const { lettersInSlots } = this.state;
         const { dispatch, history } = this.props;
@@ -112,10 +104,14 @@ class GameView extends Component {
         });
     };
 
+    timeIsOver = () => {
+        this.submit();
+    };
+
     joinLetters = (arr) => arr.reduce((a, b) => a + b.value, '');
 
     render() {
-        const { letters, lettersInSlots, isSubmitVisible, on } = this.state;
+        const { letters, lettersInSlots, isSubmitVisible } = this.state;
 
         return (
             <main className={classes.Game}>

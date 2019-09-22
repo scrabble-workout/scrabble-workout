@@ -1,0 +1,7 @@
+@import "../../../styles/abstracts/breakpoints";
+
+@include breakpoint($largeMobile) {
+    .Timer {
+        grid-column: 1 / -1;
+    }
+}

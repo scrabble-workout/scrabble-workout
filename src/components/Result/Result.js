@@ -13,7 +13,7 @@ import { PlayAgain } from './PlayAgain/PlayAgain';
 class ResultView extends Component {
     componentWillUnmount() {
         const { dispatch } = this.props;
-        dispatch(submitAnswer(''));
+        dispatch(submitAnswer(null));
     }
 
     isAnswerCorrect = () => {
@@ -25,7 +25,7 @@ class ResultView extends Component {
         const { words, answer } = this.props;
         const otherWords = words.filter((word) => word !== answer);
 
-        if (!answer) {
+        if (typeof answer !== 'string') {
             return <Redirect to="/" />;
         }
 
@@ -46,8 +46,12 @@ class ResultView extends Component {
 
 ResultView.propTypes = {
     words: PropTypes.array.isRequired,
-    answer: PropTypes.string.isRequired,
+    answer: PropTypes.string,
     dispatch: PropTypes.func.isRequired,
+};
+
+ResultView.defaultProps = {
+    answer: null,
 };
 
 const mapStateToProps = ({ words, answer }) => ({ words, answer });

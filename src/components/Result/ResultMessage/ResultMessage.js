@@ -17,7 +17,7 @@ const ResultMessage = ({ isAnswerCorrect }) => (
                 : (
                     <h2 className={classes.MessageHeader}>
                         <i className={classNames('fas fa-times fa-3x', classes.MessageIcon)} />
-                        Nie udało się, może następnym razem.
+                        Nie udało się, może następnym razem
                     </h2>
                 )
         }

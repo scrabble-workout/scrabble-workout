@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import classes from './Timer.scss';
 import { computeMinutes, computeSeconds, printTwoDigits } from '../../../helpers';
 
 class Timer extends Component {
@@ -45,7 +46,7 @@ class Timer extends Component {
         const { seconds } = this.state;
 
         return (
-            <div>
+            <div className={classes.Timer}>
                 <span>
                     {computeMinutes(seconds)}
                 </span>
