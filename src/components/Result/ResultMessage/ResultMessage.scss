@@ -1,0 +1,19 @@
+.MessageSection {
+    justify-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 80%;
+    text-align: center;
+}
+
+.MessageIcon {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.MessageHeader {
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 900;
+}

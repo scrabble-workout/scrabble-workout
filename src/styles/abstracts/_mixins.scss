@@ -1,7 +1,32 @@
+@import "variables";
+
 @mixin letter($index) {
     grid-area: l#{$index};
 
     @if $index != 3 and $index != 4 and $index != 5 {
         transform: translateX(40px);
     }
+}
+
+@mixin button {
+    padding: 15px 0;
+    border: 1px solid $color-black;
+    border-radius: 3px;
+    background-color: transparent;
+    text-align: center;
+    outline: none;
+    transition: 0.3s background-color;
+
+    &:hover,
+    &:active {
+        background-color: $color-gray-bg;
+    }
+}
+
+@mixin button-regular-width {
+    width: 150px;
+}
+
+@mixin button-small {
+    width: 120px;
 }

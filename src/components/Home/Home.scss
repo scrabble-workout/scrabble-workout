@@ -1,3 +1,4 @@
+@import "../../styles/abstracts/mixins";
 @import "../../styles/abstracts/variables";
 
 .Home {
@@ -25,11 +26,10 @@
 }
 
 .StartGameAction {
+    @include button;
+    @include button-regular-width;
+
     display: inline-block;
-    width: 150px;
-    padding: 15px 0;
-    border: 1px solid $color-darkgray;
-    border-radius: 3px;
     color: inherit;
     font-family: inherit;
     text-decoration: none;

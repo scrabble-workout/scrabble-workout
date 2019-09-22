@@ -7,7 +7,6 @@ import { Slots } from './Slots/Slots';
 import { Backspace } from './Backspace/Backspace';
 import { Letters } from './Letters/Letters';
 import { Submit } from './Submit/Submit';
-import { Result } from './Result/Result';
 
 import { WORD_LENGTH } from '../../constants/constants';
 import { shuffleArray, generateID } from '../../helpers';
@@ -18,7 +17,7 @@ class GameView extends Component {
     state = {
         letters: [],
         lettersInSlots: [],
-        submitVisible: false,
+        isSubmitVisible: false,
     };
 
     componentDidMount() {
@@ -31,11 +30,6 @@ class GameView extends Component {
         if (words !== prevProps.words) {
             this.initLetters(words);
         }
-    }
-
-    componentWillUnmount() {
-        const { dispatch } = this.props;
-        dispatch(submitAnswer(''));
     }
 
     initLetters = (words) => {
@@ -74,7 +68,7 @@ class GameView extends Component {
         }, () => {
             if (updatedLettersInSlots.length === WORD_LENGTH) {
                 this.setState({
-                    submitVisible: true,
+                    isSubmitVisible: true,
                 });
             }
         });
@@ -94,34 +88,21 @@ class GameView extends Component {
 
     onSubmit = () => {
         const { lettersInSlots } = this.state;
-        const { dispatch } = this.props;
+        const { dispatch, history } = this.props;
         dispatch(submitAnswer(this.joinLetters(lettersInSlots)));
+        history.replace('/result');
     };
 
     onCancel = () => {
         this.setState({
-            submitVisible: false,
+            isSubmitVisible: false,
         });
     };
 
     joinLetters = (arr) => arr.reduce((a, b) => a + b.value, '');
 
     render() {
-        const { answer } = this.props;
-        const { letters, lettersInSlots, submitVisible } = this.state;
-        const lettersOrSubmit = !submitVisible
-            ? (
-                <Letters
-                    letters={letters}
-                    clicked={this.handleLetterClick}
-                />
-            )
-            : (
-                <Submit
-                    onSubmit={this.onSubmit}
-                    onCancel={this.onCancel}
-                />
-            );
+        const { letters, lettersInSlots, isSubmitVisible } = this.state;
 
         return (
             <main className={classes.Game}>
@@ -130,10 +111,22 @@ class GameView extends Component {
                 />
                 <Backspace
                     clicked={this.handleBackspaceClick}
-                    areSlotsEmpty={lettersInSlots.length === 0}
+                    disabled={lettersInSlots.length === 0 || isSubmitVisible}
                 />
                 {
-                    !answer ? lettersOrSubmit : <Result />
+                    !isSubmitVisible
+                        ? (
+                            <Letters
+                                letters={letters}
+                                clicked={this.handleLetterClick}
+                            />
+                        )
+                        : (
+                            <Submit
+                                onSubmit={this.onSubmit}
+                                onCancel={this.onCancel}
+                            />
+                        )
                 }
             </main>
         );
@@ -143,13 +136,10 @@ class GameView extends Component {
 GameView.propTypes = {
     dispatch: PropTypes.func.isRequired,
     words: PropTypes.array.isRequired,
-    answer: PropTypes.string.isRequired,
+    history: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({
-    words,
-    answer,
-}) => ({ words, answer });
+const mapStateToProps = ({ words }) => ({ words });
 
 const Game = connect(mapStateToProps)(GameView);
 export { Game };

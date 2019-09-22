@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classes from './Backspace.scss';
 
-const Backspace = ({ clicked, areSlotsEmpty }) => (
+const Backspace = ({ clicked, disabled }) => (
     <button
         onClick={clicked}
         className={classes.BackspaceBtn}
-        disabled={areSlotsEmpty}
+        disabled={disabled}
         type="button"
     >
         <i className="fas fa-backspace fa-2x" />
@@ -15,7 +15,7 @@ const Backspace = ({ clicked, areSlotsEmpty }) => (
 
 Backspace.propTypes = {
     clicked: PropTypes.func,
-    areSlotsEmpty: PropTypes.bool.isRequired,
+    disabled: PropTypes.bool.isRequired,
 };
 
 Backspace.defaultProps = {

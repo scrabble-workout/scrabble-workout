@@ -1,0 +1,7 @@
+@import "../../styles/abstracts/variables";
+
+.Result {
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    min-height: calc(100vh - #{$header-height});
+}
