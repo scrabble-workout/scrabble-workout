@@ -4,7 +4,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { Header } from './components/Header/Header';
 import { Home } from './components/Home/Home';
 import { Game } from './components/Game/Game';
-import { Result } from './components/Game/Result/Result';
+import { Result } from './components/Result/Result';
 
 const App = () => (
     <BrowserRouter basename="/scrabble-workout">
@@ -12,7 +12,7 @@ const App = () => (
             <Header />
             <Route exact path="/" component={Home} />
             <Route exact path="/game" component={Game} />
-            <Route path="/result" component={Result} />
+            <Route exact path="/result" component={Result} />
         </div>
     </BrowserRouter>
 );

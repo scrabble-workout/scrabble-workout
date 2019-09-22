@@ -1,21 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import classes from './PlayAgain.scss';
 
-const PlayAgain = ({ clicked }) => (
+const PlayAgain = () => (
     <div className={classes.PlayAgainSection}>
-        <button
+        <Link
+            to="/game"
+            replace
             className={classes.PlayAgainBtn}
-            onClick={clicked}
             type="button"
         >
             Zagraj ponownie
-        </button>
+        </Link>
     </div>
 );
-
-PlayAgain.propTypes = {
-    clicked: PropTypes.func.isRequired,
-};
 
 export { PlayAgain };

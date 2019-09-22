@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import classes from './Result.scss';
-import { submitAnswer } from '../../../store/actions/answer';
+import { submitAnswer } from '../../store/actions/answer';
 import { Answer } from './Answer/Answer';
 import { ResultMessage } from './ResultMessage/ResultMessage';
 import { OtherWords } from './OtherWords/OtherWords';
@@ -21,19 +21,16 @@ class ResultView extends Component {
         return words.includes(answer);
     };
 
-    handlePlayAgainClick = () => {
-        const { history } = this.props;
-        history.replace('/game');
-    };
-
     render() {
         const { words, answer } = this.props;
-
         const otherWords = words.filter((word) => word !== answer);
+
+        if (!answer) {
+            return <Redirect to="/" />;
+        }
 
         return (
             <main className={classes.Result}>
-                {!answer ? <Redirect to="/game" /> : null}
 
                 <Answer answer={answer.toUpperCase()} />
                 <ResultMessage isAnswerCorrect={this.isAnswerCorrect()} />
@@ -41,7 +38,7 @@ class ResultView extends Component {
                     isAnswerCorrect={this.isAnswerCorrect()}
                     otherWords={otherWords}
                 />
-                <PlayAgain clicked={this.handlePlayAgainClick} />
+                <PlayAgain />
             </main>
         );
     }
@@ -51,11 +48,6 @@ ResultView.propTypes = {
     words: PropTypes.array.isRequired,
     answer: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
-    history: PropTypes.object,
-};
-
-ResultView.defaultProps = {
-    history: {},
 };
 
 const mapStateToProps = ({ words, answer }) => ({ words, answer });

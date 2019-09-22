@@ -1,4 +1,4 @@
-@import "../../../../styles/abstracts/mixins";
+@import "../../../styles/abstracts/mixins";
 
 .PlayAgainSection {
     display: flex;
@@ -10,4 +10,9 @@
 .PlayAgainBtn {
     @include button;
     @include button-regular-width;
+
+    display: inline-block;
+    color: inherit;
+    font-family: inherit;
+    text-decoration: none;
 }
