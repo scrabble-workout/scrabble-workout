@@ -25,7 +25,7 @@ class ResultView extends Component {
         const { words, answer } = this.props;
         const otherWords = words.filter((word) => word !== answer);
 
-        if (typeof answer !== 'string') {
+        if (answer === null) {
             return <Redirect to="/" />;
         }
 

@@ -1,6 +1,6 @@
 import { words } from '../data/data';
 
-const WORD_LENGTH = 7;
-const WORDS_COUNT = words.length;
-
-export { WORD_LENGTH, WORDS_COUNT };
+export const WORD_LENGTH = 7;
+export const WORDS_COUNT = words.length;
+export const DURATION = 120000;
+export const INTERVAL = 1000;

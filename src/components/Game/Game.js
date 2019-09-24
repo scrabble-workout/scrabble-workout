@@ -90,7 +90,12 @@ class GameView extends Component {
     submit = () => {
         const { lettersInSlots } = this.state;
         const { dispatch, history } = this.props;
-        dispatch(submitAnswer(this.joinLetters(lettersInSlots)));
+
+        dispatch(submitAnswer(
+            lettersInSlots.length === WORD_LENGTH
+                ? this.joinLetters(lettersInSlots)
+                : '',
+        ));
         history.replace('/result');
     };
 

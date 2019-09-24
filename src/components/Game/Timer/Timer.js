@@ -2,15 +2,21 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import classes from './Timer.scss';
-import { computeMinutes, computeSeconds, printTwoDigits } from '../../../helpers';
+import { formatTimeLeft } from '../../../helpers';
+import { DURATION, INTERVAL } from '../../../constants/constants';
+
 
 class Timer extends Component {
     state = {
-        // 60 sec. only for testing reasons. it's gonna be more :)
-        seconds: 60,
+        timeLeft: DURATION,
     };
 
+    start = new Date().getTime();
+
     componentDidMount() {
+        this.setState({
+            timeLeft: this.getTimeLeft(new Date()),
+        });
         this.startTimer();
     }
 
@@ -18,24 +24,24 @@ class Timer extends Component {
         this.stopTimer();
     }
 
+    getTimeLeft(now) {
+        return DURATION - (now.getTime() - this.start);
+    }
+
     startTimer = () => {
         const { timeIsOver } = this.props;
 
         this.interval = setInterval(() => {
-            const { seconds } = this.state;
-
-            this.decrement();
-            if (seconds <= 1) {
-                this.stopTimer();
-                timeIsOver();
-            }
-        }, 1000);
-    };
-
-    decrement = () => {
-        this.setState((state) => ({
-            seconds: state.seconds - 1,
-        }));
+            this.setState({
+                timeLeft: this.getTimeLeft(new Date()),
+            }, () => {
+                const { timeLeft } = this.state;
+                if (timeLeft <= 0) {
+                    this.stopTimer();
+                    timeIsOver();
+                }
+            });
+        }, INTERVAL);
     };
 
     stopTimer = () => {
@@ -43,17 +49,11 @@ class Timer extends Component {
     };
 
     render() {
-        const { seconds } = this.state;
+        const { timeLeft } = this.state;
 
         return (
             <div className={classes.Timer}>
-                <span>
-                    {computeMinutes(seconds)}
-                </span>
-                <span>:</span>
-                <span>
-                    {printTwoDigits(computeSeconds(seconds))}
-                </span>
+                <span>{formatTimeLeft(timeLeft)}</span>
             </div>
         );
     }
