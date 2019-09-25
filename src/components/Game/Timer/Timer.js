@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import classes from './Timer.scss';
-import { formatTimeLeft } from '../../../helpers';
+import { formatTime } from '../../../helpers';
 import { DURATION, INTERVAL } from '../../../constants/constants';
 
 
@@ -11,29 +11,38 @@ class Timer extends Component {
         timeLeft: DURATION,
     };
 
-    start = new Date().getTime();
+    // start = new Date().getTime();
 
     componentDidMount() {
         this.setState({
-            timeLeft: this.getTimeLeft(new Date()),
+            timeLeft: this.getTimeLeft(),
         });
-        this.startTimer();
+        this.updateTimer();
     }
 
     componentWillUnmount() {
         this.stopTimer();
     }
 
-    getTimeLeft(now) {
-        return DURATION - (now.getTime() - this.start);
+    getTimeLeft() {
+        const { start } = this.state;
+        return DURATION - (new Date().getTime() - start);
     }
 
     startTimer = () => {
+        this.setState({
+            start: new Date().getTime(),
+        }, () => {
+
+        })
+    }
+
+    updateTimer = () => {
         const { timeIsOver } = this.props;
 
         this.interval = setInterval(() => {
             this.setState({
-                timeLeft: this.getTimeLeft(new Date()),
+                timeLeft: this.getTimeLeft(),
             }, () => {
                 const { timeLeft } = this.state;
                 if (timeLeft <= 0) {
@@ -53,7 +62,7 @@ class Timer extends Component {
 
         return (
             <div className={classes.Timer}>
-                <span>{formatTimeLeft(timeLeft)}</span>
+                <span>{formatTime(timeLeft)}</span>
             </div>
         );
     }
