@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import classes from './Slots.scss';
-import { WORD_LENGTH } from '../../../constants/constants';
+import { WORD_LENGTH } from '../../../config/config';
 
 const Slots = ({ lettersInSlots }) => (
     <section className={classes.SlotsSection}>

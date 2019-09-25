@@ -9,7 +9,7 @@ import { Letters } from './Letters/Letters';
 import { Submit } from './Submit/Submit';
 import { Timer } from './Timer/Timer';
 
-import { WORD_LENGTH } from '../../constants/constants';
+import { WORD_LENGTH } from '../../config/config';
 import { shuffleArray, generateID } from '../../helpers';
 import { initWords } from '../../store/actions/init-words';
 import { submitAnswer } from '../../store/actions/answer';

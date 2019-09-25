@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import classes from './Timer.scss';
-import { formatTime } from '../../../helpers';
-import { DURATION, INTERVAL } from '../../../constants/constants';
+import { formatDuration } from '../../../helpers';
+import { DURATION, INTERVAL } from '../../../config/config';
 
 
 class Timer extends Component {
@@ -11,13 +11,8 @@ class Timer extends Component {
         timeLeft: DURATION,
     };
 
-    // start = new Date().getTime();
-
     componentDidMount() {
-        this.setState({
-            timeLeft: this.getTimeLeft(),
-        });
-        this.updateTimer();
+        this.startTimer();
     }
 
     componentWillUnmount() {
@@ -33,24 +28,23 @@ class Timer extends Component {
         this.setState({
             start: new Date().getTime(),
         }, () => {
+            this.updateTimeLeft();
+            this.interval = setInterval(this.updateTimeLeft, INTERVAL);
+        });
+    };
 
-        })
-    }
-
-    updateTimer = () => {
+    updateTimeLeft = () => {
         const { timeIsOver } = this.props;
 
-        this.interval = setInterval(() => {
-            this.setState({
-                timeLeft: this.getTimeLeft(),
-            }, () => {
-                const { timeLeft } = this.state;
-                if (timeLeft <= 0) {
-                    this.stopTimer();
-                    timeIsOver();
-                }
-            });
-        }, INTERVAL);
+        this.setState({
+            timeLeft: this.getTimeLeft(),
+        }, () => {
+            const { timeLeft } = this.state;
+            if (timeLeft <= 0) {
+                this.stopTimer();
+                timeIsOver();
+            }
+        });
     };
 
     stopTimer = () => {
@@ -62,7 +56,7 @@ class Timer extends Component {
 
         return (
             <div className={classes.Timer}>
-                <span>{formatTime(timeLeft)}</span>
+                <span>{formatDuration(timeLeft)}</span>
             </div>
         );
     }
