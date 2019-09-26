@@ -1,6 +1,6 @@
 import { SUBMIT_ANSWER } from '../actions/answer';
 
-const initialState = '';
+const initialState = null;
 
 const answerReducer = (state = initialState, { type, answer }) => {
     switch (type) {

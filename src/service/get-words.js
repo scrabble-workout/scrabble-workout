@@ -1,4 +1,4 @@
-import { WORDS_COUNT } from '../constants/constants';
+import { WORDS_COUNT } from '../config/config';
 import { getRandomIndexInRange } from '../helpers';
 import { words } from '../data/data';
 

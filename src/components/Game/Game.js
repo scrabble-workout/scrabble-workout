@@ -7,8 +7,9 @@ import { Slots } from './Slots/Slots';
 import { Backspace } from './Backspace/Backspace';
 import { Letters } from './Letters/Letters';
 import { Submit } from './Submit/Submit';
+import { Timer } from './Timer/Timer';
 
-import { WORD_LENGTH } from '../../constants/constants';
+import { WORD_LENGTH } from '../../config/config';
 import { shuffleArray, generateID } from '../../helpers';
 import { initWords } from '../../store/actions/init-words';
 import { submitAnswer } from '../../store/actions/answer';
@@ -86,17 +87,30 @@ class GameView extends Component {
         });
     };
 
-    onSubmit = () => {
+    submit = () => {
         const { lettersInSlots } = this.state;
         const { dispatch, history } = this.props;
-        dispatch(submitAnswer(this.joinLetters(lettersInSlots)));
+
+        dispatch(submitAnswer(
+            lettersInSlots.length === WORD_LENGTH
+                ? this.joinLetters(lettersInSlots)
+                : '',
+        ));
         history.replace('/result');
+    };
+
+    onSubmit = () => {
+        this.submit();
     };
 
     onCancel = () => {
         this.setState({
             isSubmitVisible: false,
         });
+    };
+
+    timeIsOver = () => {
+        this.submit();
     };
 
     joinLetters = (arr) => arr.reduce((a, b) => a + b.value, '');
@@ -106,6 +120,7 @@ class GameView extends Component {
 
         return (
             <main className={classes.Game}>
+                <Timer timeIsOver={this.timeIsOver} />
                 <Slots
                     lettersInSlots={lettersInSlots}
                 />
