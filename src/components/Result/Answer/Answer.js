@@ -5,7 +5,7 @@ import classes from './Answer.scss';
 const Answer = ({ answer }) => (
     <div className={classes.AnswerSection}>
         <h2 className={classes.AnswerHeader}>
-            {answer ? 'Twoje słowo:' : 'Nie ułożyłeś słowa'}
+            {answer ? 'Twoje słowo:' : 'Nie ułożyłaś/eś słowa'}
         </h2>
         {
             answer
