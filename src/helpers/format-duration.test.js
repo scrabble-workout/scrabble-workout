@@ -15,11 +15,15 @@ test.each`
     expect(formatDuration(duration)).toEqual(expected);
 });
 
+test('Given a negative number formatDuration function returns undefined', () => {
+    expect(formatDuration(-1)).toBeUndefined;
+});
+
+
 const errMsg = 'Error in formatDuration function: parameter is not a non-negative integer. Please provide a proper parameter';
 
 test.each`
     parameter       |   expected
-    ${-1}           |   ${errMsg}
     ${0.4}          |   ${errMsg}
     ${NaN}          |   ${errMsg}
     ${Infinity}     |   ${errMsg}
