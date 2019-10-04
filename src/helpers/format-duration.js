@@ -1,6 +1,10 @@
 const formatDuration = (duration) => {
-    if (!Number.isInteger(duration) || duration < 0) {
+    if (!Number.isInteger(duration)) {
         throw new Error('Error in formatDuration function: parameter is not a non-negative integer. Please provide a proper parameter');
+    }
+
+    if (duration < 0) {
+        return undefined;
     }
 
     const minutes = Math.floor(duration / (1000 * 60)).toString();
