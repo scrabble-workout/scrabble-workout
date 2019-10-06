@@ -30,7 +30,6 @@ class GameView extends Component {
 
     componentDidUpdate(prevProps) {
         const { words } = this.props;
-        // console.log(words);
         if (words !== prevProps.words) {
             if (words.length) {
                 /* eslint-disable react/no-did-update-set-state */
@@ -139,10 +138,6 @@ class GameView extends Component {
 
         if (!isResponseOK) {
             return <main className={classes.Game}>Wystąpił błąd</main>;
-        }
-
-        if (!letters) {
-            return 'Loading...';
         }
 
         return (
