@@ -28,6 +28,7 @@ class GameView extends Component {
 
     componentDidUpdate(prevProps) {
         const { words } = this.props;
+        // console.log(words);
         if (words !== prevProps.words) {
             this.initLetters(words);
         }
@@ -118,6 +119,10 @@ class GameView extends Component {
     render() {
         const { letters, lettersInSlots, isSubmitVisible } = this.state;
 
+        if (!letters) {
+            return 'Loading...';
+        }
+
         return (
             <main className={classes.Game}>
                 <Timer timeIsOver={this.timeIsOver} />
@@ -150,8 +155,15 @@ class GameView extends Component {
 
 GameView.propTypes = {
     dispatch: PropTypes.func.isRequired,
-    words: PropTypes.array.isRequired,
+    words: PropTypes.oneOfType([
+        PropTypes.array,
+        PropTypes.object,
+    ]),
     history: PropTypes.object.isRequired,
+};
+
+GameView.defaultProps = {
+    words: null,
 };
 
 const mapStateToProps = ({ words }) => ({ words });
