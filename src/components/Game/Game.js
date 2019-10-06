@@ -19,6 +19,8 @@ class GameView extends Component {
         letters: [],
         lettersInSlots: [],
         isSubmitVisible: false,
+        loading: true,
+        isResponseOK: false,
     };
 
     componentDidMount() {
@@ -28,9 +30,20 @@ class GameView extends Component {
 
     componentDidUpdate(prevProps) {
         const { words } = this.props;
-        // console.log(words);
         if (words !== prevProps.words) {
-            this.initLetters(words);
+            if (words.length) {
+                /* eslint-disable react/no-did-update-set-state */
+                this.setState({
+                    loading: false,
+                    isResponseOK: true,
+                });
+                this.initLetters(words);
+            } else {
+                this.setState({
+                    loading: false,
+                    isResponseOK: false,
+                });
+            }
         }
     }
 
@@ -117,10 +130,14 @@ class GameView extends Component {
     joinLetters = (arr) => arr.reduce((a, b) => a + b.value, '');
 
     render() {
-        const { letters, lettersInSlots, isSubmitVisible } = this.state;
+        const { letters, lettersInSlots, isSubmitVisible, loading, isResponseOK } = this.state;
 
-        if (!letters) {
-            return 'Loading...';
+        if (loading) {
+            return <main className={classes.Game}>Pobieram dane...</main>;
+        }
+
+        if (!isResponseOK) {
+            return <main className={classes.Game}>Wystąpił błąd</main>;
         }
 
         return (
