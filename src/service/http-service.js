@@ -6,9 +6,17 @@ const axiosInstance = axios.create({
 
 const httpService = {
     get: () => {
+        let data;
+
         axiosInstance.get('/words.json')
-            .then((res) => res.data)
-            .catch(() => undefined);
+            .then((res) => {
+                data = res.data;
+                return data;
+            })
+            .catch(() => {
+                data = null;
+                return data;
+            });
     },
 };
 
