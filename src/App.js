@@ -7,7 +7,7 @@ import { Game } from './components/Game/Game';
 import { Result } from './components/Result/Result';
 
 const App = () => (
-    <BrowserRouter basename="/scrabble-workout">
+    <BrowserRouter basename={process.env.BASE || '/'}>
         <div>
             <Header />
             <Route exact path="/" component={Home} />

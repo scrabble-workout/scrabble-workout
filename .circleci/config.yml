@@ -3,6 +3,8 @@ jobs:
   build:
     docker:
       - image: circleci/node:10.14.1
+        environment:
+          BASE: /scrabble-workout
     steps:
       - checkout
       - run: ls -larth
