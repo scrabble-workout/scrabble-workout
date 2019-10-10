@@ -172,15 +172,8 @@ class GameView extends Component {
 
 GameView.propTypes = {
     dispatch: PropTypes.func.isRequired,
-    words: PropTypes.oneOfType([
-        PropTypes.array,
-        PropTypes.object,
-    ]),
+    words: PropTypes.array.isRequired,
     history: PropTypes.object.isRequired,
-};
-
-GameView.defaultProps = {
-    words: null,
 };
 
 const mapStateToProps = ({ words }) => ({ words });
