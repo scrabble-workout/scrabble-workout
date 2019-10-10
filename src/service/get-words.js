@@ -1,10 +1,10 @@
 import { httpService } from './http-service';
-import { WORDS_COUNT } from '../config/config';
 import { getRandomIndexInRange } from '../helpers';
 
 const getWords = async () => {
-    const words = await httpService.get();
-    const index = getRandomIndexInRange(WORDS_COUNT);
+    const words = await httpService.getWords();
+    const wordsCount = words.length;
+    const index = getRandomIndexInRange(wordsCount);
     return [...words[index]];
 };
 
