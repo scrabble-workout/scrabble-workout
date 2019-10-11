@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 import { getRandomIndexInRange } from '../../helpers';
-import { WORDS_COUNT } from '../../config/config';
 
 export const INIT_WORDS = 'INIT_WORDS';
 
 const setWords = (words) => {
-    const index = getRandomIndexInRange(WORDS_COUNT);
+    const wordsCount = words.length;
+    const index = getRandomIndexInRange(wordsCount);
     return {
         type: INIT_WORDS,
         words: words ? [...words[index]] : [],
@@ -14,7 +14,7 @@ const setWords = (words) => {
 };
 
 export const initWords = () => (dispatch) => {
-    axios.get('https://scrabble-workout.firebaseio.com/words.json')
+    axios.get('words.json')
         .then((res) => dispatch(setWords(res.data)))
         .catch(() => dispatch(setWords(undefined)));
 };
