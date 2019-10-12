@@ -11,6 +11,7 @@ import { Timer } from './Timer/Timer';
 
 import { WORD_LENGTH } from '../../config/config';
 import { shuffleArray, generateID } from '../../helpers';
+import { getAllWords } from '../../store/actions/get-all-words';
 import { initWords } from '../../store/actions/init-words';
 import { submitAnswer } from '../../store/actions/answer';
 
@@ -24,12 +25,21 @@ class GameView extends Component {
     };
 
     componentDidMount() {
-        const { dispatch } = this.props;
-        dispatch(initWords());
+        const { allWords, dispatch } = this.props;
+        if (allWords.length) {
+            dispatch(initWords(allWords));
+        } else {
+            dispatch(getAllWords());
+        }
     }
 
     componentDidUpdate(prevProps) {
-        const { words } = this.props;
+        const { allWords, words, dispatch } = this.props;
+
+        if (allWords !== prevProps.allWords) {
+            dispatch(initWords(allWords));
+        }
+
         if (words !== prevProps.words) {
             if (words.length) {
                 /* eslint-disable react/no-did-update-set-state */
@@ -172,18 +182,12 @@ class GameView extends Component {
 
 GameView.propTypes = {
     dispatch: PropTypes.func.isRequired,
-    words: PropTypes.oneOfType([
-        PropTypes.array,
-        PropTypes.object,
-    ]),
+    allWords: PropTypes.array.isRequired,
+    words: PropTypes.array.isRequired,
     history: PropTypes.object.isRequired,
 };
 
-GameView.defaultProps = {
-    words: null,
-};
-
-const mapStateToProps = ({ words }) => ({ words });
+const mapStateToProps = ({ allWords, words }) => ({ allWords, words });
 
 const Game = connect(mapStateToProps)(GameView);
 export { Game };
