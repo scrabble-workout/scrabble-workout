@@ -10,10 +10,12 @@ import '@fortawesome/fontawesome-free/scss/solid.scss';
 import './index.scss';
 import { App } from './App';
 import * as serviceWorker from './serviceWorker';
+import { allWordsReducer } from './store/reducers/all-words';
 import { wordsReducer } from './store/reducers/words';
 import { answerReducer } from './store/reducers/answer';
 
 const rootReducer = combineReducers({
+    allWords: allWordsReducer,
     words: wordsReducer,
     answer: answerReducer,
 });
