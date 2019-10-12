@@ -10,7 +10,7 @@ import { Result } from './components/Result/Result';
 
 import { getAllWords } from './store/actions/get-all-words';
 
-class AppView extends Component {
+export class AppView extends Component {
     componentDidMount() {
         const { dispatch } = this.props;
         dispatch(getAllWords());
@@ -31,8 +31,12 @@ class AppView extends Component {
 }
 
 AppView.propTypes = {
-    dispatch: PropTypes.func.isRequired,
+    dispatch: PropTypes.func,
 };
 
-const App = connect()(AppView);
+AppView.defaultProps = {
+    dispatch: () => {},
+};
+
+const App = connect(null)(AppView);
 export { App };
