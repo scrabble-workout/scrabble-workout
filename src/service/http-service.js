@@ -1,11 +1,9 @@
 import axios from 'axios';
 
-const httpService = {
-    getWords() {
-        axios.get('words.json')
-            .then((res) => res.data)
-            .catch(() => undefined);
-    },
-};
+const get = (url) => axios.get(url)
+    .then((res) => res.data)
+    .catch(() => undefined);
 
-export { httpService };
+export const httpService = {
+    get,
+};

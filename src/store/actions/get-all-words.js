@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { WordsService } from '../../service/get-all-words';
 
 export const GET_ALL_WORDS = 'GET_ALL_WORDS';
 
@@ -8,7 +8,7 @@ const setAllWords = (allWords) => ({
 });
 
 export const getAllWords = () => (dispatch) => {
-    axios.get('words.json')
-        .then((res) => dispatch(setAllWords(res.data)))
+    WordsService.getAllWords()
+        .then((allWords) => dispatch(setAllWords(allWords)))
         .catch(() => dispatch(setAllWords(undefined)));
 };

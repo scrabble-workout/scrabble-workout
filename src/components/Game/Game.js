@@ -11,7 +11,6 @@ import { Timer } from './Timer/Timer';
 
 import { WORD_LENGTH } from '../../config/config';
 import { shuffleArray, generateID } from '../../helpers';
-import { getAllWords } from '../../store/actions/get-all-words';
 import { initWords } from '../../store/actions/init-words';
 import { submitAnswer } from '../../store/actions/answer';
 
@@ -26,11 +25,8 @@ class GameView extends Component {
 
     componentDidMount() {
         const { allWords, dispatch } = this.props;
-        if (allWords.length) {
-            dispatch(initWords(allWords));
-        } else {
-            dispatch(getAllWords());
-        }
+
+        allWords.length && dispatch(initWords(allWords));
     }
 
     componentDidUpdate(prevProps) {
