@@ -31,7 +31,6 @@ class ResultView extends Component {
 
         return (
             <main className={classes.Result}>
-
                 <Answer answer={answer.toUpperCase()} />
                 <ResultMessage isAnswerCorrect={this.isAnswerCorrect()} />
                 <OtherWords
