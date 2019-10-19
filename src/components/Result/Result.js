@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import classes from './Result.scss';
-import { submitAnswer } from '../../store/actions/answer';
+import { submitAnswer } from '../../store/actions/submit-answer';
 import { Answer } from './Answer/Answer';
 import { ResultMessage } from './ResultMessage/ResultMessage';
 import { OtherWords } from './OtherWords/OtherWords';

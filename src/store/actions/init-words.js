@@ -7,6 +7,6 @@ export const initWords = (allWords) => {
     const index = getRandomIndexInRange(wordsCount);
     return {
         type: INIT_WORDS,
-        words: allWords ? [...allWords[index]] : [],
+        words: allWords.length ? [...allWords[index]] : [],
     };
 };

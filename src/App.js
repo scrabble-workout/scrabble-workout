@@ -8,12 +8,12 @@ import { Home } from './components/Home/Home';
 import { Game } from './components/Game/Game';
 import { Result } from './components/Result/Result';
 
-import { getAllWords } from './store/actions/get-all-words';
+import { loadAllWords } from './store/actions/load-all-words';
 
 export class AppView extends Component {
     componentDidMount() {
         const { dispatch } = this.props;
-        dispatch(getAllWords());
+        dispatch(loadAllWords());
     }
 
     render() {

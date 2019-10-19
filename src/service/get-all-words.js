@@ -4,9 +4,7 @@ const urls = {
     allWords: 'words.json',
 };
 
-const getAllWords = () => httpService.get(urls.allWords)
-    .then((allWords) => allWords);
-
+const getAllWords = () => httpService.get(urls.allWords);
 
 export const WordsService = {
     getAllWords,

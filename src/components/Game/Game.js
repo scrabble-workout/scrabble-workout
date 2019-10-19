@@ -12,7 +12,7 @@ import { Timer } from './Timer/Timer';
 import { WORD_LENGTH } from '../../config/config';
 import { shuffleArray, generateID } from '../../helpers';
 import { initWords } from '../../store/actions/init-words';
-import { submitAnswer } from '../../store/actions/answer';
+import { submitAnswer } from '../../store/actions/submit-answer';
 
 class GameView extends Component {
     state = {
@@ -26,7 +26,9 @@ class GameView extends Component {
     componentDidMount() {
         const { allWords, dispatch } = this.props;
 
-        allWords.length && dispatch(initWords(allWords));
+        if (allWords.length) {
+            dispatch(initWords(allWords));
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -183,7 +185,9 @@ GameView.propTypes = {
     history: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({ allWords, words }) => ({ allWords, words });
+const mapStateToProps = ({ allWords: { data: allWords }, words }) => (
+    { allWords, words }
+);
 
 const Game = connect(mapStateToProps)(GameView);
 export { Game };
