@@ -12,25 +12,27 @@ const initialState = {
 
 const allWordsReducer = (
     state = initialState,
-    { type, data: allWords, loading, error },
+    { type, data: allWords, error },
 ) => {
     switch (type) {
         case LOAD_ALL_WORDS_REQUEST:
             return {
                 ...state,
-                loading,
+                loading: true,
             };
         case LOAD_ALL_WORDS_SUCCESS:
             return {
                 ...state,
-                loading,
+                loading: false,
+                error: false,
                 data: allWords,
             };
         case LOAD_ALL_WORDS_FAILURE:
             return {
                 ...state,
-                loading,
+                loading: false,
                 error,
+                data: allWords,
             };
         default: return state;
     }
