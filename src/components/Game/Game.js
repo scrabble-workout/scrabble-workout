@@ -19,8 +19,6 @@ class GameView extends Component {
         letters: [],
         lettersInSlots: [],
         isSubmitVisible: false,
-        loading: true,
-        isResponseOK: false,
     };
 
     componentDidMount() {
@@ -38,20 +36,8 @@ class GameView extends Component {
             dispatch(initWords(allWords));
         }
 
-        if (words !== prevProps.words) {
-            if (words.length) {
-                /* eslint-disable react/no-did-update-set-state */
-                this.setState({
-                    loading: false,
-                    isResponseOK: true,
-                });
-                this.initLetters(words);
-            } else {
-                this.setState({
-                    loading: false,
-                    isResponseOK: false,
-                });
-            }
+        if (words !== prevProps.words && words.length) {
+            this.initLetters(words);
         }
     }
 
@@ -138,13 +124,14 @@ class GameView extends Component {
     joinLetters = (arr) => arr.reduce((a, b) => a + b.value, '');
 
     render() {
-        const { letters, lettersInSlots, isSubmitVisible, loading, isResponseOK } = this.state;
+        const { loading, error } = this.props;
+        const { letters, lettersInSlots, isSubmitVisible } = this.state;
 
         if (loading) {
             return <main className={classes.Game}>Pobieram dane...</main>;
         }
 
-        if (!isResponseOK) {
+        if (error) {
             return <main className={classes.Game}>Wystąpił błąd</main>;
         }
 
@@ -181,12 +168,17 @@ class GameView extends Component {
 GameView.propTypes = {
     dispatch: PropTypes.func.isRequired,
     allWords: PropTypes.array.isRequired,
+    loading: PropTypes.bool.isRequired,
+    error: PropTypes.oneOfType([
+        PropTypes.bool,
+        PropTypes.object,
+    ]).isRequired,
     words: PropTypes.array.isRequired,
     history: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({ allWords: { data: allWords }, words }) => (
-    { allWords, words }
+const mapStateToProps = ({ allWords: { data: allWords, loading, error }, words }) => (
+    { allWords, loading, error, words }
 );
 
 const Game = connect(mapStateToProps)(GameView);
