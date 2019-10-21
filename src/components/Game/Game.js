@@ -169,12 +169,13 @@ GameView.propTypes = {
     dispatch: PropTypes.func.isRequired,
     allWords: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired,
-    error: PropTypes.oneOfType([
-        PropTypes.bool,
-        PropTypes.object,
-    ]).isRequired,
+    error: PropTypes.object,
     words: PropTypes.array.isRequired,
     history: PropTypes.object.isRequired,
+};
+
+GameView.defaultProps = {
+    error: null,
 };
 
 const mapStateToProps = ({ allWords: { data: allWords, loading, error }, words }) => (

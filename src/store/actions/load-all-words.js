@@ -16,7 +16,6 @@ const loadSuccess = (allWords) => ({
 
 const loadFailure = (error) => ({
     type: LOAD_ALL_WORDS_FAILURE,
-    data: [],
     error,
 });
 

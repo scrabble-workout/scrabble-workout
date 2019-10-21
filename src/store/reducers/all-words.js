@@ -7,7 +7,7 @@ import {
 const initialState = {
     data: [],
     loading: false,
-    error: false,
+    error: null,
 };
 
 const allWordsReducer = (
@@ -24,7 +24,7 @@ const allWordsReducer = (
             return {
                 ...state,
                 loading: false,
-                error: false,
+                error: null,
                 data: allWords,
             };
         case LOAD_ALL_WORDS_FAILURE:
@@ -32,7 +32,7 @@ const allWordsReducer = (
                 ...state,
                 loading: false,
                 error,
-                data: allWords,
+                data: [],
             };
         default: return state;
     }
