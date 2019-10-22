@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5f94b499b7d25d8cb4836f380fa0d0af",
+    "revision": "7daaf106b9701a670c21759b56e135f0",
     "url": "/scrabble-workout/index.html"
   },
   {
-    "revision": "50f2008ee1500e2cc87a",
-    "url": "/scrabble-workout/static/css/2.f8f344a4.chunk.css"
+    "revision": "3273b67b2cff006d8d03",
+    "url": "/scrabble-workout/static/css/2.aae2ab85.chunk.css"
   },
   {
-    "revision": "be9df55ba4dd0e9278a4",
-    "url": "/scrabble-workout/static/css/main.de99f859.chunk.css"
+    "revision": "4b41294ceb818c0e924d",
+    "url": "/scrabble-workout/static/css/main.cf420294.chunk.css"
   },
   {
-    "revision": "50f2008ee1500e2cc87a",
-    "url": "/scrabble-workout/static/js/2.cfa4e6b5.chunk.js"
+    "revision": "3273b67b2cff006d8d03",
+    "url": "/scrabble-workout/static/js/2.2721bef3.chunk.js"
   },
   {
-    "revision": "be9df55ba4dd0e9278a4",
-    "url": "/scrabble-workout/static/js/main.ddac6367.chunk.js"
+    "revision": "4b41294ceb818c0e924d",
+    "url": "/scrabble-workout/static/js/main.da365bf3.chunk.js"
   },
   {
     "revision": "e6f3ecc0591c07c20123",
