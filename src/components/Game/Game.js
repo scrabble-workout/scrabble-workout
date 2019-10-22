@@ -12,7 +12,7 @@ import { Timer } from './Timer/Timer';
 import { WORD_LENGTH } from '../../config/config';
 import { shuffleArray, generateID } from '../../helpers';
 import { initWords } from '../../store/actions/init-words';
-import { submitAnswer } from '../../store/actions/answer';
+import { submitAnswer } from '../../store/actions/submit-answer';
 
 class GameView extends Component {
     state = {
@@ -22,13 +22,21 @@ class GameView extends Component {
     };
 
     componentDidMount() {
-        const { dispatch } = this.props;
-        dispatch(initWords());
+        const { allWords, dispatch } = this.props;
+
+        if (allWords.length) {
+            dispatch(initWords(allWords));
+        }
     }
 
     componentDidUpdate(prevProps) {
-        const { words } = this.props;
-        if (words !== prevProps.words) {
+        const { allWords, words, dispatch } = this.props;
+
+        if (allWords !== prevProps.allWords) {
+            dispatch(initWords(allWords));
+        }
+
+        if (words !== prevProps.words && words.length) {
             this.initLetters(words);
         }
     }
@@ -116,7 +124,16 @@ class GameView extends Component {
     joinLetters = (arr) => arr.reduce((a, b) => a + b.value, '');
 
     render() {
+        const { loading, error } = this.props;
         const { letters, lettersInSlots, isSubmitVisible } = this.state;
+
+        if (loading) {
+            return <main className={classes.Game}>Pobieram dane...</main>;
+        }
+
+        if (error) {
+            return <main className={classes.Game}>Wystąpił błąd</main>;
+        }
 
         return (
             <main className={classes.Game}>
@@ -150,11 +167,20 @@ class GameView extends Component {
 
 GameView.propTypes = {
     dispatch: PropTypes.func.isRequired,
+    allWords: PropTypes.array.isRequired,
+    loading: PropTypes.bool.isRequired,
+    error: PropTypes.object,
     words: PropTypes.array.isRequired,
     history: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({ words }) => ({ words });
+GameView.defaultProps = {
+    error: null,
+};
+
+const mapStateToProps = ({ allWords: { data: allWords, loading, error }, words }) => (
+    { allWords, loading, error, words }
+);
 
 const Game = connect(mapStateToProps)(GameView);
 export { Game };

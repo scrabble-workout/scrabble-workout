@@ -1,8 +1,12 @@
-import { getWords } from '../../service/get-words';
+import { getRandomIndexInRange } from '../../helpers';
 
 export const INIT_WORDS = 'INIT_WORDS';
 
-export const initWords = () => ({
-    type: INIT_WORDS,
-    words: getWords(),
-});
+export const initWords = (allWords) => {
+    const wordsCount = allWords.length;
+    const index = getRandomIndexInRange(wordsCount);
+    return {
+        type: INIT_WORDS,
+        words: allWords.length ? [...allWords[index]] : [],
+    };
+};

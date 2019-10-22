@@ -1,4 +1,4 @@
-import { SUBMIT_ANSWER } from '../actions/answer';
+import { SUBMIT_ANSWER } from '../actions/submit-answer';
 
 const initialState = null;
 

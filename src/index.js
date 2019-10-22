@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
 import 'normalize-css/normalize.css';
 import '@fortawesome/fontawesome-free/scss/fontawesome.scss';
 import '@fortawesome/fontawesome-free/scss/solid.scss';
@@ -11,15 +12,19 @@ import { App } from './App';
 import * as serviceWorker from './serviceWorker';
 import { wordsReducer } from './store/reducers/words';
 import { answerReducer } from './store/reducers/answer';
+import { allWordsReducer } from './store/reducers/all-words';
 
 const rootReducer = combineReducers({
+    allWords: allWordsReducer,
     words: wordsReducer,
     answer: answerReducer,
 });
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const store = createStore(
     rootReducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    composeEnhancers(applyMiddleware(thunk)),
 );
 
 ReactDOM.render(
