@@ -8,6 +8,11 @@
     }
 }
 
+@mixin letter-unset {
+    grid-area: unset;
+    transform: none;
+}
+
 @mixin button {
     padding: 15px 0;
     border: 1px solid $color-black;

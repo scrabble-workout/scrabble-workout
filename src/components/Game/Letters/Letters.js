@@ -1,45 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 import classes from './Letters.scss';
+import { LettersList } from './LettersList/LettersList';
 
-const Letters = ({ letters, clicked }) => {
-    const lettersNodes = letters
-        .map((letter, i) => (
-            <li
-                className={classNames(
-                    classes.Letter,
-                    classes[`Letter-${i + 1}`],
-                )}
-                key={letter.id}
-            >
-                <button
-                    type="button"
-                    className={classes.LetterButton}
-                    disabled={!letter.active}
-                    onClick={() => clicked(letter.id)}
-                >
-                    {letter.value}
-                </button>
-            </li>
-        ));
-
-    return (
+const Letters = ({ dragEnd, letters, clicked }) => (
+    <DragDropContext onDragEnd={dragEnd}>
         <section className={classes.Letters}>
-            <ul className={classes.LettersContainer}>
-                {lettersNodes}
-            </ul>
+            <Droppable droppableId="droppable-1" direction="horizontal">
+                {(provided) => (
+                    <LettersList
+                        provided={provided}
+                        innerRef={provided.innerRef}
+                        /*eslint-disable react/jsx-props-no-spreading*/
+                        {...provided.droppableProps}
+                        letters={letters}
+                        clicked={clicked}
+                    />
+                )}
+            </Droppable>
         </section>
-    );
-};
+    </DragDropContext>
+);
 
 Letters.propTypes = {
+    dragEnd: PropTypes.func,
     letters: PropTypes.array.isRequired,
     clicked: PropTypes.func,
 };
 
 Letters.defaultProps = {
+    dragEnd: () => {},
     clicked: () => {},
 };
 

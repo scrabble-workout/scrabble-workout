@@ -29,3 +29,9 @@
         left: calc((#{$backspace-width} + #{$game-grid-gap}) / 2);
     }
 }
+
+@include breakpoint($desktop) {
+    .SlotsSection {
+        display: none;
+    }
+}

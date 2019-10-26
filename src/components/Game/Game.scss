@@ -18,3 +18,11 @@
         grid-template-rows: 40px $slots-height auto;
     }
 }
+
+@include breakpoint($desktop) {
+    .Game {
+        grid-template-columns: 1fr;
+        grid-template-rows: 100px auto;
+        max-width: 700px;
+    }
+}

@@ -83,6 +83,24 @@ class GameView extends Component {
         });
     };
 
+    handleDragEnd = (result) => {
+        const { source, destination, draggableId } = result;
+        const { letters } = this.state;
+
+        if (!destination || destination.index === source.index) {
+            return;
+        }
+
+        const movedLetter = letters[source.index];
+        const updatedLetters = [...letters]
+            .filter((letter) => letter.id !== draggableId);
+        updatedLetters.splice(destination.index, 0, movedLetter);
+
+        this.setState({
+            letters: updatedLetters,
+        });
+    };
+
     handleBackspaceClick = () => {
         const { lettersInSlots } = this.state;
         const lastLetterID = lettersInSlots[lettersInSlots.length - 1].id;
@@ -151,6 +169,7 @@ class GameView extends Component {
                             <Letters
                                 letters={letters}
                                 clicked={this.handleLetterClick}
+                                dragEnd={this.handleDragEnd}
                             />
                         )
                         : (

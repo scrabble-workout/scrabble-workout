@@ -1,0 +1,23 @@
+@import "../../../../styles/abstracts/breakpoints";
+
+.LettersContainer {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-areas:
+            'l1 l2 .'
+            'l3 l4 l5'
+            'l6 l7 .';
+    list-style: none;
+}
+
+@include breakpoint($desktop) {
+    .LettersContainer {
+        grid-template-columns: repeat(7, 1fr);
+        grid-template-rows: 1fr;
+        grid-template-areas: unset;
+        width: 100%;
+        padding: 50px;
+    }
+}
