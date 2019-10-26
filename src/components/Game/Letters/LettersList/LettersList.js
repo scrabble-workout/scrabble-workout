@@ -5,15 +5,16 @@ import { Draggable } from 'react-beautiful-dnd';
 import classes from './LettersList.scss';
 import { Letter } from '../Letter/Letter';
 
-const LettersList = ({ provided, innerRef, letters, clicked }) => (
+const LettersList = ({ dragDisabled, provided, innerRef, letters, clicked }) => (
     <ul className={classes.LettersContainer} ref={innerRef}>
         {
             letters.map((letter, i) => (
                 <Draggable
                     draggableId={letter.id}
+                    isDragDisabled={dragDisabled}
+                    disableInteractiveElementBlocking
                     index={i}
                     key={letter.id}
-                    disableInteractiveElementBlocking
                 >
                     {/*eslint-disable no-shadow*/}
                     {(provided) => (
@@ -36,6 +37,7 @@ const LettersList = ({ provided, innerRef, letters, clicked }) => (
 );
 
 LettersList.propTypes = {
+    dragDisabled: PropTypes.bool.isRequired,
     provided: PropTypes.object.isRequired,
     innerRef: PropTypes.func.isRequired,
     letters: PropTypes.array.isRequired,

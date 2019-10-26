@@ -5,12 +5,13 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import classes from './Letters.scss';
 import { LettersList } from './LettersList/LettersList';
 
-const Letters = ({ dragEnd, letters, clicked }) => (
+const Letters = ({ letters, clicked, dragDisabled, dragEnd }) => (
     <DragDropContext onDragEnd={dragEnd}>
         <section className={classes.Letters}>
-            <Droppable droppableId="droppable-1" direction="horizontal">
+            <Droppable droppableId="droppable" direction="horizontal">
                 {(provided) => (
                     <LettersList
+                        dragDisabled={dragDisabled}
                         provided={provided}
                         innerRef={provided.innerRef}
                         /*eslint-disable react/jsx-props-no-spreading*/
@@ -25,9 +26,10 @@ const Letters = ({ dragEnd, letters, clicked }) => (
 );
 
 Letters.propTypes = {
-    dragEnd: PropTypes.func,
     letters: PropTypes.array.isRequired,
     clicked: PropTypes.func,
+    dragDisabled: PropTypes.bool.isRequired,
+    dragEnd: PropTypes.func,
 };
 
 Letters.defaultProps = {
