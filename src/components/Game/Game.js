@@ -10,30 +10,23 @@ import { Submit } from './Submit/Submit';
 import { Timer } from './Timer/Timer';
 
 import { WORD_LENGTH } from '../../config/config';
-import { shuffleArray, generateID, isMobile } from '../../helpers';
+import { shuffleArray, generateID, isMobile, debounce } from '../../helpers';
 import { initWords } from '../../store/actions/init-words';
 import { submitAnswer } from '../../store/actions/submit-answer';
 
 
-const debounce = (func, delay) => {
-    let inDebounce;
-    /* eslint-disable func-names */
-    return function () {
-        const context = this;
-        /* eslint-disable prefer-rest-params */
-        const args = arguments;
-        clearTimeout(inDebounce);
-        inDebounce = setTimeout(() => func.apply(context, args), delay);
-    };
-};
-
 class GameView extends Component {
-    state = {
-        letters: [],
-        lettersInSlots: [],
-        isSubmitVisible: false,
-        dragDisabled: true,
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            letters: [],
+            lettersInSlots: [],
+            isSubmitVisible: false,
+            dragDisabled: true,
+        };
+        this.resizeListener = this.toggleDragAndDrop.bind(this);
+        this.debouncedResizeListener = debounce(this.resizeListener, 50);
+    }
 
     componentDidMount() {
         const { allWords, dispatch } = this.props;
@@ -43,9 +36,7 @@ class GameView extends Component {
         }
 
         this.toggleDragAndDrop();
-        window.addEventListener('resize', debounce(() => {
-            this.toggleDragAndDrop();
-        }, 100));
+        window.addEventListener('resize', this.debouncedResizeListener);
     }
 
     componentDidUpdate(prevProps) {
@@ -60,11 +51,8 @@ class GameView extends Component {
         }
     }
 
-    // TODO: czemu nie dziala?
     componentWillUnmount() {
-        window.removeEventListener('resize', debounce(() => {
-            this.toggleDragAndDrop();
-        }, 100));
+        window.removeEventListener('resize', this.debouncedResizeListener);
     }
 
     toggleDragAndDrop = () => {
