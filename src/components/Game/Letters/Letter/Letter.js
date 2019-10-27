@@ -17,6 +17,7 @@ const Letter = ({ provided, innerRef, clicked, letter, index }) => (
     >
         <button
             type="button"
+            tabIndex="-1"
             className={classes.LetterButton}
             disabled={!letter.active}
             onClick={() => clicked(letter.id)}
