@@ -22,11 +22,12 @@ class GameView extends Component {
         this.state = {
             letters: [],
             lettersInSlots: [],
+            currentAnswer: [],
             isSubmitVisible: false,
             dragDisabled: true,
         };
-        this.setDragAndDrop = this.setDragAndDrop.bind(this);
-        this.debouncedResizeListener = debounce(this.setDragAndDrop, 50);
+        this.handleResize = this.handleResize.bind(this);
+        this.debouncedResizeListener = debounce(this.handleResize, 50);
     }
 
     componentDidMount() {
@@ -56,6 +57,30 @@ class GameView extends Component {
         window.removeEventListener('resize', this.debouncedResizeListener);
     }
 
+    handleResize = () => {
+        const { letters, lettersInSlots, dragDisabled } = this.state;
+        if (isMobile() === dragDisabled) {
+            return;
+        }
+        if (!isMobile()) {
+            const lettersOutsideSlots = letters
+                .filter((letter) => letter.active);
+
+            this.setState({
+                letters: lettersInSlots.concat(lettersOutsideSlots),
+                currentAnswer: [...lettersInSlots.concat(lettersOutsideSlots)],
+                isSubmitVisible: false,
+            }, this.activateAllLetters);
+        } else {
+            this.setState({
+                lettersInSlots: [...letters],
+                currentAnswer: [...letters],
+                isSubmitVisible: true,
+            }, this.deactivateAllLetters);
+        }
+        this.setDragAndDrop();
+    };
+
     setDragAndDrop = () => {
         this.setState({
             dragDisabled: isMobile(),
@@ -72,6 +97,17 @@ class GameView extends Component {
         /* eslint-disable react/no-did-update-set-state */
         this.setState({
             letters: shuffleArray(lettersObjects),
+        }, this.initAnswer);
+    };
+
+    initAnswer = () => {
+        if (isMobile()) {
+            return;
+        }
+        const { letters } = this.state;
+
+        this.setState({
+            currentAnswer: [...letters],
         });
     };
 
@@ -80,6 +116,26 @@ class GameView extends Component {
 
         const index = letters.findIndex((el) => el.id === id);
         letters[index].active = !letters[index].active;
+        this.setState({
+            letters,
+        });
+    };
+
+    activateAllLetters = () => {
+        const { letters } = this.state;
+        letters.forEach((letter, index) => {
+            letters[index].active = true;
+        });
+        this.setState({
+            letters,
+        });
+    };
+
+    deactivateAllLetters = () => {
+        const { letters } = this.state;
+        letters.forEach((letter, index) => {
+            letters[index].active = false;
+        });
         this.setState({
             letters,
         });
@@ -99,6 +155,7 @@ class GameView extends Component {
 
         this.setState({
             lettersInSlots: updatedLettersInSlots,
+            currentAnswer: [...updatedLettersInSlots],
         }, () => {
             if (updatedLettersInSlots.length === WORD_LENGTH) {
                 this.setState({
@@ -123,6 +180,7 @@ class GameView extends Component {
 
         this.setState({
             letters: updatedLetters,
+            currentAnswer: [...updatedLetters],
         });
     };
 
@@ -139,18 +197,10 @@ class GameView extends Component {
     };
 
     submit = () => {
-        const { letters, lettersInSlots } = this.state;
+        const { currentAnswer } = this.state;
         const { dispatch, history } = this.props;
 
-        if (isMobile()) {
-            dispatch(submitAnswer(
-                lettersInSlots.length === WORD_LENGTH
-                    ? this.joinLetters(lettersInSlots)
-                    : '',
-            ));
-        } else {
-            dispatch(submitAnswer(this.joinLetters(letters)));
-        }
+        dispatch(submitAnswer(this.joinLetters(currentAnswer)));
         history.replace('/result');
     };
 
@@ -172,7 +222,13 @@ class GameView extends Component {
 
     render() {
         const { loading, error } = this.props;
-        const { letters, lettersInSlots, isSubmitVisible, dragDisabled } = this.state;
+        const {
+            letters,
+            lettersInSlots,
+            isSubmitVisible,
+            dragDisabled,
+        } = this.state;
+
 
         if (loading) {
             return <main className={classes.Game}>Pobieram dane...</main>;
@@ -206,7 +262,7 @@ class GameView extends Component {
                             <Submit
                                 onSubmit={this.onSubmit}
                                 onCancel={this.onCancel}
-                                isCancelBtnVisible={dragDisabled}
+                                showCancel={dragDisabled}
                             />
                         )
                 }
@@ -216,7 +272,7 @@ class GameView extends Component {
                             <Submit
                                 onSubmit={this.onSubmit}
                                 onCancel={this.onCancel}
-                                isCancelBtnVisible={dragDisabled}
+                                showCancel={dragDisabled}
                             />
                         )
                         : null
