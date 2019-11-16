@@ -19,7 +19,6 @@ const Letters = ({ letters, clicked, dragDisabled, dragEnd }) => (
                         {
                             letters.map((letter, i) => (
                                 <Letter
-                                    provided={provided}
                                     /*eslint-disable react/jsx-props-no-spreading*/
                                     {...provided.draggableProps}
                                     {...provided.dragHandleProps}
