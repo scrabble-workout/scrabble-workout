@@ -3,22 +3,36 @@ import PropTypes from 'prop-types';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 import classes from './Letters.scss';
-import { LettersList } from './LettersList/LettersList';
+import { Letter } from './Letter/Letter';
 
 const Letters = ({ letters, clicked, dragDisabled, dragEnd }) => (
     <DragDropContext onDragEnd={dragEnd}>
         <section className={classes.Letters}>
             <Droppable droppableId="droppable" direction="horizontal">
                 {(provided) => (
-                    <LettersList
-                        dragDisabled={dragDisabled}
-                        provided={provided}
-                        innerRef={provided.innerRef}
+                    <ul
+                        className={classes.LettersContainer}
+                        ref={provided.innerRef}
                         /*eslint-disable react/jsx-props-no-spreading*/
                         {...provided.droppableProps}
-                        letters={letters}
-                        clicked={clicked}
-                    />
+                    >
+                        {
+                            letters.map((letter, i) => (
+                                <Letter
+                                    provided={provided}
+                                    /*eslint-disable react/jsx-props-no-spreading*/
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                    dragDisabled={dragDisabled}
+                                    clicked={clicked}
+                                    letter={letter}
+                                    index={i}
+                                    key={letter.id}
+                                />
+                            ))
+                        }
+                        {provided.placeholder}
+                    </ul>
                 )}
             </Droppable>
         </section>

@@ -7,8 +7,29 @@
     align-items: center;
 }
 
+.LettersContainer {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-areas:
+            'l1 l2 .'
+            'l3 l4 l5'
+            'l6 l7 .';
+    list-style: none;
+}
+
 @include breakpoint($largeMobile) {
     .Letters {
         grid-column: 1 / -1;
+    }
+}
+
+@include breakpoint($desktop) {
+    .LettersContainer {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        padding: 50px;
     }
 }
