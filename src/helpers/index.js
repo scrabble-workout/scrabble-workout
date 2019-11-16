@@ -3,4 +3,3 @@ export * from './random-index';
 export * from './generate-id';
 export * from './format-duration';
 export * from './is-mobile';
-export * from './debounce';

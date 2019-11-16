@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import debounce from 'lodash/debounce';
 
 import classes from './Game.scss';
 import { Slots } from './Slots/Slots';
@@ -10,7 +11,7 @@ import { Submit } from './Submit/Submit';
 import { Timer } from './Timer/Timer';
 
 import { WORD_LENGTH } from '../../config/config';
-import { shuffleArray, generateID, isMobile, debounce } from '../../helpers';
+import { shuffleArray, generateID, isMobile } from '../../helpers';
 import { initWords } from '../../store/actions/init-words';
 import { submitAnswer } from '../../store/actions/submit-answer';
 
@@ -24,8 +25,8 @@ class GameView extends Component {
             isSubmitVisible: false,
             dragDisabled: true,
         };
-        this.resizeListener = this.toggleDragAndDrop.bind(this);
-        this.debouncedResizeListener = debounce(this.resizeListener, 50);
+        this.setDragAndDrop = this.setDragAndDrop.bind(this);
+        this.debouncedResizeListener = debounce(this.setDragAndDrop, 50);
     }
 
     componentDidMount() {
@@ -35,7 +36,7 @@ class GameView extends Component {
             dispatch(initWords(allWords));
         }
 
-        this.toggleDragAndDrop();
+        this.setDragAndDrop();
         window.addEventListener('resize', this.debouncedResizeListener);
     }
 
@@ -55,7 +56,7 @@ class GameView extends Component {
         window.removeEventListener('resize', this.debouncedResizeListener);
     }
 
-    toggleDragAndDrop = () => {
+    setDragAndDrop = () => {
         this.setState({
             dragDisabled: isMobile(),
         });
@@ -116,7 +117,7 @@ class GameView extends Component {
         }
 
         const movedLetter = letters[source.index];
-        const updatedLetters = [...letters]
+        const updatedLetters = letters
             .filter((letter) => letter.id !== draggableId);
         updatedLetters.splice(destination.index, 0, movedLetter);
 
@@ -205,7 +206,7 @@ class GameView extends Component {
                             <Submit
                                 onSubmit={this.onSubmit}
                                 onCancel={this.onCancel}
-                                dragDisabled={dragDisabled}
+                                isCancelBtnVisible={dragDisabled}
                             />
                         )
                 }
@@ -215,7 +216,7 @@ class GameView extends Component {
                             <Submit
                                 onSubmit={this.onSubmit}
                                 onCancel={this.onCancel}
-                                dragDisabled={dragDisabled}
+                                isCancelBtnVisible={dragDisabled}
                             />
                         )
                         : null

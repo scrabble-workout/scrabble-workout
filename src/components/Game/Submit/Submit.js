@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import classes from './Submit.scss';
 
-const Submit = ({ onSubmit, onCancel, dragDisabled }) => (
+const Submit = ({ onSubmit, onCancel, isCancelBtnVisible }) => (
     <section className={classes.Submit}>
         <button
             className={classes.Button}
@@ -13,7 +13,7 @@ const Submit = ({ onSubmit, onCancel, dragDisabled }) => (
             Sprawdź
         </button>
         {
-            dragDisabled
+            isCancelBtnVisible
                 ? (
                     <button
                         className={classes.Button}
@@ -31,7 +31,7 @@ const Submit = ({ onSubmit, onCancel, dragDisabled }) => (
 Submit.propTypes = {
     onSubmit: PropTypes.func,
     onCancel: PropTypes.func,
-    dragDisabled: PropTypes.bool.isRequired,
+    isCancelBtnVisible: PropTypes.bool.isRequired,
 };
 
 Submit.defaultProps = {
