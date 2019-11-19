@@ -21,10 +21,9 @@ class GameView extends Component {
         super(props);
         this.state = {
             letters: [],
-            lettersInSlots: [],
             currentAnswer: [],
             isSubmitVisible: false,
-            dragDisabled: true,
+            dragDisabled: this.getDragDisabled(),
         };
         this.handleResize = this.handleResize.bind(this);
         this.debouncedResizeListener = debounce(this.handleResize, 50);
@@ -37,7 +36,6 @@ class GameView extends Component {
             dispatch(initWords(allWords));
         }
 
-        this.setDragAndDrop();
         window.addEventListener('resize', this.debouncedResizeListener);
     }
 
@@ -57,34 +55,40 @@ class GameView extends Component {
         window.removeEventListener('resize', this.debouncedResizeListener);
     }
 
+    getDragDisabled = () => isMobile();
+
     handleResize = () => {
-        const { letters, lettersInSlots, dragDisabled } = this.state;
-        if (isMobile() === dragDisabled) {
+        const { letters, currentAnswer, dragDisabled } = this.state;
+        const dragDisabledOnResizeEnd = this.getDragDisabled();
+
+        if (dragDisabledOnResizeEnd === dragDisabled) {
             return;
         }
-        if (!isMobile()) {
+
+        let newState;
+
+        if (isMobile()) {
+            newState = {
+                currentAnswer: [...letters],
+                isSubmitVisible: true,
+                letters: this.setAllLettersActiveState(letters, false),
+                dragDisabled: this.getDragDisabled(),
+            };
+        } else {
             const lettersOutsideSlots = letters
                 .filter((letter) => letter.active);
 
-            this.setState({
-                letters: lettersInSlots.concat(lettersOutsideSlots),
-                currentAnswer: [...lettersInSlots.concat(lettersOutsideSlots)],
-                isSubmitVisible: false,
-            }, this.activateAllLetters);
-        } else {
-            this.setState({
-                lettersInSlots: [...letters],
-                currentAnswer: [...letters],
-                isSubmitVisible: true,
-            }, this.deactivateAllLetters);
-        }
-        this.setDragAndDrop();
-    };
+            const currentAnswerOnDesktop = currentAnswer
+                .concat(lettersOutsideSlots);
 
-    setDragAndDrop = () => {
-        this.setState({
-            dragDisabled: isMobile(),
-        });
+            newState = {
+                letters: this.setAllLettersActiveState(currentAnswerOnDesktop, true),
+                currentAnswer: [...currentAnswerOnDesktop],
+                isSubmitVisible: false,
+                dragDisabled: this.getDragDisabled(),
+            };
+        }
+        this.setState(newState);
     };
 
     initLetters = (words) => {
@@ -97,10 +101,10 @@ class GameView extends Component {
         /* eslint-disable react/no-did-update-set-state */
         this.setState({
             letters: shuffleArray(lettersObjects),
-        }, this.initAnswer);
+        }, this.initCurrentAnswer);
     };
 
-    initAnswer = () => {
+    initCurrentAnswer = () => {
         if (isMobile()) {
             return;
         }
@@ -121,24 +125,12 @@ class GameView extends Component {
         });
     };
 
-    activateAllLetters = () => {
-        const { letters } = this.state;
-        letters.forEach((letter, index) => {
-            letters[index].active = true;
+    setAllLettersActiveState = (letters, boolean) => {
+        const updatedLetters = letters;
+        updatedLetters.forEach((letter, index) => {
+            updatedLetters[index].active = boolean;
         });
-        this.setState({
-            letters,
-        });
-    };
-
-    deactivateAllLetters = () => {
-        const { letters } = this.state;
-        letters.forEach((letter, index) => {
-            letters[index].active = false;
-        });
-        this.setState({
-            letters,
-        });
+        return updatedLetters;
     };
 
     handleLetterClick = (id) => {
@@ -146,18 +138,17 @@ class GameView extends Component {
             return;
         }
 
-        const { letters, lettersInSlots } = this.state;
+        const { letters, currentAnswer } = this.state;
         const letterSelected = letters
             .find((el) => el.id === id);
 
         this.toggleLettersActiveState(id);
-        const updatedLettersInSlots = [...lettersInSlots, letterSelected];
+        const updatedCurrentAnswer = [...currentAnswer, letterSelected];
 
         this.setState({
-            lettersInSlots: updatedLettersInSlots,
-            currentAnswer: [...updatedLettersInSlots],
+            currentAnswer: updatedCurrentAnswer,
         }, () => {
-            if (updatedLettersInSlots.length === WORD_LENGTH) {
+            if (updatedCurrentAnswer.length === WORD_LENGTH) {
                 this.setState({
                     isSubmitVisible: true,
                 });
@@ -185,14 +176,14 @@ class GameView extends Component {
     };
 
     handleBackspaceClick = () => {
-        const { lettersInSlots } = this.state;
-        const lastLetterID = lettersInSlots[lettersInSlots.length - 1].id;
+        const { currentAnswer } = this.state;
+        const lastLetterID = currentAnswer[currentAnswer.length - 1].id;
 
         this.toggleLettersActiveState(lastLetterID);
-        lettersInSlots.pop();
+        currentAnswer.pop();
 
         this.setState({
-            lettersInSlots,
+            currentAnswer: [...currentAnswer],
         });
     };
 
@@ -224,7 +215,7 @@ class GameView extends Component {
         const { loading, error } = this.props;
         const {
             letters,
-            lettersInSlots,
+            currentAnswer,
             isSubmitVisible,
             dragDisabled,
         } = this.state;
@@ -242,11 +233,11 @@ class GameView extends Component {
             <main className={classes.Game}>
                 <Timer timeIsOver={this.timeIsOver} />
                 <Slots
-                    lettersInSlots={lettersInSlots}
+                    currentAnswer={currentAnswer}
                 />
                 <Backspace
                     clicked={this.handleBackspaceClick}
-                    disabled={lettersInSlots.length === 0 || isSubmitVisible}
+                    disabled={currentAnswer.length === 0 || isSubmitVisible}
                 />
                 {
                     !isSubmitVisible
