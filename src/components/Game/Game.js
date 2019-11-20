@@ -65,15 +65,14 @@ class GameView extends Component {
             return;
         }
 
-        let newState;
+        const newState = {
+            dragDisabled: dragDisabledOnResizeEnd,
+        };
 
-        if (isMobile()) {
-            newState = {
-                currentAnswer: [...letters],
-                isSubmitVisible: true,
-                letters: this.setAllLettersActiveState(letters, false),
-                dragDisabled: this.getDragDisabled(),
-            };
+        if (dragDisabledOnResizeEnd) {
+            newState.letters = this.setAllLettersActiveState(letters, false);
+            newState.currentAnswer = [...letters];
+            newState.isSubmitVisible = true;
         } else {
             const lettersOutsideSlots = letters
                 .filter((letter) => letter.active);
@@ -81,12 +80,9 @@ class GameView extends Component {
             const currentAnswerOnDesktop = currentAnswer
                 .concat(lettersOutsideSlots);
 
-            newState = {
-                letters: this.setAllLettersActiveState(currentAnswerOnDesktop, true),
-                currentAnswer: [...currentAnswerOnDesktop],
-                isSubmitVisible: false,
-                dragDisabled: this.getDragDisabled(),
-            };
+            newState.letters = this.setAllLettersActiveState(currentAnswerOnDesktop, true);
+            newState.currentAnswer = [...currentAnswerOnDesktop];
+            newState.isSubmitVisible = false;
         }
         this.setState(newState);
     };
@@ -125,10 +121,10 @@ class GameView extends Component {
         });
     };
 
-    setAllLettersActiveState = (letters, boolean) => {
+    setAllLettersActiveState = (letters, isActive) => {
         const updatedLetters = letters;
         updatedLetters.forEach((letter, index) => {
-            updatedLetters[index].active = boolean;
+            updatedLetters[index].active = isActive;
         });
         return updatedLetters;
     };
