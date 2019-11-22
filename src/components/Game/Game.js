@@ -65,14 +65,17 @@ class GameView extends Component {
             return;
         }
 
-        const newState = {
+        let newState = {
             dragDisabled: dragDisabledOnResizeEnd,
         };
 
         if (dragDisabledOnResizeEnd) {
-            newState.letters = this.setAllLettersActiveState(letters, false);
-            newState.currentAnswer = [...letters];
-            newState.isSubmitVisible = true;
+            newState = {
+                ...newState,
+                letters: this.setAllLettersActiveState(letters, false),
+                currentAnswer: [...letters],
+                isSubmitVisible: true,
+            };
         } else {
             const lettersOutsideSlots = letters
                 .filter((letter) => letter.active);
@@ -80,9 +83,12 @@ class GameView extends Component {
             const currentAnswerOnDesktop = currentAnswer
                 .concat(lettersOutsideSlots);
 
-            newState.letters = this.setAllLettersActiveState(currentAnswerOnDesktop, true);
-            newState.currentAnswer = [...currentAnswerOnDesktop];
-            newState.isSubmitVisible = false;
+            newState = {
+                ...newState,
+                letters: this.setAllLettersActiveState(currentAnswerOnDesktop, true),
+                currentAnswer: [...currentAnswerOnDesktop],
+                isSubmitVisible: false,
+            };
         }
         this.setState(newState);
     };
