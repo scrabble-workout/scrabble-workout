@@ -32,3 +32,9 @@
         left: calc((#{$backspace-width} + #{$game-grid-gap}) / 2);
     }
 }
+
+@include breakpoint($desktop) {
+    .BackspaceBtn {
+        display: none;
+    }
+}

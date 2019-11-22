@@ -8,16 +8,19 @@
     }
 }
 
+@mixin letter-unset {
+    grid-area: unset;
+    transform: none;
+}
+
 @mixin button {
     padding: 15px 0;
     border: 1px solid $color-black;
     border-radius: 3px;
     background-color: transparent;
     text-align: center;
-    outline: none;
     transition: 0.3s background-color;
 
-    &:hover,
     &:active {
         background-color: $color-gray-bg;
     }
@@ -29,4 +32,10 @@
 
 @mixin button-small {
     width: 120px;
+}
+
+@mixin button-hover {
+    &:hover {
+        background-color: $color-gray-bg;
+    }
 }

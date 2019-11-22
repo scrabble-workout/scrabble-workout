@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import debounce from 'lodash/debounce';
 
 import classes from './Game.scss';
 import { Slots } from './Slots/Slots';
@@ -10,16 +11,23 @@ import { Submit } from './Submit/Submit';
 import { Timer } from './Timer/Timer';
 
 import { WORD_LENGTH } from '../../config/config';
-import { shuffleArray, generateID } from '../../helpers';
+import { shuffleArray, generateID, isMobile } from '../../helpers';
 import { initWords } from '../../store/actions/init-words';
 import { submitAnswer } from '../../store/actions/submit-answer';
 
+
 class GameView extends Component {
-    state = {
-        letters: [],
-        lettersInSlots: [],
-        isSubmitVisible: false,
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            letters: [],
+            currentAnswer: [],
+            isSubmitVisible: false,
+            dragDisabled: this.getDragDisabled(),
+        };
+        this.handleResize = this.handleResize.bind(this);
+        this.debouncedResizeListener = debounce(this.handleResize, 50);
+    }
 
     componentDidMount() {
         const { allWords, dispatch } = this.props;
@@ -27,6 +35,8 @@ class GameView extends Component {
         if (allWords.length) {
             dispatch(initWords(allWords));
         }
+
+        window.addEventListener('resize', this.debouncedResizeListener);
     }
 
     componentDidUpdate(prevProps) {
@@ -41,6 +51,48 @@ class GameView extends Component {
         }
     }
 
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.debouncedResizeListener);
+    }
+
+    getDragDisabled = () => isMobile();
+
+    handleResize = () => {
+        const { letters, currentAnswer, dragDisabled } = this.state;
+        const dragDisabledOnResizeEnd = this.getDragDisabled();
+
+        if (dragDisabledOnResizeEnd === dragDisabled) {
+            return;
+        }
+
+        let newState = {
+            dragDisabled: dragDisabledOnResizeEnd,
+        };
+
+        if (dragDisabledOnResizeEnd) {
+            newState = {
+                ...newState,
+                letters: this.setAllLettersActiveState(letters, false),
+                currentAnswer: [...letters],
+                isSubmitVisible: true,
+            };
+        } else {
+            const lettersOutsideSlots = letters
+                .filter((letter) => letter.active);
+
+            const currentAnswerOnDesktop = currentAnswer
+                .concat(lettersOutsideSlots);
+
+            newState = {
+                ...newState,
+                letters: this.setAllLettersActiveState(currentAnswerOnDesktop, true),
+                currentAnswer: [...currentAnswerOnDesktop],
+                isSubmitVisible: false,
+            };
+        }
+        this.setState(newState);
+    };
+
     initLetters = (words) => {
         const lettersObjects = words[0].split('')
             .map((letter) => ({
@@ -51,6 +103,17 @@ class GameView extends Component {
         /* eslint-disable react/no-did-update-set-state */
         this.setState({
             letters: shuffleArray(lettersObjects),
+        }, this.initCurrentAnswer);
+    };
+
+    initCurrentAnswer = () => {
+        if (isMobile()) {
+            return;
+        }
+        const { letters } = this.state;
+
+        this.setState({
+            currentAnswer: [...letters],
         });
     };
 
@@ -64,18 +127,30 @@ class GameView extends Component {
         });
     };
 
+    setAllLettersActiveState = (letters, isActive) => {
+        const updatedLetters = letters;
+        updatedLetters.forEach((letter, index) => {
+            updatedLetters[index].active = isActive;
+        });
+        return updatedLetters;
+    };
+
     handleLetterClick = (id) => {
-        const { letters, lettersInSlots } = this.state;
+        if (!isMobile()) {
+            return;
+        }
+
+        const { letters, currentAnswer } = this.state;
         const letterSelected = letters
             .find((el) => el.id === id);
 
         this.toggleLettersActiveState(id);
-        const updatedLettersInSlots = [...lettersInSlots, letterSelected];
+        const updatedCurrentAnswer = [...currentAnswer, letterSelected];
 
         this.setState({
-            lettersInSlots: updatedLettersInSlots,
+            currentAnswer: updatedCurrentAnswer,
         }, () => {
-            if (updatedLettersInSlots.length === WORD_LENGTH) {
+            if (updatedCurrentAnswer.length === WORD_LENGTH) {
                 this.setState({
                     isSubmitVisible: true,
                 });
@@ -83,27 +158,42 @@ class GameView extends Component {
         });
     };
 
-    handleBackspaceClick = () => {
-        const { lettersInSlots } = this.state;
-        const lastLetterID = lettersInSlots[lettersInSlots.length - 1].id;
+    handleDragEnd = (result) => {
+        const { source, destination, draggableId } = result;
+        const { letters } = this.state;
 
-        this.toggleLettersActiveState(lastLetterID);
-        lettersInSlots.pop();
+        if (!destination || destination.index === source.index) {
+            return;
+        }
+
+        const movedLetter = letters[source.index];
+        const updatedLetters = letters
+            .filter((letter) => letter.id !== draggableId);
+        updatedLetters.splice(destination.index, 0, movedLetter);
 
         this.setState({
-            lettersInSlots,
+            letters: updatedLetters,
+            currentAnswer: [...updatedLetters],
+        });
+    };
+
+    handleBackspaceClick = () => {
+        const { currentAnswer } = this.state;
+        const lastLetterID = currentAnswer[currentAnswer.length - 1].id;
+
+        this.toggleLettersActiveState(lastLetterID);
+        currentAnswer.pop();
+
+        this.setState({
+            currentAnswer: [...currentAnswer],
         });
     };
 
     submit = () => {
-        const { lettersInSlots } = this.state;
+        const { currentAnswer } = this.state;
         const { dispatch, history } = this.props;
 
-        dispatch(submitAnswer(
-            lettersInSlots.length === WORD_LENGTH
-                ? this.joinLetters(lettersInSlots)
-                : '',
-        ));
+        dispatch(submitAnswer(this.joinLetters(currentAnswer)));
         history.replace('/result');
     };
 
@@ -125,7 +215,13 @@ class GameView extends Component {
 
     render() {
         const { loading, error } = this.props;
-        const { letters, lettersInSlots, isSubmitVisible } = this.state;
+        const {
+            letters,
+            currentAnswer,
+            isSubmitVisible,
+            dragDisabled,
+        } = this.state;
+
 
         if (loading) {
             return <main className={classes.Game}>Pobieram dane...</main>;
@@ -139,11 +235,11 @@ class GameView extends Component {
             <main className={classes.Game}>
                 <Timer timeIsOver={this.timeIsOver} />
                 <Slots
-                    lettersInSlots={lettersInSlots}
+                    currentAnswer={currentAnswer}
                 />
                 <Backspace
                     clicked={this.handleBackspaceClick}
-                    disabled={lettersInSlots.length === 0 || isSubmitVisible}
+                    disabled={currentAnswer.length === 0 || isSubmitVisible}
                 />
                 {
                     !isSubmitVisible
@@ -151,14 +247,28 @@ class GameView extends Component {
                             <Letters
                                 letters={letters}
                                 clicked={this.handleLetterClick}
+                                dragDisabled={dragDisabled}
+                                dragEnd={this.handleDragEnd}
                             />
                         )
                         : (
                             <Submit
                                 onSubmit={this.onSubmit}
                                 onCancel={this.onCancel}
+                                showCancel={dragDisabled}
                             />
                         )
+                }
+                {
+                    !dragDisabled
+                        ? (
+                            <Submit
+                                onSubmit={this.onSubmit}
+                                onCancel={this.onCancel}
+                                showCancel={dragDisabled}
+                            />
+                        )
+                        : null
                 }
             </main>
         );
