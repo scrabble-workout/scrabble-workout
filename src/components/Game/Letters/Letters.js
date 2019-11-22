@@ -1,45 +1,52 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 import classes from './Letters.scss';
+import { Letter } from './Letter/Letter';
 
-const Letters = ({ letters, clicked }) => {
-    const lettersNodes = letters
-        .map((letter, i) => (
-            <li
-                className={classNames(
-                    classes.Letter,
-                    classes[`Letter-${i + 1}`],
-                )}
-                key={letter.id}
-            >
-                <button
-                    type="button"
-                    className={classes.LetterButton}
-                    disabled={!letter.active}
-                    onClick={() => clicked(letter.id)}
-                >
-                    {letter.value}
-                </button>
-            </li>
-        ));
-
-    return (
+const Letters = ({ letters, clicked, dragDisabled, dragEnd }) => (
+    <DragDropContext onDragEnd={dragEnd}>
         <section className={classes.Letters}>
-            <ul className={classes.LettersContainer}>
-                {lettersNodes}
-            </ul>
+            <Droppable droppableId="droppable" direction="horizontal">
+                {(provided) => (
+                    <ul
+                        className={classes.LettersContainer}
+                        ref={provided.innerRef}
+                        /*eslint-disable react/jsx-props-no-spreading*/
+                        {...provided.droppableProps}
+                    >
+                        {
+                            letters.map((letter, i) => (
+                                <Letter
+                                    /*eslint-disable react/jsx-props-no-spreading*/
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                    dragDisabled={dragDisabled}
+                                    clicked={clicked}
+                                    letter={letter}
+                                    index={i}
+                                    key={letter.id}
+                                />
+                            ))
+                        }
+                        {provided.placeholder}
+                    </ul>
+                )}
+            </Droppable>
         </section>
-    );
-};
+    </DragDropContext>
+);
 
 Letters.propTypes = {
     letters: PropTypes.array.isRequired,
     clicked: PropTypes.func,
+    dragDisabled: PropTypes.bool.isRequired,
+    dragEnd: PropTypes.func,
 };
 
 Letters.defaultProps = {
+    dragEnd: () => {},
     clicked: () => {},
 };
 

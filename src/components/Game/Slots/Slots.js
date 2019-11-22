@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import classes from './Slots.scss';
 import { WORD_LENGTH } from '../../../config/config';
 
-const Slots = ({ lettersInSlots }) => (
+const Slots = ({ currentAnswer }) => (
     <section className={classes.SlotsSection}>
         <ul className={classes.Slots}>
 
             {[...Array(WORD_LENGTH).keys()]
-                .map((i) => lettersInSlots[i])
+                .map((i) => currentAnswer[i])
                 .map((letter, index) => (
                     /* eslint-disable react/no-array-index-key */
                     <li key={index} className={classes.Slot}>
@@ -28,7 +28,7 @@ const Slots = ({ lettersInSlots }) => (
 );
 
 Slots.propTypes = {
-    lettersInSlots: PropTypes.array.isRequired,
+    currentAnswer: PropTypes.array.isRequired,
 };
 
 export { Slots };

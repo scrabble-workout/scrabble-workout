@@ -1,6 +1,4 @@
 @import "../../../styles/abstracts/breakpoints";
-@import "../../../styles/abstracts/mixins";
-@import "../../../styles/abstracts/variables";
 
 .Letters {
     display: flex;
@@ -15,45 +13,23 @@
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     grid-template-areas:
-        'l1 l2 .'
-        'l3 l4 l5'
-        'l6 l7 .';
+            'l1 l2 .'
+            'l3 l4 l5'
+            'l6 l7 .';
     list-style: none;
-}
-
-.Letter {
-    width: 50px;
-    height: 55px;
-    margin: 10px;
-    border: 1px solid $color-black;
-    border-radius: 5px;
-    overflow: hidden;
-}
-
-@for $i from 1 through 7 {
-    .Letter-#{$i} {
-        @include letter($i);
-    }
-}
-
-.LetterButton {
-    width: 100%;
-    height: 100%;
-    border: none;
-    background-color: transparent;
-    text-transform: uppercase;
-    text-align: center;
-    font-size: 40px;
-    line-height: 50px;
-}
-
-.LetterButton:disabled {
-    background-color: $color-gray-bg;
-    color: $color-lightgray-font;
 }
 
 @include breakpoint($largeMobile) {
     .Letters {
         grid-column: 1 / -1;
+    }
+}
+
+@include breakpoint($desktop) {
+    .LettersContainer {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        padding: 50px;
     }
 }
