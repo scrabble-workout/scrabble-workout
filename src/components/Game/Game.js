@@ -193,7 +193,11 @@ class GameView extends Component {
         const { currentAnswer } = this.state;
         const { dispatch, history } = this.props;
 
-        dispatch(submitAnswer(this.joinLetters(currentAnswer)));
+        dispatch(submitAnswer(
+            currentAnswer.length === WORD_LENGTH
+                ? this.joinLetters(currentAnswer)
+                : '',
+        ));
         history.replace('/result');
     };
 
