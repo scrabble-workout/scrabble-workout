@@ -1,7 +1,10 @@
 @import "../../../styles/abstracts/breakpoints";
+@import "../../../styles/abstracts/variables";
 
 .Timer {
     align-self: center;
+    color: $color-yellow-2;
+    font-weight: 500;
 }
 
 @include breakpoint($largeMobile) {

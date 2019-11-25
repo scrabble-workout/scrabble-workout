@@ -16,11 +16,12 @@
 }
 
 .Slot {
+    color: $color-yellow-1;
     text-transform: uppercase;
     text-align: center;
     font-size: 40px;
     line-height: $slots-height;
-    box-shadow: 0 -2px 0 0 $color-black inset;
+    box-shadow: 0 -2px 0 0 $color-green-dark-2 inset;
 }
 
 @include breakpoint($tablet) {

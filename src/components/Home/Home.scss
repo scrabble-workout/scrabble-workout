@@ -5,6 +5,7 @@
     display: grid;
     grid-template-rows: 2fr 3fr;
     min-height: calc(100vh - 50px);
+    //background: $color-green-1;
     text-align: center;
 }
 
@@ -12,7 +13,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: $color-gray-bg;
+    background: $color-green-2;
 }
 
 .Header {
@@ -30,7 +31,11 @@
     @include button-regular-width;
 
     display: inline-block;
-    color: inherit;
+    background: $color-yellow-2;
+    //color: $color-brown-font;
     font-family: inherit;
     text-decoration: none;
+    box-shadow: 0 2px 6px -1px $color-green-dark-1;
+    // skasować
+    border: none;
 }

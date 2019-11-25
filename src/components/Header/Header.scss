@@ -5,12 +5,13 @@
     justify-content: center;
     align-items: center;
     height: $header-height;
+    background: $color-green-dark-1;
     font-size: calc(10px + 2vmin);
-    box-shadow: 0 0 6px 1px $color-gray-bg;
+    //box-shadow: 0 0 6px 1px $color-gray-bg;
 }
 
 .HeaderLink {
-    color: inherit;
+    color: $color-yellow-2;
     font-family: inherit;
     text-decoration: none;
 }

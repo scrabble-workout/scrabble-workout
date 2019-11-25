@@ -15,11 +15,17 @@
 
 @mixin button {
     padding: 15px 0;
-    border: 1px solid $color-black;
+    //border: 1px solid $color-black;
     border-radius: 3px;
-    background-color: transparent;
+    background-color: $color-yellow-2;
+    //color: $color-brown-font;
+    color: $color-green-dark-2;
     text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 2px 6px -1px $color-green-dark-1;
     transition: 0.3s background-color;
+    text-transform: uppercase;
 
     &:active {
         background-color: $color-gray-bg;
@@ -27,7 +33,7 @@
 }
 
 @mixin button-regular-width {
-    width: 150px;
+    width: 240px;
 }
 
 @mixin button-small {

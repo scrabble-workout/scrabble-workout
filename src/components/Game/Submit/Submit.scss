@@ -23,6 +23,7 @@
 
 @include breakpoint($desktop) {
     .Button {
+        @include button-regular-width;
         @include button-hover;
     }
 }

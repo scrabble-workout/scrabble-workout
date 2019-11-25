@@ -1,3 +1,5 @@
+@import "../../../styles/abstracts/variables";
+
 .AnswerSection {
     display: flex;
     flex-direction: column;
@@ -13,4 +15,5 @@
 
 .Answer {
     font-size: 30px;
+    color: $color-yellow-1;
 }
