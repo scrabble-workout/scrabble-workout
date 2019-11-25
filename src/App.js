@@ -18,7 +18,7 @@ export class AppView extends Component {
 
     render() {
         return (
-            <BrowserRouter basename={process.env.BASE || '/'}>
+            <BrowserRouter basename={process.env.PUBLIC_URL}>
                 <div>
                     <Header />
                     <Route exact path="/" component={Home} />
