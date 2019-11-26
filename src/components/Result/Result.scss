@@ -1,8 +1,15 @@
+@import "../../styles/abstracts/breakpoints";
 @import "../../styles/abstracts/variables";
 
 .Result {
     display: grid;
     grid-template-rows: repeat(4, 1fr);
-    min-height: calc(100vh - #{$header-height});
+    min-height: calc(100vh - #{$header-height-mob});
     color: $color-green-dark-2;
+}
+
+@include breakpoint($desktop) {
+    .Result {
+        min-height: calc(100vh - #{$header-height-desk});
+    }
 }

@@ -1,10 +1,11 @@
+@import "../../styles/abstracts/breakpoints";
 @import "../../styles/abstracts/mixins";
 @import "../../styles/abstracts/variables";
 
 .Home {
     display: grid;
     grid-template-rows: 2fr 3fr;
-    min-height: calc(100vh - 50px);
+    min-height: calc(100vh - #{$header-height-mob});
     //background: $color-green-1;
     text-align: center;
 }
@@ -13,7 +14,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: $color-green-2;
+    background: $color-green-home-bg;
 }
 
 .Header {
@@ -38,4 +39,14 @@
     box-shadow: 0 2px 6px -1px $color-green-dark-1;
     // skasować
     border: none;
+}
+
+@include breakpoint($desktop) {
+    .Home {
+        min-height: calc(100vh - #{$header-height-desk});
+    }
+
+    .StartGameAction {
+        @include button-hover;
+    }
 }

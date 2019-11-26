@@ -1,3 +1,4 @@
+@import "../../../styles/abstracts/breakpoints";
 @import "../../../styles/abstracts/mixins";
 
 .PlayAgainSection {
@@ -15,4 +16,10 @@
     //color: inherit;
     font-family: inherit;
     text-decoration: none;
+}
+
+@include breakpoint($desktop) {
+    .PlayAgainBtn {
+        @include button-hover;
+    }
 }
