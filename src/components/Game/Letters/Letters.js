@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import classes from './Letters.scss';
 import { Letter } from './Letter/Letter';
 
-const Letters = ({ letters, clicked, dragDisabled, dragEnd }) => (
+const Letters = ({ letters, clicked, dragActive, dragEnd }) => (
     <DragDropContext onDragEnd={dragEnd}>
         <section className={classes.Letters}>
             <Droppable droppableId="droppable" direction="horizontal">
@@ -26,7 +26,7 @@ const Letters = ({ letters, clicked, dragDisabled, dragEnd }) => (
                                     /*eslint-disable react/jsx-props-no-spreading*/
                                     {...provided.draggableProps}
                                     {...provided.dragHandleProps}
-                                    dragDisabled={dragDisabled}
+                                    dragActive={dragActive}
                                     clicked={clicked}
                                     letter={letter}
                                     index={i}
@@ -45,7 +45,7 @@ const Letters = ({ letters, clicked, dragDisabled, dragEnd }) => (
 Letters.propTypes = {
     letters: PropTypes.array.isRequired,
     clicked: PropTypes.func,
-    dragDisabled: PropTypes.bool.isRequired,
+    dragActive: PropTypes.bool.isRequired,
     dragEnd: PropTypes.func,
 };
 

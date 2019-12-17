@@ -266,7 +266,7 @@ class GameView extends Component {
                             <Letters
                                 letters={letters}
                                 clicked={this.handleLetterClick}
-                                dragDisabled={!dragActive}
+                                dragActive={dragActive}
                                 dragEnd={this.handleDragEnd}
                             />
                         )
