@@ -47,3 +47,10 @@
         opacity: 0.9;
     }
 }
+
+@mixin absolute-and-centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

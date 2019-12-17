@@ -1,4 +1,5 @@
 @import "../../../styles/abstracts/breakpoints";
+@import "../../../styles/abstracts/mixins";
 @import "../../../styles/abstracts/variables";
 
 .SlotsSection {
@@ -16,6 +17,7 @@
 }
 
 .Slot {
+    position: relative;
     min-height: $slots-height;
     color: $color-yellow-1;
     text-transform: uppercase;
@@ -25,20 +27,20 @@
 }
 
 .Empty {
-    position: relative;
-
     &::before {
+        @include absolute-and-centered;
+
         content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
         display: inline-block;
         width: 5px;
         height: 5px;
         background-color: $color-green-dark-2;
         border-radius: 50%;
     }
+}
+
+.SlotLetter {
+    @include absolute-and-centered;
 }
 
 @include breakpoint($tablet) {

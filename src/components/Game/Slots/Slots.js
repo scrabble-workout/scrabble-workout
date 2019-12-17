@@ -17,12 +17,12 @@ const Slots = ({ currentAnswer }) => (
                         key={index}
                         className={classNames(
                             classes.Slot,
-                            !letter ? classes.Empty : null,
+                            { [classes.Empty]: !letter },
                         )}
                     >
                         {letter
                             ? (
-                                <span>
+                                <span className={classes.SlotLetter}>
                                     {letter.value}
                                 </span>
                             )

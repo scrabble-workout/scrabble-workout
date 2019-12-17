@@ -14,7 +14,7 @@ const Letters = ({ letters, clicked, dragDisabled, dragEnd }) => (
                     <ul
                         className={classNames(
                             classes.LettersContainer,
-                            snapshot.isDraggingOver ? classes.DraggingOver : null,
+                            { [classes.DraggingOver]: snapshot.isDraggingOver },
                         )}
                         ref={provided.innerRef}
                         /*eslint-disable react/jsx-props-no-spreading*/
