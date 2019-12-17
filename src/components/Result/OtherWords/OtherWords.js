@@ -16,7 +16,7 @@ const OtherWords = ({ isAnswerCorrect, otherWords }) => {
         <div className={classes.OtherSection}>
             {
                 !otherWords.length
-                    ? <h2 className={classes.OtherHeader}>Słowo nie ma anagramów</h2>
+                    ? <h4 className={classes.OtherHeader}>Słowo nie ma anagramów</h4>
                     : (
                         <>
                             <h2 className={classes.OtherHeader}>

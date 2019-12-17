@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import debounce from 'lodash/debounce';
+import classNames from 'classnames';
 
 import classes from './Game.scss';
 import { Slots } from './Slots/Slots';
@@ -11,7 +12,7 @@ import { Submit } from './Submit/Submit';
 import { Timer } from './Timer/Timer';
 
 import { WORD_LENGTH } from '../../config/config';
-import { shuffleArray, generateID, isMobile } from '../../helpers';
+import { shuffleArray, generateID, isScreenSmall } from '../../helpers';
 import { initWords } from '../../store/actions/init-words';
 import { submitAnswer } from '../../store/actions/submit-answer';
 
@@ -55,7 +56,7 @@ class GameView extends Component {
         window.removeEventListener('resize', this.debouncedResizeListener);
     }
 
-    getDragDisabled = () => isMobile();
+    getDragDisabled = () => isScreenSmall();
 
     handleResize = () => {
         const { letters, currentAnswer, dragDisabled } = this.state;
@@ -107,7 +108,7 @@ class GameView extends Component {
     };
 
     initCurrentAnswer = () => {
-        if (isMobile()) {
+        if (isScreenSmall()) {
             return;
         }
         const { letters } = this.state;
@@ -136,7 +137,7 @@ class GameView extends Component {
     };
 
     handleLetterClick = (id) => {
-        if (!isMobile()) {
+        if (!isScreenSmall()) {
             return;
         }
 
@@ -226,13 +227,27 @@ class GameView extends Component {
             dragDisabled,
         } = this.state;
 
+        const gameClasses = loading || error
+            ? classNames(
+                classes.Game,
+                classes.Empty,
+            )
+            : classes.Game;
 
         if (loading) {
-            return <main className={classes.Game}>Pobieram dane...</main>;
+            return (
+                <main className={gameClasses}>
+                    <div className={classes.Loader}>Loading&hellip;</div>
+                </main>
+            );
         }
 
         if (error) {
-            return <main className={classes.Game}>Wystąpił błąd</main>;
+            return (
+                <main className={gameClasses}>
+                    Wystąpił błąd
+                </main>
+            );
         }
 
         return (

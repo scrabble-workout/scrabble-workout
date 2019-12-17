@@ -1,4 +1,5 @@
 @import "../../../styles/abstracts/breakpoints";
+@import "../../../styles/abstracts/variables";
 
 .Letters {
     display: flex;
@@ -19,17 +20,31 @@
     list-style: none;
 }
 
-@include breakpoint($largeMobile) {
+.DraggingOver {
+    background: darken($color-green-main, 5%);
+}
+
+@include breakpoint($midMobile) {
     .Letters {
         grid-column: 1 / -1;
     }
 }
 
-@include breakpoint($desktop) {
+@include breakpoint($largeMobile) {
     .LettersContainer {
         display: flex;
         justify-content: center;
         width: 100%;
-        padding: 50px;
+        max-width: 530px;
+        padding: 2% 0;
+        border-radius: 3px;
+        transition: 0.1s background;
+    }
+}
+
+@include breakpoint($desktop) {
+    .LettersContainer {
+        max-width: 630px;
+        padding: 10% 0;
     }
 }

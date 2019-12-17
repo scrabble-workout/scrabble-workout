@@ -9,10 +9,10 @@ const ResultMessage = ({ isAnswerCorrect }) => (
         {
             isAnswerCorrect
                 ? (
-                    <h2 className={classes.MessageHeader}>
+                    <h3 className={classes.MessageHeader}>
                         <i className={classNames('fas fa-check fa-3x', classes.MessageIcon)} />
                         Gratulacje, jest to poprawna odpowiedź!
-                    </h2>
+                    </h3>
                 )
                 : (
                     <h2 className={classes.MessageHeader}>

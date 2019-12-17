@@ -11,4 +11,4 @@ window.matchMedia = window.matchMedia || (() => (
     })
 );
 
-export const MOBILE = window.matchMedia('(max-width: 992px)');
+export const SMALL_SCREEN = window.matchMedia('(max-width: 530px)');

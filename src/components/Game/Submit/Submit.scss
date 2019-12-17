@@ -12,10 +12,10 @@
     @include button;
     @include button-small;
 
-    margin: 0 10px;
+    margin: 0 5px;
 }
 
-@include breakpoint($largeMobile) {
+@include breakpoint($midMobile) {
     .Submit {
         grid-column: 1 / -1;
     }
@@ -23,6 +23,7 @@
 
 @include breakpoint($desktop) {
     .Button {
+        @include button-regular-width;
         @include button-hover;
     }
 }

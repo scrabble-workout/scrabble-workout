@@ -1,10 +1,11 @@
+@import "../../styles/abstracts/breakpoints";
 @import "../../styles/abstracts/mixins";
 @import "../../styles/abstracts/variables";
 
 .Home {
     display: grid;
     grid-template-rows: 2fr 3fr;
-    min-height: calc(100vh - 50px);
+    min-height: calc(100vh - #{$header-height-mob});
     text-align: center;
 }
 
@@ -12,11 +13,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: $color-gray-bg;
-}
-
-.Header {
-    margin-bottom: 30px;
+    background: $color-green-home-bg;
 }
 
 .StartGame {
@@ -28,9 +25,14 @@
 .StartGameAction {
     @include button;
     @include button-regular-width;
+}
 
-    display: inline-block;
-    color: inherit;
-    font-family: inherit;
-    text-decoration: none;
+@include breakpoint($desktop) {
+    .Home {
+        min-height: calc(100vh - #{$header-height-desk});
+    }
+
+    .StartGameAction {
+        @include button-hover;
+    }
 }

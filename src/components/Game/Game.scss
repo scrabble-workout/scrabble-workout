@@ -3,26 +3,73 @@
 
 .Game {
     display: grid;
-    grid-template-rows: 40px $slots-height $backspace-height auto;
+    grid-template-rows: repeat(3, 0.8fr) 4fr;
     grid-gap: $game-grid-gap;
     max-width: 500px;
-    min-height: calc(100vh - #{$header-height});
-    padding: 5% 15px 10%;
+    min-height: calc(100vh - #{$header-height-mob});
+    padding: 2% 15px 5%;
     margin: 0 auto;
     text-align: center;
 }
 
-@include breakpoint($largeMobile) {
+.Empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $color-yellow-2;
+    font-weight: 500;
+}
+
+.Loader,
+.Loader:after {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+}
+
+.Loader {
+    margin: 0 auto;
+    font-size: 5px;
+    position: relative;
+    text-indent: -9999px;
+    border-width: 5px;
+    border-style: solid;
+    border-color:
+            rgba($color-yellow-1, 0.2)
+            rgba($color-yellow-1, 0.2)
+            rgba($color-yellow-1, 0.2)
+            $color-yellow-1;
+    transform: translateZ(0);
+    animation: load 1.1s infinite linear;
+}
+
+@keyframes load {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+@include breakpoint($midMobile) {
     .Game {
         grid-template-columns: auto $backspace-width;
         grid-template-rows: 40px $slots-height auto;
     }
 }
 
-@include breakpoint($desktop) {
+@include breakpoint($largeMobile) {
     .Game {
         grid-template-columns: 1fr;
-        grid-template-rows: 100px auto;
+        grid-template-rows: repeat(3, auto);
         max-width: 700px;
+    }
+}
+
+@include breakpoint($desktop) {
+    .Game {
+        min-height: calc(100vh - #{$header-height-desk});
     }
 }

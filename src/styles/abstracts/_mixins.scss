@@ -14,28 +14,43 @@
 }
 
 @mixin button {
+    display: inline-block;
     padding: 15px 0;
-    border: 1px solid $color-black;
+    border: none;
     border-radius: 3px;
-    background-color: transparent;
+    background: $color-yellow-2;
+    color: $color-green-dark-2;
     text-align: center;
-    transition: 0.3s background-color;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 2px 6px -1px $color-green-dark-1;
+    transition: 0.3s opacity;
+    text-transform: uppercase;
+    font-family: inherit;
+    text-decoration: none;
 
     &:active {
-        background-color: $color-gray-bg;
+        opacity: 0.9;
     }
 }
 
 @mixin button-regular-width {
-    width: 150px;
+    width: 240px;
 }
 
 @mixin button-small {
-    width: 120px;
+    width: 130px;
 }
 
 @mixin button-hover {
     &:hover {
-        background-color: $color-gray-bg;
+        opacity: 0.9;
     }
+}
+
+@mixin absolute-and-centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

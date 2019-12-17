@@ -3,19 +3,13 @@
     @import "@fortawesome/fontawesome-free/scss/solid";
 }
 
+@import "styles/base/fonts";
+@import "styles/base/reset";
 @import "styles/abstracts/variables";
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
-    color: $color-darkgray;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+    background: $color-green-main;
+    font-family: 'Roboto', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
