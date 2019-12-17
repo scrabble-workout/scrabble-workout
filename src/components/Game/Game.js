@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import debounce from 'lodash/debounce';
+import classNames from 'classnames';
 
 import classes from './Game.scss';
 import { Slots } from './Slots/Slots';
@@ -226,13 +227,27 @@ class GameView extends Component {
             dragDisabled,
         } = this.state;
 
+        const gameClasses = loading || error
+            ? classNames(
+                classes.Game,
+                classes.Empty,
+            )
+            : classes.Game;
 
         if (loading) {
-            return <main className={classes.Game}>Pobieram dane...</main>;
+            return (
+                <main className={gameClasses}>
+                    <div className={classes.Loader}>Loading&hellip;</div>
+                </main>
+            );
         }
 
         if (error) {
-            return <main className={classes.Game}>Wystąpił błąd</main>;
+            return (
+                <main className={gameClasses}>
+                    Wystąpił błąd
+                </main>
+            );
         }
 
         return (

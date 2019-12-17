@@ -12,6 +12,47 @@
     text-align: center;
 }
 
+.Empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $color-yellow-2;
+    font-weight: 500;
+}
+
+.Loader,
+.Loader:after {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+}
+
+.Loader {
+    margin: 0 auto;
+    font-size: 5px;
+    position: relative;
+    text-indent: -9999px;
+    border-width: 5px;
+    border-style: solid;
+    border-color:
+            rgba($color-yellow-1, 0.2)
+            rgba($color-yellow-1, 0.2)
+            rgba($color-yellow-1, 0.2)
+            $color-yellow-1;
+    transform: translateZ(0);
+    animation: load 1.1s infinite linear;
+}
+
+@keyframes load {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
 @include breakpoint($midMobile) {
     .Game {
         grid-template-columns: auto $backspace-width;
