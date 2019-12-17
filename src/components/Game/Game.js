@@ -24,7 +24,7 @@ class GameView extends Component {
             letters: [],
             currentAnswer: [],
             isSubmitVisible: false,
-            dragActive: this.getDragActive(),
+            dragDisabled: this.getDragDisabled(),
         };
         this.handleResize = this.handleResize.bind(this);
         this.debouncedResizeListener = debounce(this.handleResize, 50);
@@ -56,21 +56,28 @@ class GameView extends Component {
         window.removeEventListener('resize', this.debouncedResizeListener);
     }
 
-    getDragActive = () => !isScreenSmall();
+    getDragDisabled = () => isScreenSmall();
 
     handleResize = () => {
-        const { letters, currentAnswer, dragActive } = this.state;
-        const dragActiveOnResizeEnd = this.getDragActive();
+        const { letters, currentAnswer, dragDisabled } = this.state;
+        const dragDisabledOnResizeEnd = this.getDragDisabled();
 
-        if (dragActiveOnResizeEnd === dragActive) {
+        if (dragDisabledOnResizeEnd === dragDisabled) {
             return;
         }
 
         let newState = {
-            dragActive: dragActiveOnResizeEnd,
+            dragDisabled: dragDisabledOnResizeEnd,
         };
 
-        if (dragActiveOnResizeEnd) {
+        if (dragDisabledOnResizeEnd) {
+            newState = {
+                ...newState,
+                letters: this.setAllLettersActiveState(letters, false),
+                currentAnswer: [...letters],
+                isSubmitVisible: true,
+            };
+        } else {
             const lettersOutsideSlots = letters
                 .filter((letter) => letter.active);
 
@@ -82,13 +89,6 @@ class GameView extends Component {
                 letters: this.setAllLettersActiveState(currentAnswerOnDesktop, true),
                 currentAnswer: [...currentAnswerOnDesktop],
                 isSubmitVisible: false,
-            };
-        } else {
-            newState = {
-                ...newState,
-                letters: this.setAllLettersActiveState(letters, false),
-                currentAnswer: [...letters],
-                isSubmitVisible: true,
             };
         }
         this.setState(newState);
@@ -224,7 +224,7 @@ class GameView extends Component {
             letters,
             currentAnswer,
             isSubmitVisible,
-            dragActive,
+            dragDisabled,
         } = this.state;
 
         const gameClasses = loading || error
@@ -266,7 +266,7 @@ class GameView extends Component {
                             <Letters
                                 letters={letters}
                                 clicked={this.handleLetterClick}
-                                dragDisabled={!dragActive}
+                                dragDisabled={dragDisabled}
                                 dragEnd={this.handleDragEnd}
                             />
                         )
@@ -274,17 +274,17 @@ class GameView extends Component {
                             <Submit
                                 onSubmit={this.onSubmit}
                                 onCancel={this.onCancel}
-                                showCancel={!dragActive}
+                                showCancel={dragDisabled}
                             />
                         )
                 }
                 {
-                    dragActive
+                    !dragDisabled
                         ? (
                             <Submit
                                 onSubmit={this.onSubmit}
                                 onCancel={this.onCancel}
-                                showCancel={!dragActive}
+                                showCancel={dragDisabled}
                             />
                         )
                         : null
