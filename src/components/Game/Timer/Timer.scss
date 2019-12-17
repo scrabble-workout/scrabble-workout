@@ -7,8 +7,14 @@
     font-weight: 500;
 }
 
-@include breakpoint($largeMobile) {
+@include breakpoint($midMobile) {
     .Timer {
         grid-column: 1 / -1;
+    }
+}
+
+@include breakpoint($desktop) {
+    .Timer {
+        font-size: 20px;
     }
 }

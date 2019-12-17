@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import classes from './Slots.scss';
 import { WORD_LENGTH } from '../../../config/config';
@@ -12,7 +13,13 @@ const Slots = ({ currentAnswer }) => (
                 .map((i) => currentAnswer[i])
                 .map((letter, index) => (
                     /* eslint-disable react/no-array-index-key */
-                    <li key={index} className={classes.Slot}>
+                    <li
+                        key={index}
+                        className={classNames(
+                            classes.Slot,
+                            !letter ? classes.Empty : null,
+                        )}
+                    >
                         {letter
                             ? (
                                 <span>

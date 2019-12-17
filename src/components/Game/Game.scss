@@ -7,23 +7,22 @@
     grid-gap: $game-grid-gap;
     max-width: 500px;
     min-height: calc(100vh - #{$header-height-mob});
-    padding: 5% 15px 10%;
+    padding: 2% 15px 3%;
     margin: 0 auto;
-    //background: $color-green-1;
     text-align: center;
 }
 
-@include breakpoint($largeMobile) {
+@include breakpoint($midMobile) {
     .Game {
         grid-template-columns: auto $backspace-width;
         grid-template-rows: 40px $slots-height auto;
     }
 }
 
-@include breakpoint($desktop) {
+@include breakpoint($largeMobile) {
     .Game {
         grid-template-columns: 1fr;
-        grid-template-rows: 100px auto;
+        grid-template-rows: repeat(3, auto);
         max-width: 700px;
         min-height: calc(100vh - #{$header-height-desk});
     }

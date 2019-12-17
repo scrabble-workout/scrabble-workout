@@ -16,12 +16,29 @@
 }
 
 .Slot {
+    min-height: $slots-height;
     color: $color-yellow-1;
     text-transform: uppercase;
     text-align: center;
     font-size: 40px;
     line-height: $slots-height;
-    box-shadow: 0 -2px 0 0 $color-green-dark-2 inset;
+}
+
+.Empty {
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: inline-block;
+        width: 5px;
+        height: 5px;
+        background-color: $color-green-dark-2;
+        border-radius: 50%;
+    }
 }
 
 @include breakpoint($tablet) {
@@ -31,7 +48,7 @@
     }
 }
 
-@include breakpoint($desktop) {
+@include breakpoint($largeMobile) {
     .SlotsSection {
         display: none;
     }

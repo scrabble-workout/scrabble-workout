@@ -3,14 +3,9 @@
     @import "@fortawesome/fontawesome-free/scss/solid";
 }
 
-@import "styles/abstracts/variables";
 @import "styles/base/fonts";
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+@import "styles/base/reset";
+@import "styles/abstracts/variables";
 
 body {
     background: $color-green-main;

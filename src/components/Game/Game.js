@@ -11,7 +11,7 @@ import { Submit } from './Submit/Submit';
 import { Timer } from './Timer/Timer';
 
 import { WORD_LENGTH } from '../../config/config';
-import { shuffleArray, generateID, isMobile } from '../../helpers';
+import { shuffleArray, generateID, isScreenSmall } from '../../helpers';
 import { initWords } from '../../store/actions/init-words';
 import { submitAnswer } from '../../store/actions/submit-answer';
 
@@ -55,7 +55,7 @@ class GameView extends Component {
         window.removeEventListener('resize', this.debouncedResizeListener);
     }
 
-    getDragDisabled = () => isMobile();
+    getDragDisabled = () => isScreenSmall();
 
     handleResize = () => {
         const { letters, currentAnswer, dragDisabled } = this.state;
@@ -107,7 +107,7 @@ class GameView extends Component {
     };
 
     initCurrentAnswer = () => {
-        if (isMobile()) {
+        if (isScreenSmall()) {
             return;
         }
         const { letters } = this.state;
@@ -136,7 +136,7 @@ class GameView extends Component {
     };
 
     handleLetterClick = (id) => {
-        if (!isMobile()) {
+        if (!isScreenSmall()) {
             return;
         }
 

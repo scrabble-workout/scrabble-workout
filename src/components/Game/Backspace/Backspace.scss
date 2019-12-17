@@ -35,7 +35,7 @@
     }
 }
 
-@include breakpoint($largeMobile) {
+@include breakpoint($midMobile) {
     .BackspaceBtn {
         align-self: self-end;
     }
@@ -43,12 +43,11 @@
 
 @include breakpoint($tablet) {
     .BackspaceBtn {
-        //position: relative;
         left: calc((#{$backspace-width} + #{$game-grid-gap}) / 2);
     }
 }
 
-@include breakpoint($desktop) {
+@include breakpoint($largeMobile) {
     .BackspaceBtn {
         display: none;
     }

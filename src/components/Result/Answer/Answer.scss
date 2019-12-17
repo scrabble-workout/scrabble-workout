@@ -1,3 +1,4 @@
+@import "../../../styles/abstracts/breakpoints";
 @import "../../../styles/abstracts/variables";
 
 .AnswerSection {
@@ -9,11 +10,17 @@
 
 .AnswerHeader {
     margin-bottom: 10px;
-    font-size: 14px;
+    font-size: inherit;
     font-weight: 400;
 }
 
 .Answer {
     font-size: 30px;
     color: $color-yellow-1;
+}
+
+@include breakpoint($desktop) {
+    .Answer {
+        font-size: 36px;
+    }
 }
