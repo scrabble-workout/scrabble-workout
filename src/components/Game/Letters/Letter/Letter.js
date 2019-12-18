@@ -5,10 +5,10 @@ import classNames from 'classnames';
 
 import classes from './Letter.scss';
 
-const Letter = ({ dragDisabled, clicked, letter, index }) => (
+const Letter = ({ dragActive, clicked, letter, index }) => (
     <Draggable
         draggableId={letter.id}
-        isDragDisabled={dragDisabled}
+        isDragDisabled={!dragActive}
         disableInteractiveElementBlocking
         index={index}
         key={letter.id}
@@ -39,7 +39,7 @@ const Letter = ({ dragDisabled, clicked, letter, index }) => (
 );
 
 Letter.propTypes = {
-    dragDisabled: PropTypes.bool.isRequired,
+    dragActive: PropTypes.bool.isRequired,
     clicked: PropTypes.func,
     letter: PropTypes.object.isRequired,
     index: PropTypes.number.isRequired,
