@@ -12,8 +12,10 @@
 
 .HeaderLink {
     color: $color-yellow-2;
+    font-weight: 500;
     font-family: inherit;
     text-decoration: none;
+    text-transform: uppercase;
 }
 
 @include breakpoint($desktop) {

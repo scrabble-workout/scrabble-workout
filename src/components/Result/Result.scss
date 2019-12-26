@@ -6,7 +6,7 @@
     grid-template-rows: repeat(4, auto);
     grid-gap: 10px;
     min-height: calc(100vh - #{$header-height-mob});
-    padding: 2% 0 3%;
+    padding: 2% 0 10%;
     color: $color-green-dark-2;
     font-size: 14px;
 }

@@ -10,10 +10,29 @@
 }
 
 .Hero {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: $color-green-home-bg;
+    position: relative;
+}
+
+.HeroBg {
+    height: 100%;
+    background:
+        $color-green-home-bg
+        url("../../assets/close-up-letters-scrabble-wood-278881-sm.jpg")
+        no-repeat
+        center
+        / cover;
+    background-blend-mode: multiply;
+    filter: blur(2px);
+}
+
+.HeroHeader {
+    @include absolute-and-centered;
+
+    width: 80%;
+    color: $color-yellow-1;
+    font-weight: 500;
+    line-height: 1.38;
+    text-transform: uppercase;
 }
 
 .StartGame {
@@ -24,12 +43,23 @@
 
 .StartGameAction {
     @include button;
+    @include button-filled;
     @include button-regular-width;
+}
+
+@include breakpoint($tablet) {
+    .HeroBg {
+        background-image: url("../../assets/close-up-letters-scrabble-wood-278881-hd.jpg");
+    }
 }
 
 @include breakpoint($desktop) {
     .Home {
         min-height: calc(100vh - #{$header-height-desk});
+    }
+
+    .HeroHeader {
+        font-size: 32px;
     }
 
     .StartGameAction {

@@ -4,6 +4,7 @@
 
 .Letter {
     margin: 10px;
+    user-select: none;
 }
 
 @for $i from 1 through 7 {

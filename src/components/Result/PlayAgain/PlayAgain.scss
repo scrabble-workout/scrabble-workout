@@ -4,11 +4,12 @@
 .PlayAgainSection {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .PlayAgainBtn {
     @include button;
+    @include button-filled;
     @include button-regular-width;
 }
 

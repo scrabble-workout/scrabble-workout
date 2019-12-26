@@ -6,7 +6,10 @@ import classes from './Home.scss';
 const Home = () => (
     <main className={classes.Home}>
         <section className={classes.Hero}>
-            <h2>Home Screen</h2>
+            <div className={classes.HeroBg} />
+            <h2 className={classes.HeroHeader}>
+                Zostań mistrzem siedmioliterówek!
+            </h2>
         </section>
         <section className={classes.StartGame}>
             <Link to="/game" className={classes.StartGameAction}>

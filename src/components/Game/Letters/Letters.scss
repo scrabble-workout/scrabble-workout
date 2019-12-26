@@ -4,7 +4,7 @@
 .Letters {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -21,7 +21,7 @@
 }
 
 .DraggingOver {
-    background: darken($color-green-main, 5%);
+    background: darken($color-green-main, 2%);
 }
 
 @include breakpoint($midMobile) {
