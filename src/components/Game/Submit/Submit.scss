@@ -15,6 +15,14 @@
     margin: 0 5px;
 }
 
+.SubmitButton {
+    @include button-filled;
+}
+
+.CancelButton {
+    @include button-outlined;
+}
+
 @include breakpoint($midMobile) {
     .Submit {
         grid-column: 1 / -1;

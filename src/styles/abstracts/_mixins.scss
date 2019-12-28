@@ -16,10 +16,7 @@
 @mixin button {
     display: inline-block;
     padding: 15px 0;
-    border: none;
     border-radius: 3px;
-    background: $color-yellow-2;
-    color: $color-green-dark-2;
     text-align: center;
     font-size: 14px;
     font-weight: 500;
@@ -32,6 +29,18 @@
     &:active {
         opacity: 0.9;
     }
+}
+
+@mixin button-filled {
+    border: 1px solid $color-yellow-2;
+    background: $color-yellow-2;
+    color: $color-green-dark-2;
+}
+
+@mixin button-outlined {
+    border: 1px solid $color-yellow-2;
+    background: transparent;
+    color: $color-yellow-2;
 }
 
 @mixin button-regular-width {

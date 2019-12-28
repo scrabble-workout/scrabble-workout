@@ -1,22 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import classes from './Submit.scss';
 
 const Submit = ({ onSubmit, onCancel, showCancel }) => (
     <section className={classes.Submit}>
         <button
-            className={classes.Button}
+            className={classNames(
+                classes.Button,
+                classes.SubmitButton,
+            )}
             onClick={onSubmit}
             type="button"
         >
-            Sprawdź
+            Zatwierdź
         </button>
         {
             showCancel
                 ? (
                     <button
-                        className={classes.Button}
+                        className={classNames(
+                            classes.Button,
+                            classes.CancelButton,
+                        )}
                         onClick={onCancel}
                         type="button"
                     >
