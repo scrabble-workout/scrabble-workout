@@ -1,12 +1,8 @@
 Hi, welcome to
 
-# Scrabble Workout!*
+# Scrabble Workout!
 
-###### * This is work in progress. You are very welcome to check out the code but please keep in mind that this project is in a development stage.
-
-
-
-Scrabble Workout is an app aiming to make you a Scrabble Master. Once you start a game you get a set of 7 tiles with letters. Your task is to form them into a 7-letter word within a given time. Some words have anagrams so more than one solution is possible. A decent UI is on its way :)
+Scrabble Workout is an app aiming to make you a Scrabble Master. Once you start a game you get a set of 7 tiles with letters. Your task is to form them into a 7-letter word within a given time. Some words have anagrams so more than one solution is possible.
 
 
 
@@ -27,4 +23,20 @@ Scrabble Workout is an app aiming to make you a Scrabble Master. Once you start 
 ### Contributors
 
 [tomecko](https://github.com/tomecko)
+
+
+
+### Demo
+
+**[Scrabble Workout](https://scrabble-workout.github.io/scrabble-workout/)**
+
+
+
+### Previews
+
+
+
+<img src="./prevs/sw-prev-1.png" alt="sw-prev-1" style="zoom:80%;" /> 
+
+<img src="./prevs/sw-prev-2.png" alt="sw-prev-2"  /> <img src="./prevs/sw-prev-3.png" alt="sw-prev-3"  />
 
