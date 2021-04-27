@@ -15,6 +15,7 @@ Scrabble Workout is an app aiming to make you a Scrabble Master. Once you start 
 - CSS Modules
 - react-beautiful-dnd
 - axios
+- Jest
 - Webpack
 - circleCI
 
